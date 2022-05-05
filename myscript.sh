@@ -22,3 +22,5 @@ git push -u origin master
 
 php artisan make:model Applicant -m
 php artisan make:model Portofolio -m
+
+php artisan make:controller PagesController
