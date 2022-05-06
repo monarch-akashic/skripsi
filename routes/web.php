@@ -22,4 +22,9 @@ Auth::routes();
 
 Route::get('/', 'PagesController@index');
 
+Route::get('/register/applicant', 'PagesController@regisApplicant');
+
+Route::get('/register/company', 'PagesController@regisCompany');
+
+
 Route::get('/home', 'HomeController@index')->name('home');

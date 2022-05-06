@@ -9,4 +9,12 @@ class PagesController extends Controller
     public function index(){
         return view('pages.index');
     }
+
+    public function regisApplicant(){
+        return view('auth.register_applicant');
+    }
+
+    public function regisCompany(){
+        return view('auth.register_company');
+    }
 }

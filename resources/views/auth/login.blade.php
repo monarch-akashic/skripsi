@@ -76,16 +76,13 @@
                     <div style ="font-size: 15px">
                         --logo--
                     </div>
-                    <div>
-                        Find Your
-                    </div>
-                    <div>
-                        Side Job
-                    </div>
-                    <div>
-                        with
-                    </div>
                     <div style="font-weight: bold; font-size: 40px; color: #0FC2C0">
+                        Find Your
+                        <p></p>
+                        Side Job
+                        <p></p>
+                        with
+                        <p></p>
                         VIRVINSENJOB.
                     </div>
                 </div>
