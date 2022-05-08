@@ -12,16 +12,39 @@
                 <h6>
                     @if (Auth::user()->role == '1')
                         Applicant
+                        @php
+                            $id = Auth::user()->id;
+                            $portofolio = App\Portofolio::find($id);
+                        @endphp
+                        @if (empty($portofolio))
+                            <a href="/portofolio/create" class="btn btn-dark btn-sm">
+                                View Profile
+                            </a>
+                        @else
+                            <a href="/portofolio/{{ $id }}" class="btn btn-dark btn-sm">
+                                View Profile
+                            </a>
+                        @endif
                     @endif
                     @if (Auth::user()->role == '2')
                         Company
+                        @php
+                            $id = Auth::user()->id;
+                            $company = App\Company::find($id);
+                        @endphp
+                        @if (empty($company))
+                            <a href="/company/create" class="btn btn-dark btn-sm">
+                                View Profile
+                            </a>
+                        @else
+                            <a href="/company/{{ $id }}" class="btn btn-dark btn-sm">
+                                View Profile
+                            </a>
+                        @endif
                     @endif
                     @if (Auth::user()->role == '0')
                         Administrator
                     @endif
-                    <button class="btn btn-dark btn-sm">
-                        View Profile
-                    </button>
                 </h6>
             </span>
         @endguest
@@ -56,7 +79,6 @@
             </li>
         @else
             @if (Auth::user()->role == '1')
-
                 <li>
                     <a href="#">Home</a>
                 </li>
@@ -69,7 +91,6 @@
                 <li>
                     <a href="#">Reporting</a>
                 </li>
-
             @endif
 
             @if (Auth::user()->role == '2')
