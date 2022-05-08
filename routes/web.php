@@ -26,5 +26,7 @@ Route::get('/register/applicant', 'PagesController@regisApplicant');
 
 Route::get('/register/company', 'PagesController@regisCompany');
 
+Route::get('/auth/redirect', 'Auth\LoginController@redirectToProvider');
+Route::get('/auth/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::get('/home', 'HomeController@index')->name('home');

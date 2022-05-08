@@ -4,8 +4,8 @@
     </div>
 
     <ul class="list-unstyled components">
-        <p>Dummy Heading</p>
-        <li class="active">
+        {{-- <p>Dummy Heading</p> --}}
+        {{-- <li class="active">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
@@ -18,11 +18,86 @@
                     <a href="#">Home 3</a>
                 </li>
             </ul>
-        </li>
-        <li>
-            <a href="#">About</a>
-        </li>
-        <li>
+        </li> --}}
+        @guest
+            @if(Route::has('register'))
+                <li>
+                    <a class="nav-link"
+                        href="{{ route('register') }}">{{ __('Register') }}</a>
+                </li>
+            @endif
+            <li >
+                <a class="nav-link" href="/login">{{ __('Login') }}</a>
+            </li>
+        @else
+            @if (Auth::user()->role == '1')
+
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a href="#">My Job Applied</a>
+                </li>
+                <li>
+                    <a href="#">Inbox</a>
+                </li>
+                <li>
+                    <a href="#">Reporting</a>
+                </li>
+
+            @endif
+
+            @if (Auth::user()->role == '2')
+
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Vacancies</a>
+                </li>
+                <li>
+                    <a href="#">Request Verify Account</a>
+                </li>
+
+            @endif
+
+            @if (Auth::user()->role == '0')
+
+                <li>
+                    <a href="#">Validate Job Vacancy</a>
+                </li>
+                <li>
+                    <a href="#">View Applicant's Report</a>
+                </li>
+                <li>
+                    <a href="#">Verify Company Profile</a>
+                </li>
+
+            @endif
+
+
+
+            <li >
+                <a  href="#">
+                    {{-- {{ Auth::user()->name }} --}}
+                    Settings
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                    class="d-none">
+                    @csrf
+                </form>
+
+            </li>
+        @endguest
+
+        {{-- <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
@@ -35,18 +110,12 @@
                     <a href="#">Page 3</a>
                 </li>
             </ul>
-        </li>
-        <li>
-            <a href="#">Portfolio</a>
-        </li>
-        <li>
-            <a href="#">Contact</a>
-        </li>
+        </li> --}}
     </ul>
 
 
 
-    <ul class="list-unstyled CTAs">
+    {{-- <ul class="list-unstyled CTAs">
         @guest
             @if(Route::has('register'))
                 <li class="nav-item">
@@ -81,5 +150,5 @@
             </li>
         @endguest
 
-    </ul>
+    </ul> --}}
 </nav>

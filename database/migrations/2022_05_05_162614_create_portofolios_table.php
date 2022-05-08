@@ -15,6 +15,14 @@ class CreatePortofoliosTable extends Migration
     {
         Schema::create('portofolios', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('profile_image');
+            $table->string('education');
+            $table->string('experience');
+            $table->string('skills');
+            $table->string('portofolio_file');
+            $table->string('cv_file');
             $table->timestamps();
         });
     }

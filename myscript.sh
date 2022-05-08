@@ -24,3 +24,10 @@ php artisan make:model Applicant -m
 php artisan make:model Portofolio -m
 
 php artisan make:controller PagesController
+
+php artisan make:model Company -m
+php artisan make:controller CompanyController --resource
+
+composer require laravel/socialite
+
+php artisan make:controller PortofolioController --resource
