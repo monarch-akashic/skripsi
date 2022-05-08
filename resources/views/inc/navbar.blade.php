@@ -1,6 +1,31 @@
 <nav id="sidebar">
     <div class="sidebar-header">
-        <h3>Bootstrap Sidebar</h3>
+        @guest
+            <h3>Skripsi</h3>
+        @else
+            <img src="/storage/img/user_dummy.jpg" class="rounded-circle img-fluid" style="width: 120px"/>
+
+            <h4>
+                {{ Auth::user()->name }}
+            </h4>
+            <span>
+                <h6>
+                    @if (Auth::user()->role == '1')
+                        Applicant
+                    @endif
+                    @if (Auth::user()->role == '2')
+                        Company
+                    @endif
+                    @if (Auth::user()->role == '0')
+                        Administrator
+                    @endif
+                    <button class="btn btn-dark btn-sm">
+                        View Profile
+                    </button>
+                </h6>
+            </span>
+        @endguest
+
     </div>
 
     <ul class="list-unstyled components">
