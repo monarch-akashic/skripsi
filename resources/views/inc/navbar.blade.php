@@ -14,9 +14,9 @@
                         Applicant
                         @php
                             $id = Auth::user()->id;
-                            $portofolio = App\Portofolio::find($id);
+                            $portofolio = App\Portofolio::where('user_id' , $id)->get();
                         @endphp
-                        @if (empty($portofolio))
+                        @if (count($portofolio) == 0)
                             <a href="/portofolio/create" class="btn btn-dark btn-sm">
                                 View Profile
                             </a>
@@ -30,9 +30,9 @@
                         Company
                         @php
                             $id = Auth::user()->id;
-                            $company = App\Company::find($id);
+                            $company = App\Company::where('user_id' , $id)->get();
                         @endphp
-                        @if (empty($company))
+                        @if (count($company) == 0)
                             <a href="/company/create" class="btn btn-dark btn-sm">
                                 View Profile
                             </a>
@@ -80,7 +80,7 @@
         @else
             @if (Auth::user()->role == '1')
                 <li>
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 <li>
                     <a href="#">My Job Applied</a>
