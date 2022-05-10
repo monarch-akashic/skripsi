@@ -23,6 +23,16 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="background">Background</label>
+                                        <input type="text" name="background" class="form-control" placeholder="Background" value="{{old('background')}}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="website_link">Website Link</label>
+                                        <input type="text" name="website_link" class="form-control" placeholder="Website Link" value="{{old('website_link')}}">
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="industry_type">Select Industry</label>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -87,11 +97,11 @@
 
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="new-password">
+                                        <input id="password"type="password" name="password" class="form-control" placeholder="Password" required autocomplete="new-password">
                                     </div>
                                     <div class="form-group">
                                         <label for="password-confirm">Confirm Password</label>
-                                        <input type="password" name="password-confirm" class="form-control" placeholder="Confirm Password" required autocomplete="new-password">
+                                        <input id="password-confirm" type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password" required autocomplete="new-password">
                                     </div>
                                     <input type="submit" value="Submit" class="btn btn-primary">
                                 </div>
