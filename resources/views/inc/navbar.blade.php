@@ -24,7 +24,6 @@
             @endphp
         @endif
             <img src="/storage/img/{{$image}}" class="rounded-circle img-fluid" style="width: 120px"/>
-
             <h4>
                 {{ Auth::user()->name }}
             </h4>

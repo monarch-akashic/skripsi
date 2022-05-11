@@ -76,6 +76,7 @@ class CompanyController extends Controller
         // $user->updated_at = Carbon::now();
         // $user->save();
 
+
         $user = User::Create([
             'role' => '2',
             'name' => $request['company_name'],
