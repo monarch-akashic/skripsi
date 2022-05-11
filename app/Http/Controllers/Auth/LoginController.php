@@ -55,10 +55,14 @@ class LoginController extends Controller
                 \auth()->login($user, true);
                 return redirect()->route('home');
             }else{
+                // return $user_google;
                 $create = User::Create([
                     'email'             => $user_google->getEmail(),
                     'name'              => $user_google->getName(),
+                    'role'              => 1,
+                    'phoneNo'           => 0,
                     'password'          => 0,
+                    'dob'               => '9999-12-31',
                     'email_verified_at' => now()
                 ]);
 
@@ -68,6 +72,7 @@ class LoginController extends Controller
             }
 
         } catch (\Exception $e) {
+            return $e;
             return redirect()->route('login');
         }
 
