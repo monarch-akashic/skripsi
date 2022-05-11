@@ -3,7 +3,27 @@
         @guest
             <h3>Skripsi</h3>
         @else
-            <img src="/storage/img/user_dummy.jpg" class="rounded-circle img-fluid" style="width: 120px"/>
+        @if (Auth::user()->role == '1')
+            @php
+                $portofolio = App\Portofolio::where('user_id' , Auth::user()->id)->get();
+                try {
+                    $image = $portofolio[0]->profile_image;
+                } catch (\Throwable $th) {
+                    $image = 'user_dummy.jpg';
+                }
+            @endphp
+        @endif
+        @if (Auth::user()->role == '2')
+            @php
+                $company = App\Company::where('user_id' , Auth::user()->id)->get();
+                try {
+                    $image = $company[0]->logo;
+                } catch (\Throwable $th) {
+                    $image = 'user_dummy.jpg';
+                }
+            @endphp
+        @endif
+            <img src="/storage/img/{{$image}}" class="rounded-circle img-fluid" style="width: 120px"/>
 
             <h4>
                 {{ Auth::user()->name }}

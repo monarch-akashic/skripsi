@@ -62,7 +62,7 @@ class CompanyController extends Controller
             //filename to store
             $fileNameToStore = time().'_'.$fileName.'.'.$extension;
             //upload
-            $path = $request->file('logo')->storeAs('public/img/logo', $fileNameToStore);
+            $path = $request->file('logo')->storeAs('public/img', $fileNameToStore);
         }else{
             $fileNameToStore = 'no_file';
         }
