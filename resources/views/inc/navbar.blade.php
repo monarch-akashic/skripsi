@@ -108,7 +108,7 @@
                     <a href="#">Inbox</a>
                 </li>
                 <li>
-                    <a href="#">Reporting</a>
+                    <a href="/reporting/create">Reporting</a>
                 </li>
             @endif
 
@@ -118,10 +118,10 @@
                     <a href="#">Dashboard</a>
                 </li>
                 <li>
-                    <a href="#">Vacancies</a>
+                    <a href="/vacancies">Vacancies</a>
                 </li>
                 <li>
-                    <a href="#">Request Verify Account</a>
+                    <a href="/verify">Request Verify Account</a>
                 </li>
 
             @endif

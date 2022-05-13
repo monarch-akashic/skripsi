@@ -150,4 +150,20 @@ class CompanyController extends Controller
     {
         //
     }
+
+    public function request()
+    {
+        return view('request/verify');
+    }
+
+    
+    public function ShowVcy()
+    {
+        return view('company/vacancy/show');
+    }
+
+    public function CreateVcy()
+    {
+        return view('company/vacancy/create');
+    }
 }
