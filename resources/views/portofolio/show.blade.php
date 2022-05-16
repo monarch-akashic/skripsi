@@ -6,75 +6,81 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="sub-heading">Your Profile</h3>
-                    <form action="{{action('PortofolioController@store')}}" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <h4 class="sub-heading">My Profile</h3>
+
                         <div class="row mb-2">
-                            <div class="card-mb-3" style="width: 50%">
+                            <div class="card-mb-3" style="width: 75%">
                                 <div class="card-body">
+
                                     <div class="form-group">
-                                        <label for="profile_image">Profile Picture :</label>
-                                        <div class="custom-file">
-                                            <input type="file" name="profile_image" class="custom-file-input">
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="full_name">Full Name</label>
-                                        <input type="text" name="full_name" class="form-control" placeholder="Full Name" value="{{$user_info->name}}">
+                                        <h5 class="text-primary font-weight-bold">Full Name</h5>
+                                        <p class="font-weight-bold">
+                                            {{$user->name}}
+                                        </p>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="phoneNo">Phone Number</label>
-                                        <input type="text" name="phoneNo" class="form-control" placeholder="Phone Number" value="{{$user_info->phoneNo}}">
+                                        <h5 class="text-primary font-weight-bold">Phone Number</h5>
+                                        <p class="font-weight-normal">
+                                            {{$user->phoneNo}}
+                                        </p>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" class="form-control" placeholder="Email" value="{{$user_info->email}}">
+                                        <h5 class="text-primary font-weight-bold">Email</h5>
+                                        <p class="font-weight-normal">
+                                            {{$user->email}}
+                                        </p>
+
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="dob">Date of Birth</label>
-                                        <input type="date" name="dob" class="form-control" placeholder="Date of Birth" value="{{$user_info->dob}}">
+                                        <h5 class="text-primary font-weight-bold">Date of Birth</h5>
+                                        <p class="font-weight-normal">
+                                            {{$user->dob}}
+                                        </p>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="portofolio_file">Portofolio :</label>
-                                        <div class="custom-file">
-                                            <input type="file" name="portofolio_file" class="custom-file-input">
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                        </div>
+                                        <h5 class="text-primary font-weight-bold">Education</h5>
+                                        <p class="font-weight-normal">
+                                            {{$portofolio[0]->education}}
+                                        </p>
                                     </div>
                                     <div class="form-group">
-                                        <label for="curriculum_file">Curriculum Vitae :</label>
-                                        <div class="custom-file">
-                                            <input type="file" name="curriculum_file" class="custom-file-input">
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                        </div>
+                                        <h5 class="text-primary font-weight-bold">Experience</h5>
+                                        <p class="font-weight-normal">
+                                            {{$portofolio[0]->experience}}
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <h5 class="text-primary font-weight-bold">Skill</h5>
+                                        <p class="font-weight-normal">
+                                            {{$portofolio[0]->skills}}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="card-mb-3" style="width: 50%">
+                            <div class="card-mb-3" style="width: 25%">
                                 <div class="card-body">
+                                    <div class="profile-header-avatar" style="background-image: url('../storage/img/{{$portofolio[0]->profile_image}}')"></div>
+                                    <p></p>
                                     <div class="form-group">
-                                        <label for="education">Education</label>
-                                        <input type="text" name="education" class="form-control" placeholder="Education" value="{{old('education')}}">
+                                        <h5 class="text-primary font-weight-bold">Portofolio :</h5>
+                                        <a href="../storage/files/portofolio/{{$portofolio[0]->portofolio_file}}" class="text-primary">
+                                           MyPortofolio.pdf
+                                        </a>
                                     </div>
                                     <div class="form-group">
-                                        <label for="experience">Experience</label>
-                                        <input type="text" name="experience" class="form-control" placeholder="Experience" value="{{old('experience')}}">
+                                        <h5 class="text-primary font-weight-bold">Curriculum Vitae :</h5>
+                                        <a href="../storage/files/cv/{{$portofolio[0]->cv_file}}" class="text-primary">
+                                           MyCV.pdf
+                                        </a>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="skills">Skills</label>
-                                        <textarea name="skills" id="article-ckeditor" rows="5" class="form-control" placeholder="Description">{{old('skills')}}</textarea>
-                                    </div>
-                                    <input type="submit" value="Submit" class="btn btn-primary">
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>

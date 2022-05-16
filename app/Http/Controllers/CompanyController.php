@@ -64,7 +64,7 @@ class CompanyController extends Controller
             //upload
             $path = $request->file('logo')->storeAs('public/img', $fileNameToStore);
         }else{
-            $fileNameToStore = 'no_file';
+            $fileNameToStore = 'user_dummy.jpg';
         }
 
         // $user = new User();
@@ -156,7 +156,7 @@ class CompanyController extends Controller
         return view('request/verify');
     }
 
-    
+
     public function ShowVcy()
     {
         return view('company/vacancy/show');

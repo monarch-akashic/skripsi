@@ -23,7 +23,9 @@
                 }
             @endphp
         @endif
-            <img src="/storage/img/{{$image}}" class="rounded-circle img-fluid" style="width: 120px"/>
+            {{-- <img src="/storage/img/{{$image}}" class="rounded-circle img-fluid" style="width: 10rem; height: 10rem; object-fit: contain"/> --}}
+            <div class="profile-header-avatar" style="background-image: url('../storage/img/{{$image}}')"></div>
+
             <h4>
                 {{ Auth::user()->name }}
             </h4>

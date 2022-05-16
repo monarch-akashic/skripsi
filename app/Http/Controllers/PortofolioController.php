@@ -29,7 +29,7 @@ class PortofolioController extends Controller
     {
         $user_info = User::find(auth()->user()->id);
         $title = 'Profile';
-        return view('portofolio.show')->with(['title' => $title, 'user_info' => $user_info]);
+        return view('portofolio.create')->with(['title' => $title, 'user_info' => $user_info]);
     }
 
     /**
@@ -47,6 +47,7 @@ class PortofolioController extends Controller
             'phoneNo' => ['required', 'string', 'max:20'],
             // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'dob' => ['required', 'date'],
+
             'portofolio_file' => 'mimetypes:application/pdf|nullable|max:1999',
             'curriculum_file' => 'mimetypes:application/pdf|nullable|max:1999',
             'education' => ['required', 'min:20'],
@@ -56,8 +57,10 @@ class PortofolioController extends Controller
         ]);
 
         if ($request->hasFile('profile_image')) {
+            //getfilename with ext
+            $fileNameWithExt3 = $request->file('profile_image')->getClientOriginalName();
             //get just file name
-            $fileName3 = $request->title;
+            $fileName3 = pathinfo($fileNameWithExt3, PATHINFO_FILENAME);
             //get just ext
             $extension3 = $request->file('profile_image')->getClientOriginalExtension();
             //filename to store
@@ -65,12 +68,14 @@ class PortofolioController extends Controller
             //upload
             $path = $request->file('profile_image')->storeAs('public/img', $fileNameToStore3);
         }else{
-            $fileNameToStore3 = 'no_file';
+            $fileNameToStore3 = 'user_dummy.jpg';
         }
 
         if ($request->hasFile('portofolio_file')) {
+            //getfilename with ext
+            $fileNameWithExt = $request->file('portofolio_file')->getClientOriginalName();
             //get just file name
-            $fileName = $request->title;
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
             //get just ext
             $extension = $request->file('portofolio_file')->getClientOriginalExtension();
             //filename to store
@@ -82,8 +87,10 @@ class PortofolioController extends Controller
         }
 
         if ($request->hasFile('curriculum_file')) {
+            //getfilename with ext
+            $fileNameWithExt2 = $request->file('curriculum_file')->getClientOriginalName();
             //get just file name
-            $fileName2 = $request->title;
+            $fileName2 = pathinfo($fileNameWithExt2, PATHINFO_FILENAME);
             //get just ext
             $extension2 = $request->file('curriculum_file')->getClientOriginalExtension();
             //filename to store
@@ -93,6 +100,12 @@ class PortofolioController extends Controller
         }else{
             $fileNameToStore2 = 'no_file';
         }
+
+        $user = User::find(auth()->user()->id);
+        $user->name = $request->input('full_name');
+        $user->phoneNo = $request->input('phoneNo');
+        $user->dob = $request->input('dob');
+        $user->save();
 
         $portofolio = new Portofolio();
         $portofolio->user_id = auth()->user()->id;
@@ -105,7 +118,7 @@ class PortofolioController extends Controller
         $portofolio->created_at = Carbon::now();;
         $portofolio->save();
 
-        return redirect('/portofolio')->with('success', 'Profle Updated');
+        return redirect('/portofolio/' .$user->id)->with('success', 'Profle Updated');
     }
 
     /**
@@ -116,7 +129,20 @@ class PortofolioController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $portofolio = Portofolio::where('user_id', $id)->get();
+
+        $source = $user->dob;
+        $date = new DateTime($source);
+        $user->dob = $date->format('d F Y');
+
+        if (empty($portofolio)) {
+            abort(404);
+        }else{
+            // return $portofolio;
+            return view('portofolio.show')->with(['title' => 'My Profile', 'portofolio' => $portofolio, 'user' => $user]);
+        }
+
     }
 
     /**

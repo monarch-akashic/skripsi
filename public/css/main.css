@@ -31,3 +31,19 @@ body,
     color: #fff;
     transition: all 0.3s;
 }
+
+.profile-header-avatar{
+    width: 10rem;
+    height: 10rem;
+    -webkit-border-radius: 10rem;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 10rem;
+    -moz-background-clip: padding;
+    border-radius: 10rem;
+    background-clip: padding-box;
+    margin: 7px 5px 5px 5px;
+    /* float: left; */
+    background-size: cover;
+    background-position: center center;
+}
+
