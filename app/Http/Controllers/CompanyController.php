@@ -114,7 +114,15 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $company = Company::where('user_id', $id)->get();
+
+        if (empty($company)) {
+            abort(404);
+        }else{
+            return view('company.show')->with(['title' => 'Company Profile', 'company' => $company, 'user' => $user]);
+        }
+
     }
 
     /**
