@@ -28,6 +28,7 @@
                 // $company = App\Company::where('user_id' , Auth::user()->id)->get();
                 try {
                     // $image = $company[0]->logo;
+                    $image = 'user_dummy.jpg';
                 } catch (\Throwable $th) {
                     $image = 'user_dummy.jpg';
                 }
