@@ -1,0 +1,16 @@
+.card{
+    padding: 1.5em .5em .5em;
+    border-radius: 2em;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.card-title{
+    font-weight: bold;
+}
+
+.round-circle{
+width: 7rem; 
+height: 7rem; 
+border-radius: 50%;
+object-fit: contain;
+}
