@@ -31,10 +31,10 @@ Route::get('/auth/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/reporting/create', 'ApplicantControler@request');
-Route::get('/verify', 'CompanyController@request');
-Route::get('/vacancies', 'CompanyController@ShowVcy');
-Route::get('/vacancy/create', 'CompanyController@createVcy');
+
+Route::get('/verify', 'VacancyController@request');
 
 Route::resource('portofolio', 'PortofolioController');
 Route::resource('company', 'CompanyController');
+Route::resource('vacancy', 'VacancyController');
 

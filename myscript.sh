@@ -23,11 +23,19 @@ git push -u origin master
 php artisan make:model Applicant -m
 php artisan make:model Portofolio -m
 
+
 php artisan make:controller PagesController
+
 
 php artisan make:model Company -m
 php artisan make:controller CompanyController --resource
 
+php artisan make:model Vacancy -m
+php artisan make:controller VacancyController --resource
+
+
 composer require laravel/socialite
 
 php artisan make:controller PortofolioController --resource
+
+php artisan serve --host 0.0.0.0 --port 80

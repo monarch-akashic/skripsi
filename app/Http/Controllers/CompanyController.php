@@ -67,16 +67,6 @@ class CompanyController extends Controller
             $fileNameToStore = 'user_dummy.jpg';
         }
 
-        // $user = new User();
-        // $user->role = '2';
-        // $user->name = $request->input('company_name');
-        // $user->email = $request->input('email');
-        // $user->password = Hash::make($request->input('password'));
-        // $user->created_at = Carbon::now();
-        // $user->updated_at = Carbon::now();
-        // $user->save();
-
-
         $user = User::Create([
             'role' => '2',
             'name' => $request['company_name'],
@@ -159,19 +149,4 @@ class CompanyController extends Controller
         //
     }
 
-    public function request()
-    {
-        return view('request/verify');
-    }
-
-
-    public function ShowVcy()
-    {
-        return view('company/vacancy/show');
-    }
-
-    public function CreateVcy()
-    {
-        return view('company/vacancy/create');
-    }
 }
