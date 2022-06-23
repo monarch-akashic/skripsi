@@ -13,7 +13,7 @@
                             <h5 class="card-title">{{$vacancy->job_name}}</h5>
                             <p class="card-text">{{$vacancy->age}} Age</p>
                             <p class="card-text">{{$vacancy->created_at}}</p>
-                            <p class="card-text">{{number_format($vacancy->latitude, 2)}} km</p>
+                            {{-- <p class="card-text">{{number_format($vacancy->latitude, 2)}} km</p> --}}
                         </div>
 
                         <div class="card-body mr-3" style="text-align:right;">

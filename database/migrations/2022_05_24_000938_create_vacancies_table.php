@@ -22,6 +22,8 @@ class CreateVacanciesTable extends Migration
             $table->string('requirement');
             $table->string('age');
             $table->string('salary');
+            $table->string('workflow');
+            $table->string('notes');
             $table->string('status_open');
             $table->string('working_hour');
             $table->string('total_applicant');

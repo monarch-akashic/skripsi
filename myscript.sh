@@ -39,3 +39,7 @@ composer require laravel/socialite
 php artisan make:controller PortofolioController --resource
 
 php artisan serve --host 0.0.0.0 --port 80
+
+php artisan make:seeder UserTableSeeder
+php artisan make:seeder CategoryTableSeeder
+

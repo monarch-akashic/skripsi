@@ -44,20 +44,41 @@
                             <i class="fas fa-align-justify"></i>
                         </button>
 
+
+
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <form class="form-inline" action="{{ action('PagesController@result') }}" method="POST" role="search">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="text" name="vacancy" class="form-control" placeholder="Search" style="margin:2px ; width: 100%; height: 40px">
+                                {{-- <input type="submit" class="btn btn-custom" style="margin-left:2px ; width: 15%; height: 40px" value="Search"> --}}
+                            </form>
                             <ul class="nav navbar-nav ml-auto">
+
+                                <li class="nav-item">
+                                    <a class="icon nav-link" id="bell">Inbox</a>
+                                    <div class="notifications" id="box">
+                                        <h2>Inbox Notifications - <span>{{}}</span></h2>
+                                        <div class="notifications-item">
+                                            {{-- <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img"> --}}
+                                            <div class="text">
+                                                <h4>[Company XXX] Send an Invitation </h4>
+                                                <p>You've been sent an interview schedule</p>
+                                            </div>
+                                        </div>
+                                        <div class="notifications-item">
+                                            {{-- <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img"> --}}
+                                            <div class="text">
+                                                <h4>[Company XXX] Send an Invitation </h4>
+                                                <p>You've been sent an interview schedule</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#">Page</a>
+                                    <a class="nav-link" href="/">Home</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Page</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Page</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Page</a>
-                                </li>
+
+
                             </ul>
                         </div>
                     </div>
@@ -90,6 +111,65 @@
         });
     </script>
 
+    <script>
+        var x = document.getElementById("demo");
+
+        function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+        }
+
+        function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+        }
+
+        function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+            case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+            case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+            case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+        }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            var down = false;
+            $('#bell').click(function(e){
+
+                var color = $(this).text();
+                if(down){
+
+                    $('#box').css('height','0px');
+                    $('#box').css('opacity','0');
+                    down = false;
+                }else{
+
+                    $('#box').css('height','auto');
+                    $('#box').css('opacity','1');
+                    down = true;
+                }
+            });
+        });
+    </script>
+
+    <script src="//cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('article-ckeditor');
+    </script>
 </body>
 
 </html>

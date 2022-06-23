@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-mb-" style="width: 50%">
+                        <div class="card-mb-3" style="width: 50%">
                             <div class="card-body">
                                 <div class="profile-header-avatar float-right" style="background-image: url('../storage/img/{{$company[0]->logo}}')"></div>
 
@@ -59,6 +59,7 @@
                             </div>
                         </div>
                     </div>
+                    <a class="btn btn-primary" href="/company/{{$user->id}}/edit">Update</a>
                 </div>
             </div>
         </div>

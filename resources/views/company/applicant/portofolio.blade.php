@@ -223,19 +223,8 @@
                                     @guest
                                         <input type="submit" value="submit" class="btn btn-primary">
                                     @else
-                                        @if (Auth::user()->role == '0')
-                                            {{-- <input type="submit" value="Approve" class="btn btn-primary" disabled> --}}
-                                        @endif
-                                        @if (Auth::user()->role == '1' && Auth::user()->id == $portofolio[0]->user_id)
-                                            <a class="btn btn-primary" href="/portofolio/{{$portofolio[0]->user_id}}/edit">Update</a>
-                                            {{-- <input type="submit" value="Update" class="btn btn-primary"> --}}
-                                        @endif
-                                        @if (Auth::user()->role == '2')
-                                        {{-- ### add authoriztion for vacancy = to companies --}}
-                                            <a class="btn btn-primary" href="/portofolio/{{$user->id}}/send-interview">Send Interview</a>
-                                        @endif
+                                        <a class="btn btn-primary" href="/vacancy/{{$vacancy_id}}/portofolio/{{$user->id}}/send-interview">Send Interview</a>
                                     @endguest
-                                    {{-- <input type="submit" class="btn btn-primary"> --}}
                                 {{-- </form> --}}
                             </div>
                         </div>

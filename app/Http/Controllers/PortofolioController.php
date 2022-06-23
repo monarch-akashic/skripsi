@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Applying;
 use App\Portofolio;
+use App\SkillCategory;
 use DateTime;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -17,6 +19,7 @@ class PortofolioController extends Controller
      */
     public function index()
     {
+        return redirect('/');
 
     }
 
@@ -28,8 +31,9 @@ class PortofolioController extends Controller
     public function create()
     {
         $user_info = User::find(auth()->user()->id);
-        $title = 'Profile';
-        return view('portofolio.create')->with(['title' => $title, 'user_info' => $user_info]);
+        $categories = SkillCategory::all();
+        $title = 'Create Profile';
+        return view('portofolio.create')->with(['title' => $title, 'user_info' => $user_info, 'categories' => $categories]);
     }
 
     /**
@@ -40,7 +44,7 @@ class PortofolioController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        return $request;
         $this->validate($request,[
             'profile_image' => 'image|nullable|max:1999',
             'full_name' => ['required', 'string', 'max:255'],
@@ -153,7 +157,19 @@ class PortofolioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $portofolio = Portofolio::where('user_id', $id)->get();
+
+        $source = $user->dob;
+        $date = new DateTime($source);
+        $user->dob = $date->format('d F Y');
+
+        if (empty($portofolio)) {
+            abort(404);
+        }else{
+            // return $portofolio;
+            return view('portofolio.edit')->with(['title' => 'My Profile', 'portofolio' => $portofolio, 'user' => $user]);
+        }
     }
 
     /**
@@ -165,7 +181,7 @@ class PortofolioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $request;
     }
 
     /**
@@ -177,5 +193,49 @@ class PortofolioController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function checkPortofolio($vacancy_id, $user_id)
+    {
+        $user = User::find($user_id);
+        $portofolio = Portofolio::where('user_id', $user_id)->get();
+
+        $source = $user->dob;
+        $date = new DateTime($source);
+        $user->dob = $date->format('d F Y');
+
+        if (empty($portofolio)) {
+            abort(404);
+        }else{
+            // return $portofolio;
+            return view('company.applicant.portofolio')->with(['title' => 'My Profile', 'portofolio' => $portofolio, 'user' => $user, 'vacancy_id' => $vacancy_id]);
+        }
+    }
+
+    public function sendInterview($vacancy_id, $user_id)
+    {
+        // $applicant = Portofolio::where('user_id', $user_id)->get();
+        $applicant = Portofolio::find($user_id);
+        $applicant_id = User::find($applicant->user_id);
+        // return $applicant_id;
+        return view('company.applicant.interview')->with(['user_id' => $applicant_id, 'vacancy_id' => $vacancy_id]);
+    }
+
+    public function saveInterview(Request $request)
+    {
+        // return $request;
+        $applicant = User::find($request->user_id);
+        $applyings = Applying::where('vacancy_id', $request->vacancy_id)->where('applicant_id', $request->user_id)->first();
+
+        $applyings->interview_schedule = $request->interview_time;
+        $applyings->interview_location = $request->interview_location;
+        $applyings->status = 'Sent to Applicant';
+        $applyings->save();
+        // return $applyings;
+
+        return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Invitation Sent');
+
+
     }
 }

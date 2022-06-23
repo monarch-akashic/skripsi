@@ -21,6 +21,9 @@ class CreatePortofoliosTable extends Migration
             $table->string('education');
             $table->string('experience');
             $table->string('skills');
+            $table->string('location')->nullable();
+            $table->decimal('latitude',8,6)->nullable();
+            $table->decimal('longitude', 9,6)->nullable();
             $table->string('portofolio_file');
             $table->string('cv_file');
             $table->timestamps();

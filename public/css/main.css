@@ -32,7 +32,7 @@ body,
     transition: all 0.3s;
 }
 
-.profile-header-avatar{
+.profile-header-avatar {
     width: 10rem;
     height: 10rem;
     -webkit-border-radius: 10rem;
@@ -51,6 +51,7 @@ ul.timeline {
     list-style-type: none;
     position: relative;
 }
+
 ul.timeline:before {
     content: ' ';
     background: #d4d9df;
@@ -61,11 +62,13 @@ ul.timeline:before {
     height: 100%;
     z-index: 400;
 }
-ul.timeline > li {
+
+ul.timeline>li {
     margin: 20px 0;
     padding-left: 20px;
 }
-ul.timeline > li:before {
+
+ul.timeline>li:before {
     content: ' ';
     background: white;
     display: inline-block;
@@ -78,7 +81,10 @@ ul.timeline > li:before {
     z-index: 400;
 }
 
-body{margin-top:20px;}
+body {
+    margin-top: 20px;
+}
+
 .timeline-steps {
     display: flex;
     justify-content: center;
@@ -103,6 +109,7 @@ body{margin-top:20px;}
         left: 7.5rem;
         top: .3125rem
     }
+
     .timeline-steps .timeline-step:not(:first-child):before {
         content: "";
         display: block;
@@ -139,3 +146,96 @@ body{margin-top:20px;}
     border-radius: 6.25rem;
     opacity: .5
 }
+
+.bg-custom {
+    background-color: #11CBC4 !important;
+}
+
+a.bg-custom:hover,
+a.bg-custom:focus,
+button.bg-custom:hover,
+button.bg-custom:focus {
+    background-color: #19afaa !important;
+}
+
+/* .icon {
+    cursor: pointer;
+    margin-right: 50px;
+    line-height: 60px
+}
+
+.icon span {
+    background: #f00;
+    padding: 7px;
+    border-radius: 50%;
+    color: #fff;
+    vertical-align: top;
+    margin-left: -25px
+}
+
+.icon img {
+    display: inline-block;
+    width: 26px;
+    margin-top: 4px
+}
+
+.icon:hover {
+    opacity: .7
+} */
+
+.notifications {
+    z-index: 999;
+    width: 300px;
+    height: 0px;
+    opacity: 0;
+    position: absolute;
+    top: 63px;
+    right: 62px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.notifications h2 {
+    font-size: 14px;
+    padding: 10px;
+    /* border-bottom: 1px solid #eee; */
+    color: #999
+}
+
+.notifications h2 span {
+    color: #999
+}
+
+.notifications-item {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    padding: 6px 9px;
+    margin-bottom: 0px;
+    cursor: pointer
+}
+
+.notifications-item:hover {
+    background-color: #eee
+}
+
+.notifications-item img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin-right: 9px;
+    border-radius: 50%;
+    margin-top: 2px
+}
+
+.notifications-item .text h4 {
+    color: #777;
+    font-size: 16px;
+    margin-top: 3px
+}
+
+.notifications-item .text p {
+    color: #aaa;
+    font-size: 12px
+}
+

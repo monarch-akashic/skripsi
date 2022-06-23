@@ -35,7 +35,7 @@
             @endphp
         @endif
             {{-- <img src="/storage/img/{{$image}}" class="rounded-circle img-fluid" style="width: 10rem; height: 10rem; object-fit: contain"/> --}}
-            <div class="profile-header-avatar" style="background-image: url('../storage/img/{{$image}}')"></div>
+            <div class="profile-header-avatar" style="background-image: url('/storage/img/{{$image}}')"></div>
 
             <h4>
                 {{ Auth::user()->name }}
@@ -115,7 +115,7 @@
                     <a href="/">Home</a>
                 </li>
                 <li>
-                    <a href="#">My Job Applied</a>
+                    <a href="/myvacancy">My Job Applied</a>
                 </li>
                 <li>
                     <a href="#">Inbox</a>
@@ -131,7 +131,7 @@
                     <a href="#">Dashboard</a>
                 </li>
                 <li>
-                    <a href="/vacancies">Vacancies</a>
+                    <a href="/vacancy">Vacancies</a>
                 </li>
                 <li>
                     <a href="/verify">Request Verify Account</a>
@@ -142,7 +142,7 @@
             @if (Auth::user()->role == '0')
 
                 <li>
-                    <a href="#">Validate Job Vacancy</a>
+                    <a href="/validate">Validate Job Vacancy</a>
                 </li>
                 <li>
                     <a href="#">View Applicant's Report</a>

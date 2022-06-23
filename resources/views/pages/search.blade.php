@@ -24,6 +24,9 @@
                 </div>
             @endforeach
         </div>
+        <div class="row justify-content-center">
+            {!!$vacancies->links()!!}
+        </div>
     </div>
 </div>
 

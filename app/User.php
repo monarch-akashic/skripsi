@@ -37,5 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
+    public function applying(){
+        return $this->hasMany('App\Applying', 'applicant_id');
+    }
 }

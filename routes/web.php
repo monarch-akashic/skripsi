@@ -21,18 +21,28 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 Route::get('/', 'PagesController@index');
-
 Route::get('/register/applicant', 'PagesController@regisApplicant');
-
 Route::get('/register/company', 'PagesController@regisCompany');
+Route::get('/search', 'PagesController@search');
+Route::any('/search/result', 'PagesController@result');
+Route::get('/validate', 'PagesController@validateVacancy');
 
 Route::get('/auth/redirect', 'Auth\LoginController@redirectToProvider');
 Route::get('/auth/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/reporting/create', 'ApplicantControler@request');
 
-Route::get('/verify', 'VacancyController@request');
+Route::get('/myvacancy', 'ApplicantControler@appliedJob');
+Route::get('/reporting/create', 'ApplicantControler@request');
+Route::post('/reporting/create', 'ApplicantControler@storeReport')->name('store.reporting');
+
+Route::get('/verify', 'CompanyController@viewVerify');
+Route::post('/verify', 'CompanyController@requestVerify')->name('store.verify');
+Route::get('/vacancy/{id}/list', 'CompanyController@listApplicantVacancy');
+
+Route::get('/vacancy/{vacancy_id}/portofolio/{user_id}', 'PortofolioController@checkPortofolio');
+Route::get('/vacancy/{vacancy_id}/portofolio/{user_id}/send-interview', 'PortofolioController@sendInterview');
+Route::post('/vacancy/{vacancy_id}/portofolio/{user_id}/send-interview', 'PortofolioController@saveInterview')->name('store.interview');
 
 Route::resource('portofolio', 'PortofolioController');
 Route::resource('company', 'CompanyController');
