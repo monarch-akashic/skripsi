@@ -23,9 +23,17 @@ Auth::routes();
 Route::get('/', 'PagesController@index');
 Route::get('/register/applicant', 'PagesController@regisApplicant');
 Route::get('/register/company', 'PagesController@regisCompany');
+
 Route::get('/search', 'PagesController@search');
 Route::any('/search/result', 'PagesController@result');
 Route::get('/validate', 'PagesController@validateVacancy');
+Route::get('/accounts/edit', 'PagesController@settings');
+Route::post('/accounts/edit', 'PagesController@changePassword')->name('change.password');
+
+Route::get('/getCity/{id}','PagesController@getCity');
+Route::get('/getDistrict/{id}','PagesController@getDistrict');
+Route::get('/getPostalCode/{id}','PagesController@getPostalCode');
+
 
 Route::get('/auth/redirect', 'Auth\LoginController@redirectToProvider');
 Route::get('/auth/callback', 'Auth\LoginController@handleProviderCallback');
@@ -39,6 +47,7 @@ Route::post('/reporting/create', 'ApplicantControler@storeReport')->name('store.
 Route::get('/verify', 'CompanyController@viewVerify');
 Route::post('/verify', 'CompanyController@requestVerify')->name('store.verify');
 Route::get('/vacancy/{id}/list', 'CompanyController@listApplicantVacancy');
+Route::post('/register/company', 'CompanyController@register');
 
 Route::get('/vacancy/{vacancy_id}/portofolio/{user_id}', 'PortofolioController@checkPortofolio');
 Route::get('/vacancy/{vacancy_id}/portofolio/{user_id}/send-interview', 'PortofolioController@sendInterview');

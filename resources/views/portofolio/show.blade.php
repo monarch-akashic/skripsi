@@ -43,24 +43,20 @@
                                     </p>
                                 </div>
 
+
+
                                 <div class="form-group">
                                     <h5 class="text-primary font-weight-bold">Education</h5>
-                                    <p class="font-weight-normal">
-                                        {{ $portofolio[0]->education }}
-                                    </p>
                                 </div>
 
                                 <ul class="timeline">
-                                    <li>
-                                        <a href="#">{Title}</a>
-                                        <a href="#" class="float">{Year}</a>
-                                        <p>{Description}</p>
-                                    </li>
-                                    <li>
-                                        <a href="#">{Title}</a>
-                                        <a href="#" class="float">{Year}</a>
-                                        <p>{Description}</p>
-                                    </li>
+                                    @foreach ($portofolio->education as $item)
+                                        <li>
+                                            <a href="#">{{$item['institute']}}</a>
+                                            <a href="#" class="float">{{$item['year_start_institute']}} - {{$item['year_end_institute']}}</a>
+                                            <p>{{$item['institute_desc']}}</p>
+                                        </li>
+                                    @endforeach
                                 </ul>
 
                                 {{-- <ul class="timeline">
@@ -115,56 +111,52 @@
 
                                 <div class="form-group">
                                     <h5 class="text-primary font-weight-bold">Experience</h5>
-                                    <p class="font-weight-normal">
-                                        {{ $portofolio[0]->experience }}
-                                    </p>
                                 </div>
 
                                 <ul class="timeline">
-                                    <li>
-                                        <a href="#">{Title}</a>
-                                        <a href="#" class="float">{Year}</a>
-                                        <p>{Description}</p>
-                                    </li>
-                                    <li>
-                                        <a href="#">{Title}</a>
-                                        <a href="#" class="float">{Year}</a>
-                                        <p>{Description}</p>
-                                    </li>
+                                    @foreach ($portofolio->experience as $item)
+                                        <li>
+                                            <a href="#">{{ucfirst($item['experience'])}}</a>
+                                            <a href="#" class="float">{{$item['year_start_experience']}} - {{$item['year_end_experience']}}</a>
+                                            <p>{{$item['experience_desc']}}</p>
+                                        </li>
+                                    @endforeach
                                 </ul>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group"> --}}
                                     <h5 class="text-primary font-weight-bold">Skill</h5>
-                                    <p class="font-weight-normal">
-                                        {!! $portofolio[0]->skills !!}
-                                    </p>
-                                </div>
+                                    @foreach ($portofolio->skills as $item)
+                                        <li>
+                                            {{$item}}
+                                        </li>
+                                    @endforeach
+                                {{-- </div> --}}
                             </div>
                         </div>
 
                         <div class="card-mb-3" style="width: 25%">
                             <div class="card-body">
                                 <div class="profile-header-avatar"
-                                    style="background-image: url('../storage/img/{{ $portofolio[0]->profile_image }}')">
+                                    style="background-image: url('../storage/img/{{ $portofolio->profile_image }}')">
                                 </div>
                                 <p></p>
                                 <div class="form-group">
                                     <h5 class="text-primary font-weight-bold">Portofolio :</h5>
-                                    <a href="../storage/files/portofolio/{{ $portofolio[0]->portofolio_file }}"
+                                    <a href="../storage/files/portofolio/{{ $portofolio->portofolio_file }}"
                                         class="text-primary">
                                         MyPortofolio.pdf
                                     </a>
                                 </div>
                                 <div class="form-group">
                                     <h5 class="text-primary font-weight-bold">Curriculum Vitae :</h5>
-                                    <a href="../storage/files/cv/{{ $portofolio[0]->cv_file }}"
+                                    <a href="../storage/files/cv/{{ $portofolio->cv_file }}"
                                         class="text-primary">
                                         MyCV.pdf
                                     </a>
                                 </div>
-                                <button onclick="getLocation()">Try It</button>
+                                {{-- <button onclick="getLocation()">Try It</button> --}}
 
-                                <p id="demo"></p>
+                                {{-- <p id="demo"></p> --}}
 
                             </div>
                         </div>
@@ -175,7 +167,7 @@
                                 <div class="form-group">
                                     <h5 class="text-primary font-weight-bold">Alamat</h5>
                                     <p class="font-weight-normal">
-                                        {Alamat}
+                                        {{$portofolio->location}}
                                     </p>
                                 </div>
                                 {{-- <form action="{{ route('store') }}" method="post"> --}}
@@ -190,33 +182,21 @@
                                             let map;
                                             function initMap() {
                                                 map = new google.maps.Map(document.getElementById("map"), {
-                                                    center: { lat: -6.145184361472, lng: 106.87522530555725 },
+                                                    center: { lat: {{$portofolio->latitude}}, lng: {{$portofolio->longitude}}},
                                                     zoom: 15,
-                                                    scrollwheel: true,
+                                                    scrollwheel: false,
                                                 });
 
-                                                const uluru = { lat: -6.145184361472, lng: 106.87522530555725 };
+                                                const uluru = { lat: {{$portofolio->latitude}}, lng: {{$portofolio->longitude}} };
                                                 let marker = new google.maps.Marker({
                                                     position: uluru,
                                                     map: map,
-                                                    draggable: true
+                                                    draggable: false,
                                                 });
 
-                                                google.maps.event.addListener(marker,'position_changed',
-                                                    function (){
-                                                        let lat = marker.position.lat()
-                                                        let lng = marker.position.lng()
-                                                        $('#lat').val(lat)
-                                                        $('#lng').val(lng)
-                                                    })
-
-                                                google.maps.event.addListener(map,'click',
-                                                function (event){
-                                                    pos = event.latLng
-                                                    marker.setPosition(pos)
-                                                })
                                             }
                                         </script>
+
                                         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArJ6Y3LioLJ5u6nkDW1SOYov3B45bKbfU&callback=initMap" type="text/javascript"></script>
                                     </div>
 
@@ -226,8 +206,8 @@
                                         @if (Auth::user()->role == '0')
                                             {{-- <input type="submit" value="Approve" class="btn btn-primary" disabled> --}}
                                         @endif
-                                        @if (Auth::user()->role == '1' && Auth::user()->id == $portofolio[0]->user_id)
-                                            <a class="btn btn-primary" href="/portofolio/{{$portofolio[0]->user_id}}/edit">Update</a>
+                                        @if (Auth::user()->role == '1' && Auth::user()->id == $portofolio->user_id)
+                                            <a class="btn btn-primary" href="/portofolio/{{$portofolio->user_id}}/edit">Update</a>
                                             {{-- <input type="submit" value="Update" class="btn btn-primary"> --}}
                                         @endif
                                         @if (Auth::user()->role == '2')
@@ -235,8 +215,6 @@
                                             <a class="btn btn-primary" href="/portofolio/{{$user->id}}/send-interview">Send Interview</a>
                                         @endif
                                     @endguest
-                                    {{-- <input type="submit" class="btn btn-primary"> --}}
-                                {{-- </form> --}}
                             </div>
                         </div>
                     </div>

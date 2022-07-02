@@ -7,10 +7,10 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="sub-heading">Create Profile</h4>
-                    <form action="{{ action('PortofolioController@create') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ action('PortofolioController@store') }}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="row m-2">
-                            <div class="card-m-3" style="width: 40%">
+                            <div class="card-m-3" style="width: 20%">
                                 <div class="profile-header-avatar align-middle"
                                     style="background-image: url('../storage/img/default_profile.jpg')">
                                 </div>
@@ -95,15 +95,13 @@
                                                     <td colspan="1" style="text-align: center" class="align-middle">
                                                         <div class="input-group mb-3">
                                                             <select name="institute[]" id="inputGroupSelect01" class="custom-select">
-                                                                <option value="one"
-                                                                    {{ old('institute') == 'one' ? 'selected' : '' }}>
-                                                                    One</option>
-                                                                <option value="two"
-                                                                    {{ old('institute') == 'two' ? 'selected' : '' }}>
-                                                                    Two</option>
-                                                                <option value="three"
-                                                                    {{ old('institute') == 'three' ? 'selected' : '' }}>
-                                                                    Three</option>
+                                                                @foreach ($categories as $item)
+                                                                    <option value="{{$item->name}}"
+                                                                        {{ old('institute') == $item->name ? 'selected' : '' }}>
+                                                                        {{$item->name}}
+                                                                    </option>
+                                                                @endforeach
+
                                                             </select>
                                                         </div>
                                                     </td>
@@ -147,15 +145,12 @@
                                                     <td colspan="1" style="text-align: center" class="align-middle">
                                                         <div class="input-group mb-3">
                                                             <select name="experience[]" id="inputGroupSelect01" class="custom-select">
-                                                                <option value="one"
-                                                                    {{ old('experience') == 'one' ? 'selected' : '' }}>
-                                                                    One</option>
-                                                                <option value="two"
-                                                                    {{ old('experience') == 'two' ? 'selected' : '' }}>
-                                                                    Two</option>
-                                                                <option value="three"
-                                                                    {{ old('experience') == 'three' ? 'selected' : '' }}>
-                                                                    Three</option>
+                                                                <option value="fulltime"
+                                                                    {{ old('experience') == 'fulltime' ? 'selected' : '' }}>
+                                                                    Full Time</option>
+                                                                <option value="magang"
+                                                                    {{ old('experience') == 'magang' ? 'selected' : '' }}>
+                                                                    Magang</option>
                                                             </select>
                                                         </div>
                                                     </td>
@@ -188,7 +183,6 @@
                                                         <input type="text" name="skill[]" class="form-control" placeholder="Skill"
                                                             value="{{ old('skill') }}">
                                                         <button class="m-1 btn btn-sm btn-danger remove_more_skill">Remove</button>
-
                                                     </td>
                                                     {{-- <td colspan="1" style="text-align: center">
                                                         <button class="btn btn-sm btn-danger remove_more_skill">Remove</button>
@@ -265,7 +259,7 @@
                                             {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArK-WJQanOboZA3EDjmgvG33Dqqkyim3I&callback=initMap" type="text/javascript"></script> --}}
 
                                         </div>
-                                    <input type="hidden" name="_method" value="{{ 'PUT' }}">
+                                    {{-- <input type="hidden" name="_method" value="{{ 'PUT' }}"> --}}
                                     <input type="submit" value="Submit" class="btn btn-primary" id="update_btn" >
                                 </div>
                             </div>
@@ -287,9 +281,24 @@
                 <td colspan="1" style="text-align: center" class="align-middle">
                     <div class="input-group mb-3">
                         <select name="institute[]" id="inputGroupSelect01" class="custom-select">
-                                <option value="one" {{ old('institute') == 'one' ? 'selected' : '' }}>One</option>
-                                <option value="two" {{ old('institute') == 'two' ? 'selected' : '' }}>Two</option>
-                                <option value="three" {{ old('institute') == 'three' ? 'selected' : '' }}>Three</option>
+                            <option value="SD"
+                                {{ old('institute') == 'SD' ? 'selected' : '' }}>
+                                SD</option>
+                            <option value="SMP"
+                                {{ old('institute') == 'SMP' ? 'selected' : '' }}>
+                                SMP</option>
+                            <option value="SMA"
+                                {{ old('institute') == 'SMA' ? 'selected' : '' }}>
+                                SMA</option>
+                            <option value="SMK"
+                                {{ old('institute') == 'SMK' ? 'selected' : '' }}>
+                                SMK</option>
+                            <option value="D3"
+                                {{ old('institute') == 'D3' ? 'selected' : '' }}>
+                                D3</option>
+                            <option value="S1"
+                                {{ old('institute') == 'S1' ? 'selected' : '' }}>
+                                S1</option>
                         </select>
                     </div>
                 </td>
@@ -325,9 +334,12 @@
                 <td colspan="1" style="text-align: center" class="align-middle">
                     <div class="input-group mb-3">
                         <select name="experience[]" id="inputGroupSelect01" class="custom-select">
-                                <option value="one" {{ old('experience') == 'one' ? 'selected' : '' }}>One</option>
-                                <option value="two" {{ old('experience') == 'two' ? 'selected' : '' }}>Two</option>
-                                <option value="three" {{ old('experience') == 'three' ? 'selected' : '' }}>Three</option>
+                            <option value="fulltime"
+                                {{ old('experience') == 'fulltime' ? 'selected' : '' }}>
+                                Full Time</option>
+                            <option value="magang"
+                                {{ old('experience') == 'magang' ? 'selected' : '' }}>
+                                Magang</option>
                         </select>
                     </div>
                 </td>

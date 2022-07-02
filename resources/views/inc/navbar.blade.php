@@ -35,8 +35,12 @@
             @endphp
         @endif
             {{-- <img src="/storage/img/{{$image}}" class="rounded-circle img-fluid" style="width: 10rem; height: 10rem; object-fit: contain"/> --}}
+        @if (Auth::user()->role == '1')
             <div class="profile-header-avatar" style="background-image: url('/storage/img/{{$image}}')"></div>
-
+        @endif
+        @if (Auth::user()->role == '2')
+            <div class="profile-header-avatar" style="background-image: url('/storage/img/company/{{$image}}')"></div>
+        @endif
             <h4>
                 {{ Auth::user()->name }}
             </h4>
@@ -156,7 +160,7 @@
 
 
             <li >
-                <a  href="#">
+                <a  href="/accounts/edit">
                     {{-- {{ Auth::user()->name }} --}}
                     Settings
                 </a>

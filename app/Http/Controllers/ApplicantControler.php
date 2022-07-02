@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\DB;
 
 class ApplicantControler extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function request()
     {
         // $vacancy = Transaction::where('applicant_id', auth()->user()->id)->get();
@@ -33,6 +38,15 @@ class ApplicantControler extends Controller
         if (auth()->user()->role == '2') {
             return 'This is company user';
         }else{
+
+            $this->validate($request,[
+                'report_file' => 'mimetypes:application/pdf|nullable|max:1999',
+                'my_vacancy' => ['required', 'string', 'max:255'],
+                'subject' => ['required', 'string', 'max:255'],
+                'details' => ['required', 'string', 'max:255'],
+
+            ]);
+
             $transaction = new Reporting();
             $transaction->vacancy_id = $request->my_vacancy;
             $company_id = Vacancy::where('id', $request->my_vacancy)->first();

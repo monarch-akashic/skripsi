@@ -47,17 +47,17 @@
 
                                     </div>
 
+
+
                                     <div class="form-group">
-                                        <label for="email"
-                                            >{{ __('E-Mail Address') }}</label>
+                                        <label for="dob">{{ __('Date of Birth') }}</label>
 
 
-                                            <input id="email" type="email"
-                                                class="form-control @error('email') is-invalid @enderror" name="email"
-                                                value="{{ old('email') }}" required
-                                                autocomplete="email">
+                                            <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror" name="dob"
+                                                value="{{ old('dob') }}" required autocomplete="dob"
+                                                >
 
-                                            @error('email')
+                                            @error('dob')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -71,16 +71,16 @@
                             <div class="card-mb-3" style="width: 50%">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="dob"
-                                            >{{ __('Date of Birth') }}</label>
+                                        <label for="email"
+                                            >{{ __('E-Mail Address') }}</label>
 
 
-                                            <input id="dob" type="date"
-                                                class="form-control @error('dob') is-invalid @enderror" name="dob"
-                                                value="{{ old('dob') }}" required autocomplete="dob"
-                                                autofocus>
+                                            <input id="email" type="email"
+                                                class="form-control @error('email') is-invalid @enderror" name="email"
+                                                value="{{ old('email') }}" required
+                                                autocomplete="email">
 
-                                            @error('dob')
+                                            @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

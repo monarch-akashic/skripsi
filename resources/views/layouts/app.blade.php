@@ -31,18 +31,23 @@
         <div class="wrapper">
             @include('inc.navbar')
             <div id="content">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid m-2">
+                    <button type="button" id="sidebarCollapse" class="btn btn-dark p-0 m-0" style="height: 40px; width: 40px">
+                        <img src="../storage/assets/sidebar_icon.png" style="height: 20px; width: 20px">
+                        {{-- <i class="fas fa-bars fa-1x" ></i> --}}
+                        {{-- <span>Toggle Sidebar</span> --}}
+                    </button>
+
+                    {{-- <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button> --}}
+                </div>
+                {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
 
-                        <button type="button" id="sidebarCollapse" class="btn btn-info">
-                            <i class="fas fa-align-left"></i>
-                            {{-- <span>Toggle Sidebar</span> --}}
-                        </button>
-                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button"
-                            data-toggle="collapse" data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fas fa-align-justify"></i>
-                        </button>
+
 
 
 
@@ -50,7 +55,7 @@
                             <form class="form-inline" action="{{ action('PagesController@result') }}" method="POST" role="search">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="text" name="vacancy" class="form-control" placeholder="Search" style="margin:2px ; width: 100%; height: 40px">
-                                {{-- <input type="submit" class="btn btn-custom" style="margin-left:2px ; width: 15%; height: 40px" value="Search"> --}}
+                                <input type="submit" class="btn btn-custom" style="margin-left:2px ; width: 15%; height: 40px" value="Search">
                             </form>
                             <ul class="nav navbar-nav ml-auto">
 
@@ -59,14 +64,14 @@
                                     <div class="notifications" id="box">
                                         <h2>Inbox Notifications - <span>{{}}</span></h2>
                                         <div class="notifications-item">
-                                            {{-- <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img"> --}}
+                                            <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img">
                                             <div class="text">
                                                 <h4>[Company XXX] Send an Invitation </h4>
                                                 <p>You've been sent an interview schedule</p>
                                             </div>
                                         </div>
                                         <div class="notifications-item">
-                                            {{-- <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img"> --}}
+                                            <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img">
                                             <div class="text">
                                                 <h4>[Company XXX] Send an Invitation </h4>
                                                 <p>You've been sent an interview schedule</p>
@@ -82,7 +87,7 @@
                             </ul>
                         </div>
                     </div>
-                </nav>
+                </nav> --}}
                 @yield('content')
                 {{-- @include('inc.footer') --}}
             </div>

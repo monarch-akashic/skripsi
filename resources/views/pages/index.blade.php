@@ -6,6 +6,22 @@
     @include('inc.messages')
     <div class="col-md-12">
         <div class="row justify-content-center">
+            <div class="card w-75 mb-3" style="width: 18rem;">
+                <div class="row">
+                    <div class="card-body">
+                        <h5 class="card-title">Search by Location</h5>
+                        {{-- <p class="card-text"></p> --}}
+                        <input type="text" name="search" class="form-control" placeholder="Search">
+                    </div>
+
+                    <div class="card-body mr-3" style="text-align:right;">
+                        <h5 class="card-title">Filter</h5>
+
+                        {{-- <img src="/storage/img/user_dummy.jpg"  alt="..." class="round-circle ml-2 mr-2">
+                        <a href="/vacancy/{{$vacancy->id}}" class="btn btn-primary">See Details</a> --}}
+                    </div>
+                </div>
+            </div>
             @foreach ($vacancies as $vacancy)
                 <div class="card w-75 mb-3" style="width: 18rem;">
                     <div class="row">

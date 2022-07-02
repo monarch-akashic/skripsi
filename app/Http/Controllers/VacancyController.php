@@ -10,6 +10,7 @@ use App\Applying;
 use DateTime;
 use Illuminate\Foundation\Auth\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class VacancyController extends Controller
 {
@@ -23,7 +24,8 @@ class VacancyController extends Controller
         $id = auth()->user()->id;
         $company = Company::where('user_id', $id)->get();
         $vacancies = Vacancy::where('company_id', $company[0]->id)->get();
-        // return $vacancies;
+        // $vacancies = Vacancy::where('company_id', $company[0]->id)->pluck('salary','job_name','status_open');
+        // return ($vacancies);
         return view('company.vacancy.index')->with(['title' => 'Vacancy','vacancies' => $vacancies]);
 
     }
@@ -35,7 +37,10 @@ class VacancyController extends Controller
      */
     public function create()
     {
-        return view('company.vacancy.create');
+        $province = DB::table('province')
+        ->select('province.prov_name', 'province.prov_id')->get();
+        // return gettype($province);
+        return view('company.vacancy.create')->with(['title' => 'Create Vacancy','province' => $province]);
     }
 
     /**
@@ -46,7 +51,28 @@ class VacancyController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        // return $request;
+
+        $this->validate($request,[
+            'job_name' => ['required', 'string', 'max:255'],
+            'job_description' => ['required', 'string'],
+            'job_requirement' => ['required', 'string'],
+            'age_range_1' => ['required', 'string', 'max:20'],
+            'age_range_2' => ['required', 'string', 'max:20'],
+            'location' => ['required', 'string'],
+            'province' => ['required'],
+            'city' => ['required'],
+            'district' => ['required'],
+            'postal_code' => ['required'],
+            'lat' => ['required', 'string', 'max:20'],
+            'lng' => ['required', 'string', 'max:20'],
+            // 'salary' => ['required', 'string', 'max:20'],
+            // 'salary_type' => ['required', 'string', 'max:20'],
+            'total_applicant' => ['required', 'string', 'max:20'],
+            'working_hour_range_1' => ['required', 'string', 'max:20'],
+            'working_hour_range_2' => ['required', 'string', 'max:20'],
+        ]);
+
         $id = auth()->user()->id;
         $company_id = Company::where('user_id', $id)->get();
         $vacancy = new Vacancy();
@@ -64,10 +90,10 @@ class VacancyController extends Controller
         $vacancy->location = $request->input('location');
         $vacancy->latitude = $request->input('lat');
         $vacancy->longitude = $request->input('lng');
-        $vacancy->province = 'Province';
-        $vacancy->kota = 'Kota';
-        $vacancy->kecamatan = 'Kecamatan';
-        $vacancy->kode_pos = 'Kode Pos';
+        $vacancy->province = $request->input('province');
+        $vacancy->kota = $request->input('city');
+        $vacancy->kecamatan = $request->input('district');
+        $vacancy->kode_pos = $request->input('postal_code');
         $vacancy->created_at = Carbon::now();
         $vacancy->save();
 
@@ -135,7 +161,6 @@ class VacancyController extends Controller
             $company_id = Company::where('id', $vacancy_id->company_id)->first();
             // return $company_id;
             $transaction->current_user = $company_id->user_id;
-
             $transaction->status = 'Check by Company';
             $transaction->save();
 

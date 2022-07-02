@@ -18,9 +18,9 @@ class CreatePortofoliosTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('profile_image');
-            $table->string('education');
-            $table->string('experience');
-            $table->string('skills');
+            $table->json('education');
+            $table->json('experience');
+            $table->json('skills');
             $table->string('location')->nullable();
             $table->decimal('latitude',8,6)->nullable();
             $table->decimal('longitude', 9,6)->nullable();

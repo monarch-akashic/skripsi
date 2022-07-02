@@ -9,7 +9,13 @@
                     <h4 class="sub-heading ml-3">Vacancy</h4>
                     <form action="{{action('VacancyController@update', $vacancies->id)}}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <div class="card-mb-3" style="width: 100%">
+                        <div class="row mb-2">
+
+
+                            <div class="card-mb-3" style="width: 50%">
+
+                            </div>
+                            <div class="card-mb-3" style="width: 50%">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="job_name">Job Name</label>
@@ -24,7 +30,10 @@
 
                                     <div class="form-group">
                                         <label for="job_requirement">Job Requirement</label>
-                                        <textarea name="job_requirement" class="form-control" id="job_requirement" rows="3" style="width:100%; height:200px;" disabled>{{$vacancies->requirement}}</textarea>
+                                        <textarea name="job_requirement" class="form-control" id="job_requirement" rows="3" style="width:100%; height:200px;" disabled>{!!$vacancies->requirement!!}</textarea>
+                                        <p class="card-text">
+                                            {!!$vacancies->requirement!!}
+                                        </p>
                                     </div>
 
                                     <div class="form-group">
@@ -101,6 +110,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         <input type="hidden" name="_method" value="{{ 'PUT' }}">
                         {{-- <input type="hidden" value="{{$vacancies->id}}" name="id"> --}}
                         @guest

@@ -11,10 +11,14 @@ use App\User;
 use App\Verifying;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
+use App\Category;
 
 class CompanyController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['register']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +36,11 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        $user_info = User::find(auth()->user()->id);
+        $it_category = Category::where('type','IT')->get();
+        $is_category = Category::where('type','IS')->get();
+        // return $it_category;
+        return view('company.create')->with(['title' => 'Create Profile', 'user_info' => $user_info, 'it_category' => $it_category,  'is_category' => $is_category]);
     }
 
     /**
@@ -49,46 +57,42 @@ class CompanyController extends Controller
             'logo' => 'image|nullable|max:1999',
             'company_name' => ['required', 'string', 'max:255'],
             'tagline' => ['required', 'string', 'max:255'],
-            'background' => ['required', 'string', 'max:255'],
-            'website_link' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'description' => ['required', 'string', 'max:500'],
+            'background' => ['required', 'string', 'max:500'],
+            'website_link' => ['string', 'max:255'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'industry_type' => ['required'],
             'company_size' => ['required'],
-            'company_type' => ['required'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'company_type' => ['required'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
 
         ]);
 
         if ($request->hasFile('logo')) {
             //get just file name
-            $fileName = $request->title;
+            $fileName = $request->company_name;
             //get just ext
             $extension = $request->file('logo')->getClientOriginalExtension();
             //filename to store
             $fileNameToStore = time().'_'.$fileName.'.'.$extension;
             //upload
-            $path = $request->file('logo')->storeAs('public/img', $fileNameToStore);
+            $path = $request->file('logo')->storeAs('public/img/company', $fileNameToStore);
         }else{
-            $fileNameToStore = 'user_dummy.jpg';
+            $fileNameToStore = 'default.jpg';
         }
 
-        $user = User::Create([
-            'role' => '2',
-            'name' => $request['company_name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'phoneNo' => '0',
-            'dob' => '9999-12-31',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $user->name = $request->input('company_name');
+        $user->save();
 
         $company = new Company();
-        $company->user_id = $user->id;
+        $company->user_id = $user_id;
         $company->tagline = $request->input('tagline');
+        $company->description = $request->input('description');
         $company->industry_type = $request->input('industry_type');
-        $company->company_type = $request->input('company_type');
         $company->company_size = $request->input('company_size');
+        // $company->company_type = $request->input('company_type');
         $company->logo = $fileNameToStore;
         $company->background = $request->input('background');
         $company->website_link = $request->input('website_link');
@@ -96,8 +100,7 @@ class CompanyController extends Controller
         $company->updated_at = Carbon::now();
         $company->save();
 
-        \auth()->login($user, true);
-        return redirect('/');
+        return redirect('/company/'.$user_id)->with('success', 'Profile Created');
 
     }
 
@@ -130,11 +133,13 @@ class CompanyController extends Controller
     {
         $user_info = User::find($id);
         $company_info = Company::where('user_id', $id)->get();
+        $it_category = Category::where('type','IT')->get();
+        $is_category = Category::where('type','IS')->get();
 
         if (empty($company_info)) {
             abort(404);
         }else{
-            return view('company.edit')->with(['title' => 'Company Profile', 'company_info' => $company_info, 'user_info' => $user_info]);
+            return view('company.edit')->with(['title' => 'Company Profile', 'company_info' => $company_info, 'user_info' => $user_info, 'it_category' => $it_category,  'is_category' => $is_category]);
         }
     }
 
@@ -153,11 +158,11 @@ class CompanyController extends Controller
             'logo' => 'image|nullable|max:1999',
             'company_name' => ['required', 'string', 'max:255'],
             'tagline' => ['required', 'string', 'max:255'],
-            'background' => ['required', 'string', 'max:255'],
-            'website_link' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:500'],
+            'background' => ['required', 'string', 'max:500'],
+            'website_link' => ['string', 'max:255'],
             'industry_type' => ['required'],
             'company_size' => ['required'],
-            'company_type' => ['required'],
 
         ]);
 
@@ -169,9 +174,7 @@ class CompanyController extends Controller
             //filename to store
             $fileNameToStore = time().'_'.$fileName.'.'.$extension;
             //upload
-            $path = $request->file('logo')->storeAs('public/img', $fileNameToStore);
-        }else{
-            $fileNameToStore = 'user_dummy.jpg';
+            $path = $request->file('logo')->storeAs('public/img/company/', $fileNameToStore);
         }
 
         $user = User::find($id);
@@ -183,23 +186,23 @@ class CompanyController extends Controller
 
         if ($request->hasFile('logo')) {
             if ($company->logo != 'user_dummy.jpg') {
-                Storage::delete('public/img/'.$company->logo);
+                Storage::delete('public/img/company/'.$company->logo);
             }
             $company->logo = $fileNameToStore;
         }
 
         $company->tagline = $request->input('tagline');
+        $company->description = $request->input('description');
         $company->industry_type = $request->input('industry_type');
-        $company->company_type = $request->input('company_type');
         $company->company_size = $request->input('company_size');
-        $company->logo = $fileNameToStore;
+        // $company->company_type = $request->input('company_type');
+        // $company->logo = $fileNameToStore;
         $company->background = $request->input('background');
         $company->website_link = $request->input('website_link');
         $company->updated_at = Carbon::now();
-
         $company->save();
 
-        return redirect('/')->with('success', 'Profile Updated');
+        return redirect('/company/'.$id)->with('success', 'Profile Updated');
     }
 
     /**
@@ -211,6 +214,31 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function register(Request $request)
+    {
+        // return $request;
+        $this->validate($request,[
+            'company_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+
+        $user = User::Create([
+            'role' => '2',
+            'name' => $request['company_name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        \auth()->login($user, true);
+        return redirect('/');
+
     }
 
     public function listApplicantVacancy($id)
@@ -239,6 +267,14 @@ class CompanyController extends Controller
         if (auth()->user()->role == '1') {
             return 'This is applicant user';
         }else{
+
+            $this->validate($request,[
+                'npwp_number' => ['required', 'string', 'max:255'],
+                'sio_file' => 'mimetypes:application/pdf|required|max:1999',
+                'sid_file' => 'mimetypes:application/pdf|required|max:1999',
+                'bpom_file' => 'mimetypes:application/pdf|required|max:1999',
+            ]);
+
             $transaction = new Verifying();
             $company_id = Company::where('user_id', auth()->user()->id)->first();
             $transaction->company_id = $company_id->id;

@@ -15,11 +15,11 @@ class CreateApplyingsTable extends Migration
     {
         Schema::create('applyings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('vacancy_id')->primary();
+            $table->unsignedBigInteger('vacancy_id');
             $table->foreign('vacancy_id')->references('id')->on('vacancies')->onDelete('cascade');
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->unsignedBigInteger('applicant_id')->primary();
+            $table->unsignedBigInteger('applicant_id');
             $table->foreign('applicant_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('current_user');
             $table->string('status');

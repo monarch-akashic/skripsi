@@ -18,12 +18,14 @@ class CreateCompaniesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('tagline');
+            $table->longText('description');
+            $table->string('verified')->nullable();
             $table->string('industry_type');
             $table->string('company_size');
-            $table->string('company_type');
+            $table->string('company_type')->nullable();
             $table->string('logo');
-            $table->string('background');
-            $table->string('website_link');
+            $table->longText('background');
+            $table->string('website_link')->nullable();
             $table->timestamps();
 
         });
