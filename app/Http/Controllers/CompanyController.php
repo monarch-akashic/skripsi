@@ -12,6 +12,7 @@ use App\Verifying;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
 use App\Category;
+use App\Vacancy;
 
 class CompanyController extends Controller
 {
@@ -243,15 +244,18 @@ class CompanyController extends Controller
 
     public function listApplicantVacancy($id)
     {
-        $applicant = Applying::where('vacancy_id', $id)->get();
-        // $applicant_info = User::where('id', $applicant->applicant_id);
+        $vacancy_info = Vacancy::find($id)->first();
+        $company_info = Company::find($vacancy_info->company_id)->first();
+        if($company_info->user_id != auth()->user()->id){
+            return redirect('/vacancy')->with('error', 'Your are not authorized');
+        }
 
-        // return $applicant[0]->applicantName['name'];
+        $applicant = Applying::where('vacancy_id', $id)->whereIn('status', ['Check by Company','Interview on progress'])->get();
 
         if (empty($applicant)) {
             abort(404);
         }else{
-            return view('company.applicant.list_applicant')->with(['title' => 'Company Profile', 'applicant' => $applicant]);
+            return view('company.applicant.list_applicant')->with(['title' => 'List of Applicant', 'applicant' => $applicant]);
         }
     }
 

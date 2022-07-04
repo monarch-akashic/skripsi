@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\DB;
 class PagesController extends Controller
 {
 
+    // public function postCoor($id){
+    //     $cities = DB::table('city')
+    //     ->select('city.city_name', 'city.city_id')
+    //     ->where('city.prov_id', '=', $id)->pluck('city_name','city_id');
+    //     return json_encode($cities);
+    // }
+
     public function getCity($id){
         $cities = DB::table('city')
         ->select('city.city_name', 'city.city_id')

@@ -18,8 +18,8 @@ class CreateVacanciesTable extends Migration
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->string('job_name');
-            $table->string('job_description');
-            $table->string('requirement');
+            $table->longText('job_description');
+            $table->longText('requirement');
             $table->string('age');
             $table->string('salary');
             $table->string('workflow');

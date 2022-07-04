@@ -8,6 +8,7 @@ use App\Category;
 use DateTime;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use App\Company;
 use Carbon\Carbon;
 
 use function PHPSTORM_META\type;
@@ -38,8 +39,9 @@ class PortofolioController extends Controller
     {
         $user_info = User::find(auth()->user()->id);
         $categories = Category::where('type','ED')->get();
+        $experience_category = Category::where('type','EX')->get();
         $title = 'Create Profile';
-        return view('portofolio.create')->with(['title' => $title, 'user_info' => $user_info, 'categories' => $categories]);
+        return view('portofolio.create')->with(['title' => $title, 'user_info' => $user_info, 'categories' => $categories, 'experience_category' => $experience_category]);
     }
 
     /**
@@ -81,14 +83,20 @@ class PortofolioController extends Controller
 
             'portofolio_file' => 'mimetypes:application/pdf|nullable|max:1999',
             'curriculum_file' => 'mimetypes:application/pdf|nullable|max:1999',
-            'education.*institute' => ['required'],
+            'location' => ['required'],
+            // 'lat' => ['required'],
+            // 'lng' => ['required'],
+
+            'education.*.institute' => ['required'],
             'education.*year_start_institute' => ['required'],
             'education.*year_end_institute' => ['required'],
             'education.*institute_desc' => ['required'],
+
             'experience.*experience' => ['required'],
             'experience.*year_start_experience' => ['required'],
             'experience.*year_end_experience' => ['required'],
             'experience.*experience_desc' => ['required'],
+
             'skills.*skills' => ['required'],
 
         ]);
@@ -161,7 +169,7 @@ class PortofolioController extends Controller
         $portofolio->created_at = Carbon::now();;
         $portofolio->save();
 
-        return redirect('/portofolio/' .$user->id)->with('success', 'Profle Updated');
+        return redirect('/portofolio/' .$user->id)->with('success', 'Profle Created');
     }
 
     /**
@@ -250,6 +258,7 @@ class PortofolioController extends Controller
             'phoneNo' => ['required', 'string', 'max:20'],
             // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'dob' => ['required', 'date'],
+            'location' => ['required'],
 
             'portofolio_file' => 'mimetypes:application/pdf|nullable|max:1999',
             'curriculum_file' => 'mimetypes:application/pdf|nullable|max:1999',
@@ -351,7 +360,9 @@ class PortofolioController extends Controller
     public function checkPortofolio($vacancy_id, $user_id)
     {
         $user = User::find($user_id);
-        $portofolio = Portofolio::where('user_id', $user_id)->get();
+        $portofolio = Portofolio::where('user_id', $user_id)->first();
+        $applyings = Applying::where('vacancy_id', $vacancy_id)->where('applicant_id', $user_id)->first();
+        $company_info = Company::find($applyings->company_id)->first();
 
         $source = $user->dob;
         $date = new DateTime($source);
@@ -361,16 +372,16 @@ class PortofolioController extends Controller
             abort(404);
         }else{
             // return $portofolio;
-            return view('company.applicant.portofolio')->with(['title' => 'My Profile', 'portofolio' => $portofolio, 'user' => $user, 'vacancy_id' => $vacancy_id]);
+            return view('company.applicant.portofolio')->with(['title' => 'Applicant Profile', 'portofolio' => $portofolio, 'user' => $user, 'vacancy_id' => $vacancy_id, 'company_info' => $company_info, 'applyings' => $applyings]);
         }
     }
 
     public function sendInterview($vacancy_id, $user_id)
     {
         // $applicant = Portofolio::where('user_id', $user_id)->get();
-        $applicant = Portofolio::find($user_id);
+        $applicant = Portofolio::where('user_id', $user_id)->first();
+        // return $applicant;
         $applicant_id = User::find($applicant->user_id);
-        // return $applicant_id;
         return view('company.applicant.interview')->with(['user_id' => $applicant_id, 'vacancy_id' => $vacancy_id]);
     }
 
@@ -388,11 +399,43 @@ class PortofolioController extends Controller
 
         $applyings->interview_schedule = $request->interview_time;
         $applyings->interview_location = $request->interview_location;
-        $applyings->status = 'Sent to Applicant';
+        $applyings->notes = $request->notes;
+        $applyings->status = 'Interview on progress';
         $applyings->save();
         // return $applyings;
 
-        return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Invitation Sent');
+        return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Interview Invitation Sent');
+
+
+    }
+    public function processInterview(Request $request)
+    {
+        // return $request;
+        $applyings = Applying::where('vacancy_id', $request->vacancy_id)->where('applicant_id', $request->user_id)->first();
+
+            switch ($request->input('action')) {
+                case 'Reject':
+                    $applyings->status = 'Rejected';
+                    $applyings->save();
+                    return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Decline Applicant Message Sent');
+
+                case 'Finish':
+                    $applyings->status = 'Finish';
+                    $applyings->save();
+                    return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Vacancy Finish');
+            }
+    }
+
+    public function finishInterview(Request $request)
+    {
+        // return $request;
+        $applyings = Applying::where('vacancy_id', $request->vacancy_id)->where('applicant_id', $request->user_id)->first();
+
+        $applyings->status = 'Finish';
+        $applyings->save();
+        // return $applyings;
+
+        return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Vacancy Finish');
 
 
     }

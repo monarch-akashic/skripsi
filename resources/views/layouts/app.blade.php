@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,6 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/timepicker.css">
 
     {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"> --}}
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
@@ -33,7 +35,7 @@
             <div id="content">
                 <div class="container-fluid m-2">
                     <button type="button" id="sidebarCollapse" class="btn btn-dark p-0 m-0" style="height: 40px; width: 40px">
-                        <img src="../storage/assets/sidebar_icon.png" style="height: 20px; width: 20px">
+                        <img src="/storage/assets/sidebar_icon.png" style="height: 20px; width: 20px">
                         {{-- <i class="fas fa-bars fa-1x" ></i> --}}
                         {{-- <span>Toggle Sidebar</span> --}}
                     </button>
@@ -94,6 +96,14 @@
         </div>
     </div>
 
+    <script src="{{ asset('js/timepicker.js') }}" ></script>
+    <script>
+    $(function(){
+     $('.timepicker').timepicker({
+           showInputs: false
+        })
+    });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -171,10 +181,6 @@
         });
     </script>
 
-    <script src="//cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('article-ckeditor');
-    </script>
 </body>
 
 </html>

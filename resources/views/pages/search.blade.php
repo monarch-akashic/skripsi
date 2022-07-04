@@ -6,6 +6,26 @@
     @include('inc.messages')
     <div class="col-md-12">
         <div class="row justify-content-center">
+            <div class="card w-75 mb-3" style="width: 18rem;">
+                <div class="row">
+                    <div class="card-body" style="width: 80%">
+                        <h5 class="card-title">Search by Location</h5>
+                        {{-- <p class="card-text"></p> --}}
+                        <form class="form-inline" action="{{ action('PagesController@result') }}" method="POST" role="search">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="text" name="vacancy" class="form-control" placeholder="Search" style="margin:2px ; width: 80%; height: 40px">
+                            <input type="submit" class="btn btn-primary" style="margin-left:2px ; width: 10%; height: 40px" value="Search">
+                        </form>
+                    </div>
+
+                    <div class="card-body mr-3" style="width: 10%; text-align:right;">
+                        <h5 class="card-title">Filter</h5>
+
+                        {{-- <img src="/storage/img/user_dummy.jpg"  alt="..." class="round-circle ml-2 mr-2">
+                        <a href="/vacancy/{{$vacancy->id}}" class="btn btn-primary">See Details</a> --}}
+                    </div>
+                </div>
+            </div>
             @foreach ($vacancies as $vacancy)
                 <div class="card w-75 mb-3" style="width: 18rem;">
                     <div class="row">

@@ -8,13 +8,17 @@
         <div class="row justify-content-center">
             <div class="card w-75 mb-3" style="width: 18rem;">
                 <div class="row">
-                    <div class="card-body">
+                    <div class="card-body" style="width: 80%">
                         <h5 class="card-title">Search by Location</h5>
                         {{-- <p class="card-text"></p> --}}
-                        <input type="text" name="search" class="form-control" placeholder="Search">
+                        <form class="form-inline" action="{{ action('PagesController@result') }}" method="POST" role="search">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="text" name="vacancy" class="form-control" placeholder="Search" style="margin:2px ; width: 80%; height: 40px">
+                            <input type="submit" class="btn btn-primary" style="margin-left:2px ; width: 10%; height: 40px" value="Search">
+                        </form>
                     </div>
 
-                    <div class="card-body mr-3" style="text-align:right;">
+                    <div class="card-body mr-3" style="width: 10%; text-align:right;">
                         <h5 class="card-title">Filter</h5>
 
                         {{-- <img src="/storage/img/user_dummy.jpg"  alt="..." class="round-circle ml-2 mr-2">
@@ -42,5 +46,18 @@
         </div>
     </div>
 </div>
+<script>
+    const successCallback = (position) => {
+        console.log(position);
+    };
 
+    const errorCallback = (position) => {
+        console.log(position);
+    };
+
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+
+
+</script>
 @endsection

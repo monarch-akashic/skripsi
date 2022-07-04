@@ -260,24 +260,11 @@
                 <td colspan="1" style="text-align: center" class="align-middle">
                     <div class="input-group mb-3">
                         <select name="institute[]" id="inputGroupSelect01" class="custom-select">
-                            <option value="SD"
-                                {{ old('institute') == 'SD' ? 'selected' : '' }}>
-                                SD</option>
-                            <option value="SMP"
-                                {{ old('institute') == 'SMP' ? 'selected' : '' }}>
-                                SMP</option>
-                            <option value="SMA"
-                                {{ old('institute') == 'SMA' ? 'selected' : '' }}>
-                                SMA</option>
-                            <option value="SMK"
-                                {{ old('institute') == 'SMK' ? 'selected' : '' }}>
-                                SMK</option>
-                            <option value="D3"
-                                {{ old('institute') == 'D3' ? 'selected' : '' }}>
-                                D3</option>
-                            <option value="S1"
-                                {{ old('institute') == 'S1' ? 'selected' : '' }}>
-                                S1</option>
+                            @foreach ($categories as $category)
+                                <option value="{{$category->name}}">
+                                    {{$category->name}}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                 </td>
@@ -313,12 +300,11 @@
                 <td colspan="1" style="text-align: center" class="align-middle">
                     <div class="input-group mb-3">
                         <select name="experience[]" id="inputGroupSelect01" class="custom-select">
-                            <option value="fulltime"
-                                {{ old('experience') == 'fulltime' ? 'selected' : '' }}>
-                                Full Time</option>
-                            <option value="magang"
-                                {{ old('experience') == 'magang' ? 'selected' : '' }}>
-                                Magang</option>
+                            @foreach ($experience_category as $e_category)
+                                <option value="{{$e_category->name}}">
+                                    {{ucfirst($e_category->name)}}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                 </td>

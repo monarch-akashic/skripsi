@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="sub-heading ml-3">Create Vacancy</h3>
-                        <form action="{{ action('VacancyController@store') }}" method="POST"
+                    <h3 class="sub-heading">Update Vacancy</h3>
+                        <form action="{{ action('VacancyController@update', $vacancies->id) }}" method="POST"
                             enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             {{-- <div class="row m-1">
@@ -20,7 +20,7 @@
                                             <label for="">Job Name</label>
                                             <input type="text" name="job_name"
                                                 class="form-control @error('job_name') is-invalid @enderror"
-                                                placeholder="" value="{{ old('job_name') }}"
+                                                placeholder="" value="{{ $vacancies->job_name }}"
                                                 style="width:100%;">
 
                                             @error('job_name')
@@ -35,7 +35,7 @@
                                             <textarea name="job_description"
                                                 class="form-control @error('job_description') is-invalid @enderror"
                                                 id="job_description" rows="3"
-                                                style="width:100%; height:150px;">{{ old('job_description') }}</textarea>
+                                                style="width:100%; height:150px;">{{ $vacancies->job_description }}</textarea>
 
                                             @error('job_description')
                                                 <span class="invalid-feedback" role="alert">
@@ -50,7 +50,7 @@
                                             {{-- <textarea name="job_requirement" class="form-control" id="job_requirement" rows="3" style="width:100%; height:200px;"></textarea> --}}
                                             <textarea name="job_requirement" id="job_requirement" rows="5"
                                                 class="form-control @error('job_requirement') is-invalid @enderror"
-                                                placeholder="Job Requirement">{{ old('job_requirement') }}</textarea>
+                                                placeholder="Job Requirement">{{ $vacancies->requirement }}</textarea>
 
                                             @error('job_requirement')
                                                 <span class="invalid-feedback" role="alert">
@@ -65,12 +65,12 @@
                                             <div class="row ml-1">
                                                 <input type="number" name="age_range_1"
                                                     class="form-control  @error('age_range_1') is-invalid @enderror mr-3"
-                                                    placeholder="" value="{{ old('age_range_1') }}"
+                                                    placeholder="" value="{{ $vacancies->age[0] }}"
                                                     style="width:15%;">
                                                 -
                                                 <input type="number" name="age_range_2"
                                                     class="form-control  @error('age_range_2') is-invalid @enderror ml-3"
-                                                    placeholder="" value="{{ old('age_range_2') }}"
+                                                    placeholder="" value="{{ $vacancies->age[1] }}"
                                                     style="width:15%;">
                                             </div>
                                         </div>
@@ -86,7 +86,7 @@
                                             <label for="location">Address</label>
                                             <input type="text" name="location"
                                                 class="form-control @error('location') is-invalid @enderror"
-                                                placeholder="" value="{{ old('location') }}"
+                                                placeholder="" value="{{ $vacancies->location }}"
                                                 style="width:100%;">
 
                                             @error('location')
@@ -104,7 +104,7 @@
                                                     <option value="" disabled selected>--Province--</option>
                                                     @foreach($province as $item)
                                                         <option value="{{ $item->prov_id }}"
-                                                            {{ old('province') == $item->prov_id ? 'selected' : '' }}>
+                                                            {{ $vacancies->province == $item->prov_id ? 'selected' : '' }}>
                                                             {{ $item->prov_name }}</option>
                                                     @endforeach
                                                 </select>
@@ -238,7 +238,6 @@
                                             });
 
                                         </script>
-                                        <p class="card-text">Please pin point the location</p>
 
                                         <div class="mapform">
                                             <input type="hidden" class="form-control" placeholder="lat" name="lat"
@@ -259,16 +258,16 @@
                                                         getLong =
                                                         map = new google.maps.Map(document.getElementById("map"), {
                                                             center: {
-                                                                lat: -6.145184361472,
-                                                                lng: 106.87522530555725
+                                                                lat: {{$vacancies->latitude}},
+                                                                lng: {{$vacancies->longitude}}
                                                             },
                                                             zoom: 15,
                                                             scrollwheel: true,
                                                         });
 
                                                     const uluru = {
-                                                        lat: -6.145184361472,
-                                                        lng: 106.87522530555725
+                                                        lat: {{$vacancies->latitude}},
+                                                        lng: {{$vacancies->longitude}}
                                                     };
                                                     let marker = new google.maps.Marker({
                                                         position: uluru,
@@ -317,19 +316,19 @@
                                                 <a class="m-1" style="text-align: center">Rp. </a>
                                                 <input type="number" step="0.01" name="salary" id="number-input"
                                                     class="form-control" placeholder="Salary"
-                                                    value="{{ old('salary') }}" style="width: 30%">
+                                                    value="{{ $vacancies->salary[0] }}" style="width: 30%">
 
                                                 <select name="salary_type" id="inputGroupSelect01" class="custom-select"
                                                     placeholder="hour" style="width:20%;">
                                                     {{-- @foreach ($categories as $item) --}}
                                                     <option value="hour"
-                                                        {{ old('salary_type') == 'hour' ? 'selected' : '' }}>
+                                                        {{ $vacancies->salary[1] == 'hour' ? 'selected' : '' }}>
                                                         hour</option>
                                                     <option value="day"
-                                                        {{ old('salary_type') == 'day' ? 'selected' : '' }}>
+                                                        {{ $vacancies->salary[1] == 'day' ? 'selected' : '' }}>
                                                         day</option>
                                                     <option value="month"
-                                                        {{ old('salary_type') == 'month' ? 'selected' : '' }}>
+                                                        {{ $vacancies->salary[1] == 'month' ? 'selected' : '' }}>
                                                         month</option>
                                                     {{-- @endforeach --}}
                                                 </select>
@@ -341,7 +340,7 @@
                                             <div class="row ml-1">
                                                 <input type="number" name="total_applicant" class="form-control @error('total_applicant') is-invalid @enderror mr-3"
                                                     placeholder=""
-                                                    value="{{ old('total_applicant') }}"
+                                                    value="{{ $vacancies->total_applicant }}"
                                                     style="width:15%;">
                                             </div>
                                             @error('total_applicant')
@@ -357,13 +356,13 @@
                                                 <div class="bootstrap-timepicker">
                                                     <input type="text" name="working_hour_range_1" class="form-control timepicker @error('working_hour_range_1') is-invalid @enderror mr-3"
                                                     placeholder=""
-                                                    value="{{ old('working_hour_range_1') }}"
+                                                    value="{{ $vacancies->working_hour[0] }}"
                                                     >
                                                 </div>
                                                 <div class="bootstrap-timepicker">
                                                     <input type="text" name="working_hour_range_2" class="form-control timepicker @error('working_hour_range_2') is-invalid @enderror ml-3"
                                                     placeholder=""
-                                                    value="{{ old('working_hour_range_2') }}"
+                                                    value="{{ $vacancies->working_hour[1] }}"
                                                     >
                                                 </div>
                                             </div>
@@ -381,12 +380,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mb-2">
-                                <div class="card-body" style="text-align:right">
-                                    {{-- <button type="submit" name="action" class="btn btn-primary" value="Save">Save Changes</button> --}}
-                                    <input type="submit" value="Create" class="btn btn-primary">
+                                <input type="hidden" name="_method" value="{{ 'PUT' }}">
+                                <div class="row mb-2">
+                                    <div class="card-body" style="text-align:right">
+                                        {{-- <input type="submit" value="Save Changes" class="btn btn-primary"> --}}
+                                        <button type="submit" name="action" class="btn btn-primary" value="Save">Save Changes</button>
+                                    </div>
                                 </div>
-                            </div>
                         </form>
                 </div>
             </div>

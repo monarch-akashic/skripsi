@@ -25,6 +25,7 @@ class CreateApplyingsTable extends Migration
             $table->string('status');
             $table->string('interview_schedule')->nullable();
             $table->string('interview_location')->nullable();
+            $table->string('notes')->nullable();
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@
                     <div class="row mb-0">
                         <div class="card align-items-center" style="width: 30%; border: 0ch">
                             {{-- <div class="card-body"> --}}
-                                <div class="profile-header-avatar " style="background-image: url('../storage/img/company/{{$company[0]->logo}}')"></div>
+                                <div class="profile-header-avatar " style="background-image: url('/storage/img/company/{{$company[0]->logo}}')"></div>
                             {{-- </div> --}}
                         </div>
                         <div class="card-mb-2" style="width: 50%">

@@ -18,7 +18,7 @@
                 {{-- </div> --}}
                 <div class="card-body">
                     {{-- <h4 class="sub-heading">Vacancy</h4> --}}
-                    <form action="{{action('VacancyController@update', $vacancies->id)}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{action('ApplicantController@acceptInterview', $vacancies->id)}}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="row mb-2">
                             <div class="card-mb-3" style="width: 50%">
@@ -102,107 +102,101 @@
                                         </table>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="location" class="text-dark font-weight-bold">Location</label>
-                                        <p class="card-text">
-                                            {!!$vacancies->location!!}
-                                        </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @if ($applyings->status == 'Interview on progress')
+                            <div class="row mb-2">
+                                <div class="card-body">
+                                    <div class="card-mb-3" style="width: 50%">
+                                        <div class="form-group">
+                                            <label for="when" class="text-dark font-weight-bold">When</label>
+                                            <p class="card-text">
+                                                {!!$applyings->interview_schedule!!}
+                                            </p>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-mb-3" style="width: 50%">
+                                        <div class="form-group">
+                                            <label for="where" class="text-dark font-weight-bold">Where</label>
+                                            <p class="card-text">
+                                                {!!$applyings->interview_location!!}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="card-body">
+                                    <div class="card-mb-3" style="width: 100%">
+                                        <div class="form-group">
+                                            <label for="where" class="text-dark font-weight-bold">Notes</label>
+                                            <p class="card-text">
+                                                {!!$applyings->notes!!}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
 
-                                    <div class="mapform" >
-
-                                        <div id="map" style="height:400px; width: 100%;" class="my-3"></div>
-
-                                        <script>
-                                            let map;
-                                            function initMap() {
-                                                map = new google.maps.Map(document.getElementById("map"), {
-                                                    center: { lat: {{$vacancies->latitude}}, lng: {{$vacancies->longitude}} },
-                                                    zoom: 18,
-                                                    scrollwheel: false,
-                                                });
-
-                                                const uluru = { lat: {{$vacancies->latitude}}, lng: {{$vacancies->longitude}} };
-                                                let marker = new google.maps.Marker({
-                                                    position: uluru,
-                                                    map: map,
-                                                    draggable: false
-                                                });
-
-                                                google.maps.event.addListener(marker,'position_changed',
-                                                    function (){
-                                                        let lat = marker.position.lat()
-                                                        let lng = marker.position.lng()
-                                                        $('#lat').val(lat)
-                                                        $('#lng').val(lng)
-                                                    })
-                                            }
-                                        </script>
-                                        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArJ6Y3LioLJ5u6nkDW1SOYov3B45bKbfU&callback=initMap" type="text/javascript"></script>
+                        <div class="row mb-2">
+                            <div class="card-body">
+                                <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
+                                    <div class="timeline-step">
+                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title=""  data-original-title="2003">
+                                            <div class="inner-circle"></div>
+                                            {{-- <p class="h6 mt-3 mb-1">2003</p> --}}
+                                            <p class="h6 text-muted mb-0 mb-lg-0">Apply Job</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-step">
+                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-original-title="2004">
+                                            <div class="inner-circle"></div>
+                                            {{-- <p class="h6 mt-3 mb-1">2004</p> --}}
+                                            <p class="h6 text-muted mb-0 mb-lg-0">Waiting Review</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-step">
+                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title=""  data-original-title="2005">
+                                            <div class="inner-circle"></div>
+                                            {{-- <p class="h6 mt-3 mb-1">2005</p> --}}
+                                            <p class="h6 text-muted mb-0 mb-lg-0">Interview</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-step">
+                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title=""  data-original-title="2010">
+                                            <div class="inner-circle"></div>
+                                            {{-- <p class="h6 mt-3 mb-1">2010</p> --}}
+                                            <p class="h6 text-muted mb-0 mb-lg-0">Accepted Confirmation</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <input type="hidden" name="_method" value="{{ 'PUT' }}">
+
+                        {{-- <input type="hidden" name="_method" value="{{ 'PUT' }}"> --}}
                         {{-- <input type="hidden" value="{{$vacancies->id}}" name="id"> --}}
                         @guest
                             {{-- <input type="submit" value="Apply" class="btn btn-primary"> --}}
                         @else
-                            @if (Auth::user()->role == '0')
-                                <div class="row mb-2">
-                                    <div class="card-body" style="width: 100%; padding: 0px 0px 0px 20px">
-                                        <label for="notes" class="text-dark font-weight-bold">Notes</label>
-                                    </div>
-                                    <div class="card-body" style="text-align:right; padding: 0px 20px 0px 20px">
-                                        <textarea name="notes" class="form-control @error('notes') is-invalid @enderror" id="notes" rows="2" style="width:100%; height:100px;" ></textarea>
-                                        @error('notes')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <p></p>
-
-                                        <button type="submit" name="action" class="btn btn-danger" value="Reject">Reject</button>
-                                        <button type="submit" name="action" class="btn btn-primary" value="Approve">Approve</button>
-                                    </div>
-                                </div>
-                            @endif
-
                             @if (Auth::user()->role == '1')
-                                <div class="row mb-2">
-                                    <div class="card-body" style="text-align:right">
-                                        <input type="submit" value="Apply" class="btn btn-primary">
-                                    </div>
-                                </div>
-                            @endif
-                            @if (Auth::user()->role == '2')
-                                @if (Auth::user()->id == $company_info->id)
-                                    @if ($vacancies->status_open == 'Open')
-                                    <div class="row mb-2">
-                                        <div class="card-body" style="text-align:right">
-                                            {{-- <input type="submit" value="Update" class="btn btn-primary"> --}}
-                                            <a href="/vacancy/{{$vacancies->id}}/edit" class="btn btn-primary disabled">Update</a>
-                                        </div>
-                                    </div>
-                                    @elseif($vacancies->status_open == 'Rejected')
-                                        <div class="row mb-2">
-                                            <div class="card-body" style="width: 100%; padding: 0px 0px 0px 20px">
-                                                <label for="notes" class="text-dark font-weight-bold">Notes</label>
-                                                <p class="card-text">
-                                                    {!!$vacancies->notes!!}
-                                                </p>
-                                            </div>
-                                            <div class="card-body" style="text-align:right; padding: 0px 20px 0px 20px">
-                                                <button type="submit" name="action" class="btn btn-danger" value="Delete">Delete</button>
-                                                <a href="/vacancy/{{$vacancies->id}}/edit" class="btn btn-primary">Update</a>
-                                                <button type="submit" name="action" class="btn btn-primary" value="SendToAdmin">Save</button>
-                                            </div>
-                                        </div>
-                                    @elseif($vacancies->status_open == 'Admin')
+                                @if (Auth::user()->id == $applyings->applicant_id)
+                                    @if ($applyings->status == 'Check by Company')
                                         <div class="row mb-2">
                                             <div class="card-body" style="text-align:right">
-                                                <input type="submit" value="Update" class="btn btn-primary" disabled>
+                                                <input type="submit" value="Finish" class="btn btn-primary" disabled>
+                                            </div>
+                                        </div>
+                                    @elseif($applyings->status == 'Interview on progress')
+                                        <div class="row mb-2">
+                                            <div class="card-body" style="text-align:right">
+                                                <input type="submit" value="Finish" class="btn btn-primary">
                                             </div>
                                         </div>
                                     @endif

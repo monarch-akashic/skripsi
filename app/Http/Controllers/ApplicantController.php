@@ -11,8 +11,9 @@ use DateTime;
 use Illuminate\Foundation\Auth\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Applying;
 
-class ApplicantControler extends Controller
+class ApplicantController extends Controller
 {
     public function __construct()
     {
@@ -70,7 +71,8 @@ class ApplicantControler extends Controller
     public function appliedJob(){
         $vacancies = DB::table('applyings')
         ->join('vacancies','applyings.vacancy_id', '=','vacancies.id')
-        ->select('vacancies.id', 'vacancies.job_name','vacancies.latitude', 'vacancies.longitude','vacancies.created_at','vacancies.age')
+        ->join('city','vacancies.kota', '=','city.city_id')
+        ->select('vacancies.id', 'vacancies.job_name','vacancies.latitude', 'vacancies.longitude','vacancies.age', 'city.city_name', 'applyings.created_at', 'applyings.status')
         ->where('applyings.applicant_id', '=', auth()->user()->id)->get();
 
         // return $vacancies;
@@ -88,6 +90,25 @@ class ApplicantControler extends Controller
         }
 
         return view('applicant.applied_job')->with(['title' => 'My Job Applied','vacancies' => $vacancies]);
+    }
+
+    public function checkAppliedJob($id){
+        // return 'test';
+        $vacancies = Vacancy::find($id);
+        $company = Company::find($vacancies->company_id)->pluck('user_id');
+        $company_info = User::find($company)->first();
+
+        $applyings = Applying::where('vacancy_id', $id)->where('applicant_id', auth()->user()->id)->first();
+        if (!$applyings) {
+            return redirect('/myvacancy')->with('error', 'You didnt applied for that job');
+        }
+        // return $applyings;
+
+        return view('company.applicant.detail_applied_job')->with(['title' => $vacancies->job_name,'vacancies' => $vacancies,'company_info' => $company_info, 'applyings' => $applyings]);
+    }
+
+    public function acceptInterview(Request $request, $id){
+        return 'test';
     }
 
     private function calculateDistance($lat, $lng, $mylat, $mylong){
