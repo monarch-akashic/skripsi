@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Portofolio;
 use App\Company;
 use App\Vacancy;
+use App\UserLocation;
 use DateTime;
 // use Illuminate\Foundation\Auth\User;
 use Carbon\Carbon;
@@ -44,10 +45,69 @@ class PagesController extends Controller
         return json_encode($postalcodes);
     }
 
-    public function settings(){
+
+    public function showNotification(){
         // $vacancies = Vacancy::where('status_open', 'Admin')->get();
 
-        return view('pages.settings')->with(['title' => 'Settings']);
+        return view('pages.notification_setting')->with(['title' => 'Settings']);
+    }
+
+    public function showPassword(){
+        // $vacancies = Vacancy::where('status_open', 'Admin')->get();
+
+        return view('pages.change_password')->with(['title' => 'Settings']);
+    }
+
+    public function showLocation(){
+        // $vacancies = Vacancy::where('status_open', 'Admin')->get();
+        $province = DB::table('province')
+        ->select('province.prov_name', 'province.prov_id')->get();
+        try {
+            $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
+            if($location_user){
+                $mylat = $location_user->latitude;
+                $mylong = $location_user->longitude;
+            }else{
+                //default jakarta pusat
+                $mylat = -6.186486;
+                $mylong = 106.834091;
+            }
+        } catch (\Throwable $th) {
+            $mylat = -6.186486;
+            $mylong = 106.834091;
+        }
+
+        return view('pages.set_location')->with(['title' => 'Settings' ,'province' => $province, 'mylat' => $mylat, 'mylong' => $mylong]);
+    }
+
+    public function setlocation(Request $request){
+        // return $request;
+        $this->validate($request,[
+            'name' => ['required', 'string', 'max:255'],
+            'location' => ['required', 'string'],
+            'province' => ['required'],
+            'city' => ['required'],
+            'district' => ['required'],
+            'postal_code' => ['required'],
+            'lat' => ['required', 'string', 'max:20'],
+            'lng' => ['required', 'string', 'max:20'],
+        ]);
+
+        $location = new UserLocation();
+        $location->user_id = auth()->user()->id;
+        $location->name = $request->input('name');
+        $location->location = $request->input('location');
+        $location->latitude = $request->input('lat');
+        $location->longitude = $request->input('lng');
+        $location->province = $request->input('province');
+        $location->kota = $request->input('city');
+        $location->kecamatan = $request->input('district');
+        $location->kode_pos = $request->input('postal_code');
+        $location->created_at = Carbon::now();
+        $location->save();
+
+        return redirect('/accounts/edit/location')->with("success","Location Saved");
+
     }
 
     public function changePassword(Request $request)
@@ -61,7 +121,7 @@ class PagesController extends Controller
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
-        return redirect('/accounts/edit')->with("success","Password changed successfully!");
+        return redirect('/accounts/password/change')->with("success","Password changed successfully!");
     }
 
     public function validateVacancy(){
@@ -82,8 +142,19 @@ class PagesController extends Controller
 
         $get_vacancy = Vacancy::where('job_name' , 'LIKE' , '%'.$vacancy_search.'%')->paginate(5);
 
-        $mylat = -6.145184361472;
-        $mylong = 106.87522530555725;
+        try {
+            $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
+        } catch (\Throwable $th) {
+            $location_user;
+        }
+        if($location_user){
+            $mylat = $location_user->latitude;
+            $mylong = $location_user->longitude;
+        }else{
+            //default jakarta pusat
+            $mylat = -6.186486;
+            $mylong = 106.834091;
+        }
 
         foreach ($get_vacancy as $key) {
 
@@ -101,13 +172,40 @@ class PagesController extends Controller
         return view('pages.search')->with(['title' => 'Search result', 'vacancies' => $get_vacancy]);
     }
 
+    public function location(Request $request){
+
+        $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
+        if(!$location_user){
+            $location = new UserLocation();
+            $location->user_id = auth()->user()->id;
+            $location->latitude = $request->input('latitude');
+            $location->longitude = $request->input('longitude');
+            $location->created_at = Carbon::now();
+            $location->save();
+        }
+
+    }
+
 
     public function index(){
         $vacancies = Vacancy::where('status_open' , '!=' ,'Admin')->get();
 
+        try {
+            $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
+            if($location_user){
+                $mylat = $location_user->latitude;
+                $mylong = $location_user->longitude;
+            }else{
+                //default jakarta pusat
+                $mylat = -6.186486;
+                $mylong = 106.834091;
+            }
+        } catch (\Throwable $th) {
+            $mylat = -6.186486;
+            $mylong = 106.834091;
+        }
+        // $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
 
-        $mylat = -6.145184361472;
-        $mylong = 106.87522530555725;
 
         foreach ($vacancies as $key) {
 

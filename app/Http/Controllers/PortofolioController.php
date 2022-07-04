@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Company;
 use Carbon\Carbon;
+use App\UserLocation;
 
 use function PHPSTORM_META\type;
 
@@ -41,7 +42,23 @@ class PortofolioController extends Controller
         $categories = Category::where('type','ED')->get();
         $experience_category = Category::where('type','EX')->get();
         $title = 'Create Profile';
-        return view('portofolio.create')->with(['title' => $title, 'user_info' => $user_info, 'categories' => $categories, 'experience_category' => $experience_category]);
+
+        try {
+            $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
+            if($location_user){
+                $mylat = $location_user->latitude;
+                $mylong = $location_user->longitude;
+            }else{
+                //default jakarta pusat
+                $mylat = -6.186486;
+                $mylong = 106.834091;
+            }
+        } catch (\Throwable $th) {
+            $mylat = -6.186486;
+            $mylong = 106.834091;
+        }
+
+        return view('portofolio.create')->with(['title' => $title, 'user_info' => $user_info, 'categories' => $categories, 'experience_category' => $experience_category, 'mylat' => $mylat, 'mylong' => $mylong]);
     }
 
     /**

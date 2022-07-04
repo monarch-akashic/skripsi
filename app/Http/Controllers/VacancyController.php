@@ -11,6 +11,7 @@ use DateTime;
 use Illuminate\Foundation\Auth\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\UserLocation;
 
 class VacancyController extends Controller
 {
@@ -45,7 +46,22 @@ class VacancyController extends Controller
         $province = DB::table('province')
         ->select('province.prov_name', 'province.prov_id')->get();
         // return gettype($province);
-        return view('company.vacancy.create')->with(['title' => 'Create Vacancy','province' => $province]);
+        try {
+            $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
+            if($location_user){
+                $mylat = $location_user->latitude;
+                $mylong = $location_user->longitude;
+            }else{
+                //default jakarta pusat
+                $mylat = -6.186486;
+                $mylong = 106.834091;
+            }
+        } catch (\Throwable $th) {
+            $mylat = -6.186486;
+            $mylong = 106.834091;
+        }
+
+        return view('company.vacancy.create')->with(['title' => 'Create Vacancy','province' => $province, 'mylat' => $mylat, 'mylong' => $mylong]);
     }
 
     /**

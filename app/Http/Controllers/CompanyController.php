@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
 use App\Category;
 use App\Vacancy;
+use App\UserLocation;
 
 class CompanyController extends Controller
 {

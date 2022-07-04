@@ -298,7 +298,6 @@
                                         <span class="switcher-label">Weekly blog digest</span>
                                     </label>
                                 </div>
-
                             </div>
                         </div>
                     </div>

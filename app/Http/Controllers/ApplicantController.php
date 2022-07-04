@@ -11,6 +11,7 @@ use DateTime;
 use Illuminate\Foundation\Auth\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\UserLocation;
 use App\Applying;
 
 class ApplicantController extends Controller
@@ -77,8 +78,20 @@ class ApplicantController extends Controller
 
         // return $vacancies;
 
-        $mylat = -6.145184361472;
-        $mylong = 106.87522530555725;
+        try {
+            $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
+            if($location_user){
+                $mylat = $location_user->latitude;
+                $mylong = $location_user->longitude;
+            }else{
+                //default jakarta pusat
+                $mylat = -6.186486;
+                $mylong = 106.834091;
+            }
+        } catch (\Throwable $th) {
+            $mylat = -6.186486;
+            $mylong = 106.834091;
+        }
 
         foreach ($vacancies as $key) {
 

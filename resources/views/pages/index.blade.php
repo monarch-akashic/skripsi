@@ -46,18 +46,41 @@
         </div>
     </div>
 </div>
+<input type="hidden" name="csrf-token" id="csrf-token" value="{{ csrf_token() }}">
+
 <script>
-    const successCallback = (position) => {
+    window.onload = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(setPosition);
+        } else {
+            console.log("Geolocation not supported by browser.");
+        }
+
+    }
+
+    function setPosition(position) {
         console.log(position);
-    };
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
 
-    const errorCallback = (position) => {
-        console.log(position);
-    };
+        var csrf = $("#csrf-token").val();
 
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-
-
-
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('pages.location') }}",
+            data: {
+                _token:csrf,
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            },
+            success: function(ajax) {
+                console.log($.ajax);
+            },
+            error: function(request, error) {
+                console.log(error);
+            }
+        });
+    }
 </script>
+
 @endsection

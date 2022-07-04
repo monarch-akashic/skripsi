@@ -259,16 +259,16 @@
                                                         getLong =
                                                         map = new google.maps.Map(document.getElementById("map"), {
                                                             center: {
-                                                                lat: -6.145184361472,
-                                                                lng: 106.87522530555725
+                                                                lat: {{$mylat}},
+                                                                lng: {{$mylong}}
                                                             },
                                                             zoom: 15,
                                                             scrollwheel: true,
                                                         });
 
                                                     const uluru = {
-                                                        lat: -6.145184361472,
-                                                        lng: 106.87522530555725
+                                                        lat: {{$mylat}},
+                                                        lng: {{$mylong}}
                                                     };
                                                     let marker = new google.maps.Marker({
                                                         position: uluru,

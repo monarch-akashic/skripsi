@@ -23,12 +23,17 @@ Auth::routes();
 Route::get('/', 'PagesController@index');
 Route::get('/register/applicant', 'PagesController@regisApplicant');
 Route::get('/register/company', 'PagesController@regisCompany');
+Route::post('/location', 'PagesController@location')->name('pages.location');
 
 Route::get('/search', 'PagesController@search');
 Route::any('/search/result', 'PagesController@result');
 Route::get('/validate', 'PagesController@validateVacancy');
-Route::get('/accounts/edit', 'PagesController@settings');
-Route::post('/accounts/edit', 'PagesController@changePassword')->name('change.password');
+Route::get('/accounts/password/change', 'PagesController@showPassword');
+Route::post('/accounts/password/change', 'PagesController@changePassword')->name('change.password');
+Route::get('/accounts/edit/location', 'PagesController@showLocation');
+Route::post('/accounts/edit/location', 'PagesController@setlocation')->name('edit.location');
+Route::get('/accounts/edit/notification', 'PagesController@showNotification');
+Route::post('/accounts/edit/notification', 'PagesController@setNotification')->name('edit.notification');
 
 Route::get('/getCity/{id}','PagesController@getCity');
 Route::get('/getDistrict/{id}','PagesController@getDistrict');

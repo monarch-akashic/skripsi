@@ -160,7 +160,7 @@
 
 
             <li >
-                <a  href="/accounts/edit">
+                <a  href="/accounts/password/change">
                     {{-- {{ Auth::user()->name }} --}}
                     Settings
                 </a>
