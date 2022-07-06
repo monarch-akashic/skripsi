@@ -245,13 +245,15 @@ class CompanyController extends Controller
 
     public function listApplicantVacancy($id)
     {
-        $vacancy_info = Vacancy::find($id)->first();
-        $company_info = Company::find($vacancy_info->company_id)->first();
+        $vacancy_info = Vacancy::find($id);
+        // $company_info = Company::where('id', $vacancy_info->company_id)->first();
+        $company_info = Company::where('id', $vacancy_info->company_id)->first();
+        // return $company_info ;
         if($company_info->user_id != auth()->user()->id){
             return redirect('/vacancy')->with('error', 'Your are not authorized');
         }
 
-        $applicant = Applying::where('vacancy_id', $id)->whereIn('status', ['Check by Company','Interview on progress'])->get();
+        $applicant = Applying::where('vacancy_id', $id)->whereIn('status', ['Check by Company','Interview on progress', 'Interview schedule sent'])->get();
 
         if (empty($applicant)) {
             abort(404);

@@ -379,7 +379,8 @@ class PortofolioController extends Controller
         $user = User::find($user_id);
         $portofolio = Portofolio::where('user_id', $user_id)->first();
         $applyings = Applying::where('vacancy_id', $vacancy_id)->where('applicant_id', $user_id)->first();
-        $company_info = Company::find($applyings->company_id)->first();
+        $company_info = Company::where('id', $applyings->company_id)->first();
+        // return $company_info;
 
         $source = $user->dob;
         $date = new DateTime($source);
@@ -417,7 +418,8 @@ class PortofolioController extends Controller
         $applyings->interview_schedule = $request->interview_time;
         $applyings->interview_location = $request->interview_location;
         $applyings->notes = $request->notes;
-        $applyings->status = 'Interview on progress';
+        // $applyings->status = 'Interview on progress';
+        $applyings->status = 'Interview schedule sent';
         $applyings->save();
         // return $applyings;
 

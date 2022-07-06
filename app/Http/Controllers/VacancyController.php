@@ -87,6 +87,7 @@ class VacancyController extends Controller
             'postal_code' => ['required'],
             'lat' => ['required', 'string', 'max:20'],
             'lng' => ['required', 'string', 'max:20'],
+            'tag' => ['max:255'],
             // 'salary' => ['required', 'string', 'max:20'],
             // 'salary_type' => ['required', 'string', 'max:20'],
             'total_applicant' => ['required', 'string', 'max:20'],
@@ -102,10 +103,15 @@ class VacancyController extends Controller
         $vacancy->job_description = $request->input('job_description');
         $vacancy->requirement = $request->input('job_requirement');
         $vacancy->age = $request->input('age_range_1').'-'.$request->input('age_range_2');
-        $vacancy->salary = $request->input('salary').' '.$request->input('salary_type');
+        if ($request->input('salary')) {
+            $vacancy->salary = $request->input('salary').' '.$request->input('salary_type');
+        }else{
+            $vacancy->salary = NULL;
+        }
         $vacancy->status_open = 'Admin';
         $vacancy->workflow = 'Check';
         $vacancy->notes = 'NULL';
+        $vacancy->tag = $request->input('tag');
         $vacancy->working_hour = $request->input('working_hour_range_1').'-'.$request->input('working_hour_range_2');
         $vacancy->total_applicant = $request->input('total_applicant');
         $vacancy->location = $request->input('location');
@@ -130,8 +136,11 @@ class VacancyController extends Controller
     public function show($id)
     {
         $vacancies = Vacancy::find($id);
-        $company = Company::find($vacancies->company_id)->pluck('user_id');
+        // return $vacancies;
+        $company = Company::where('id', $vacancies->company_id)->pluck('user_id');
         $company_info = User::find($company)->first();
+
+        // return $company;
         return view('company.vacancy.detail')->with(['title' => $vacancies->job_name,'vacancies' => $vacancies,'company_info' => $company_info]);
 
     }

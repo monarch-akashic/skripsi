@@ -74,7 +74,20 @@
                                                     style="width:15%;">
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="tag">Tag</label>
+                                            <small>Please separate with # (Optional)</small>
+                                            <input type="text" name="tag"
+                                                class="form-control @error('tag') is-invalid @enderror"
+                                                placeholder="" value="{{ old('tag') }}"
+                                                style="width:100%;">
 
+                                            @error('tag')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
@@ -311,7 +324,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="salary">Salary</label>
+                                            <label for="salary">Salary <small>(Optional)</small></label>
                                             <div class="row ml-1">
                                                 {{-- <input type="text" name="salary" class="form-control mr-3" placeholder="" value="" style="width:30%;"> --}}
                                                 <a class="m-1" style="text-align: center">Rp. </a>

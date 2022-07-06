@@ -21,9 +21,9 @@ class CreateVacanciesTable extends Migration
             $table->longText('job_description');
             $table->longText('requirement');
             $table->string('age');
-            $table->string('salary');
-            $table->string('workflow');
-            $table->string('notes');
+            $table->string('salary')->nullable();
+            $table->string('workflow')->nullable();
+            $table->string('notes')->nullable();
             $table->string('status_open');
             $table->string('working_hour');
             $table->string('total_applicant');
@@ -34,6 +34,7 @@ class CreateVacanciesTable extends Migration
             $table->string('kota');
             $table->string('kecamatan');
             $table->string('kode_pos');
+            $table->string('tag')->nullable();
             $table->timestamps();
         });
     }

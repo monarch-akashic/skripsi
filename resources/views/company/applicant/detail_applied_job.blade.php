@@ -107,7 +107,7 @@
                             </div>
                         </div>
 
-                        @if ($applyings->status == 'Interview on progress')
+                        @if ($applyings->status == 'Interview schedule sent' || $applyings->status == 'Interview on progress')
                             <div class="row mb-2">
                                 <div class="card-body">
                                     <div class="card-mb-3" style="width: 50%">
@@ -193,9 +193,10 @@
                                                 <input type="submit" value="Finish" class="btn btn-primary" disabled>
                                             </div>
                                         </div>
-                                    @elseif($applyings->status == 'Interview on progress')
+                                    @elseif($applyings->status == 'Interview schedule sent')
                                         <div class="row mb-2">
                                             <div class="card-body" style="text-align:right">
+                                                <input type="hidden" name='applying_id' value="{{$applyings->id}}">
                                                 <input type="submit" value="Finish" class="btn btn-primary">
                                             </div>
                                         </div>

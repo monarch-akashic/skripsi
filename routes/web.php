@@ -52,7 +52,7 @@ Route::get('/myvacancy', 'ApplicantController@appliedJob');
 Route::get('/myvacancy/vacancy/{id}', 'ApplicantController@checkAppliedJob');
 Route::post('/myvacancy/vacancy/{id}', 'ApplicantController@acceptInterview');
 
-Route::get('/reporting/create', 'ApplicantController@request');
+Route::get('/reporting/create', 'ApplicantController@requestReport');
 Route::post('/reporting/create', 'ApplicantController@storeReport')->name('store.reporting');
 
 Route::get('/verify', 'CompanyController@viewVerify');

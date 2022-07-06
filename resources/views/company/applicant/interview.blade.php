@@ -42,7 +42,7 @@
 
                                     <div class="form-group">
                                         <label for="notes">Notes</label>
-                                        <input type="text" name="notes" class="form-control" placeholder="Notes" >
+                                        <textarea type="text" name="notes" class="form-control" placeholder="Notes" ></textarea>
                                         {{-- <h5 class="text-primary font-weight-bold">Notes</h5> --}}
                                     </div>
 

@@ -21,13 +21,14 @@ class ApplicantController extends Controller
         $this->middleware('auth');
     }
 
-    public function request()
+    public function requestReport()
     {
         // $vacancy = Transaction::where('applicant_id', auth()->user()->id)->get();
 
         $vacancy = DB::table('applyings')
         ->join('vacancies','applyings.vacancy_id', '=','vacancies.id')
         ->select('vacancies.id', 'vacancies.job_name')
+        ->where('applyings.status', '=', 'Finish')
         ->where('applyings.applicant_id', '=', auth()->user()->id)->get();
 
         // return $vacancy;
@@ -121,7 +122,11 @@ class ApplicantController extends Controller
     }
 
     public function acceptInterview(Request $request, $id){
-        return 'test';
+        $applyings = Applying::find($request->applying_id);
+        $applyings->status = 'Interview on progress';
+        $applyings->updated_at = Carbon::now();
+        $applyings->save();
+        return redirect('/myvacancy/vacancy/'.$id)->with('success', 'Interview Accepted');
     }
 
     private function calculateDistance($lat, $lng, $mylat, $mylong){

@@ -34,7 +34,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{$vacancy->job_name}}</h5>
                                 <p class="card-text">{{$vacancy->age}} years old</p>
-                                <p class="card-text">{{$vacancy->created_at}}</p>
+                                {{-- <p class="card-text">{{$vacancy->created_at}}</p> --}}
                             </div>
 
 
@@ -45,9 +45,15 @@
                                     <a href="/vacancy/{{$vacancy->id}}/list" class="btn btn-primary disabled" >Waiting check by Admin</a>
                                     {{-- <h5 class="card-title">On Check By Admin</h5> --}}
                                 </div>
+                            @elseif($vacancy->status_open == 'Rejected')
+                                <div class="card-body mr-3" style="text-align:right;">
+                                    <img src="/storage/img/vacancy_icon.png"  alt="..." class="ml-2 mr-2">
+                                    <a href="/vacancy/{{$vacancy->id}}" class="btn btn-primary">See Details</a>
+                                    <a href="/vacancy/{{$vacancy->id}}/list" class="btn btn-primary disabled">Rejected</a>
+                                </div>
                             @else
                                 <div class="card-body mr-3" style="text-align:right;">
-                                    <img src="/storage/img/user_dummy.jpg"  alt="..." class="round-circle ml-2 mr-2">
+                                    <img src="/storage/img/vacancy_icon.png"  alt="..." class="ml-2 mr-2">
                                     <a href="/vacancy/{{$vacancy->id}}" class="btn btn-primary">See Details</a>
                                     <a href="/vacancy/{{$vacancy->id}}/list" class="btn btn-primary">See List Applicant</a>
                                 </div>

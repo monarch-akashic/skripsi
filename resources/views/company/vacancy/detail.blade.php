@@ -87,7 +87,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="1" style="text-align: left">
-                                                        Rp.{{$vacancies->salary}}
+                                                        @if (!$vacancies->salary == NULL)
+                                                            Rp.{{$vacancies->salary}}
+                                                        @else
+                                                            Rp. -
+                                                        @endif
                                                     </td>
                                                     <td colspan="1" style="text-align: left">
                                                         {{$vacancies->age}}
@@ -100,6 +104,12 @@
                                                     </td>
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tag" class="text-dark font-weight-bold">Tag</label>
+                                        <p class="card-text">
+                                            {{$vacancies->tag}}
+                                        </p>
                                     </div>
 
                                     <div class="form-group">
