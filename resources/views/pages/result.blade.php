@@ -11,6 +11,8 @@
                     <div class="card-body" style="padding: 0px 0px 0px 25px ;width: 70%">
                         <h5 class="card-title">Search by Location</h5>
                     </div>
+
+
                 </div>
                 <div class="row">
                     <div class="card-body" style="padding: 0px 0px 0px 20px; width: 100%">
@@ -73,8 +75,8 @@
                     <div class="row">
                         <div class="card-body">
                             <h5 class="card-title">{{$vacancy->job_name}}</h5>
-                            <p class="card-text m-0">{{$vacancy->age}} Age</p>
-                            <p class="card-text m-0">{{$vacancy->created_at}}</p>
+                            <p class="card-text m-0">{{$vacancy->name}}</p>
+                            <p class="card-text m-0">{{$vacancy->city_name}}</p>
                             <p class="card-text m-0">{{number_format($vacancy->latitude, 2)}} km</p>
                         </div>
 

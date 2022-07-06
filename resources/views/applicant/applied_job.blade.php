@@ -6,14 +6,23 @@
     @include('inc.messages')
     <div class="col-md-12">
         <div class="row justify-content-center">
+            <div class="card w-75 mb-3" style="width: 20em; padding: 0%; background-color: #0FC2C0">
+                <div class="row">
+                    <div class="card-body " style="padding: 1%; margin-left: 2em;">
+                        <h5 class="card-title m-2">My Job Applied</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
             @foreach ($vacancies as $vacancy)
                 <div class="card w-75 mb-3" style="width: 18rem;">
                     <div class="row">
                         <div class="card-body">
                             <h5 class="card-title">{{$vacancy->job_name}}</h5>
-                            <p class="card-text">{{$vacancy->city_name}}</p>
-                            <p class="card-text">Applied on {{date('d-M-Y',strtotime($vacancy->created_at))}}</p>
-                            <p class="card-text">{{number_format($vacancy->latitude, 2)}} km</p>
+                            <p class="card-text m-0">{{$vacancy->city_name}}</p>
+                            <p class="card-text m-0">Applied on {{date('d-M-Y',strtotime($vacancy->created_at))}}</p>
+                            <p class="card-text m-0">{{number_format($vacancy->latitude, 2)}} km</p>
                         </div>
 
                         <div class="card-body mr-3" style="text-align:right;">

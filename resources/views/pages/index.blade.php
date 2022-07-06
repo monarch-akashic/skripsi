@@ -8,21 +8,18 @@
         <div class="row justify-content-center">
             <div class="card w-75 mb-3" style="width: 18rem;">
                 <div class="row">
-                    <div class="card-body" style="width: 80%">
+                    <div class="card-body" style="padding: 0px 0px 0px 25px ;width: 70%">
                         <h5 class="card-title">Search by Location</h5>
-                        {{-- <p class="card-text"></p> --}}
-                        <form class="form-inline" action="{{ action('PagesController@result') }}" method="POST" role="search">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="text" name="vacancy" class="form-control" placeholder="Search" style="margin:2px ; width: 80%; height: 40px">
-                            <input type="submit" class="btn btn-primary" style="margin-left:2px ; width: 10%; height: 40px" value="Search">
-                        </form>
                     </div>
 
-                    <div class="card-body mr-3" style="width: 10%; text-align:right;">
-                        <h5 class="card-title">Filter</h5>
-
-                        {{-- <img src="/storage/img/user_dummy.jpg"  alt="..." class="round-circle ml-2 mr-2">
-                        <a href="/vacancy/{{$vacancy->id}}" class="btn btn-primary">See Details</a> --}}
+                </div>
+                <div class="row">
+                    <div class="card-body" style="padding: 0px 0px 0px 20px; width: 100%">
+                        <form class="form-inline" action="{{ action('PagesController@result') }}" method="POST" role="search">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="text" name="vacancy" class="form-control" placeholder="Search for job name, company" style="margin:5px ; width: 83%; height: 40px">
+                            <input type="submit" class="btn btn-primary" style="margin-left:2px ; width: 12%; height: 40px" value="Search">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -31,9 +28,9 @@
                     <div class="row">
                         <div class="card-body">
                             <h5 class="card-title">{{$vacancy->job_name}}</h5>
-                            <p class="card-text">{{$vacancy->age}} Age</p>
-                            <p class="card-text">{{$vacancy->created_at}}</p>
-                            <p class="card-text">{{number_format($vacancy->latitude, 2)}} km</p>
+                            <p class="card-text m-0">{{$vacancy->name}}</p>
+                            <p class="card-text m-0">{{$vacancy->city_name}}</p>
+                            <p class="card-text m-0">{{number_format($vacancy->latitude, 2)}} km</p>
                         </div>
 
                         <div class="card-body mr-3" style="text-align:right;">
@@ -43,6 +40,9 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div class="row justify-content-center">
+            {!!$vacancies->links()!!}
         </div>
     </div>
 </div>

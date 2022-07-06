@@ -15,7 +15,7 @@
                         <a class="list-group-item list-group-item-action active" data-toggle="list"
                             href="#account-change-password">Change password</a>
                         <a class="list-group-item list-group-item-action"
-                            href="/accounts/edit/location">Location</a>
+                            href="/accounts/location">Location</a>
                         <a class="list-group-item list-group-item-action"
                             href="/accounts/edit/notification">Notifications</a>
                     </div>

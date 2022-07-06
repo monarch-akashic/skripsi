@@ -155,7 +155,7 @@
                                         <label for="notes" class="text-dark font-weight-bold">Notes</label>
                                     </div>
                                     <div class="card-body" style="text-align:right; padding: 0px 20px 0px 20px">
-                                        <textarea name="notes" class="form-control @error('notes') is-invalid @enderror" id="notes" rows="2" style="width:100%; height:100px;" ></textarea>
+                                        <textarea name="notes" class="form-control @error('notes') is-invalid @enderror" id="notes" rows="2" style="width:100%; height:100px;" >{{old('notes')}}</textarea>
                                         @error('notes')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

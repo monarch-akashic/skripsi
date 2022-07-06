@@ -33,7 +33,7 @@
         <div class="wrapper">
             @include('inc.navbar')
             <div id="content">
-                <div class="container-fluid m-2">
+                <div class="container-fluid" style="margin: 8px 0px 0px 0px">
                     <button type="button" id="sidebarCollapse" class="btn btn-dark p-0 m-0" style="height: 40px; width: 40px">
                         <img src="/storage/assets/sidebar_icon.png" style="height: 20px; width: 20px">
                         {{-- <i class="fas fa-bars fa-1x" ></i> --}}
