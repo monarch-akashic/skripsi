@@ -314,7 +314,7 @@ class PagesController extends Controller
             ->join('province as prov','prov.prov_id', '=','v.province')
             ->join('city as city','city.city_id', '=','v.kota')
             ->join('district as dist','dist.dis_id', '=','v.kecamatan')
-            ->select('c.*', 'v.*', 'u.*', 'prov.prov_name', 'city.city_name', 'dist.dis_name')
+            ->select('c.*', 'v.*', 'u.*', 'v.id' ,'prov.prov_name', 'city.city_name', 'dist.dis_name')
             ->where('v.job_name', 'LIKE' , '%'.$vacancy_search.'%')
             ->whereIn('v.province' , $vacancy_province)
             ->whereIn('v.kota', $vacancy_city)
@@ -328,7 +328,7 @@ class PagesController extends Controller
             ->join('province as prov','prov.prov_id', '=','v.province')
             ->join('city as city','city.city_id', '=','v.kota')
             ->join('district as dist','dist.dis_id', '=','v.kecamatan')
-            ->select('c.*', 'v.*', 'u.*', 'prov.prov_name', 'city.city_name', 'dist.dis_name')
+            ->select('c.*', 'v.*', 'u.*', 'v.id' ,'prov.prov_name', 'city.city_name', 'dist.dis_name')
             ->where('u.name', 'LIKE' , '%'.$vacancy_search.'%')
             ->whereIn('v.province' , $vacancy_province)
             ->whereIn('v.kota', $vacancy_city)
@@ -342,7 +342,7 @@ class PagesController extends Controller
             ->join('province as prov','prov.prov_id', '=','v.province')
             ->join('city as city','city.city_id', '=','v.kota')
             ->join('district as dist','dist.dis_id', '=','v.kecamatan')
-            ->select('c.*', 'v.*', 'u.*', 'prov.prov_name', 'city.city_name', 'dist.dis_name')
+            ->select('c.*', 'v.*', 'u.*', 'v.id' , 'prov.prov_name', 'city.city_name', 'dist.dis_name')
             ->where('v.job_name', 'LIKE' , '%'.$vacancy_search.'%')
             ->orwhere('u.name', 'LIKE' , '%'.$vacancy_search.'%')
             ->whereNotIn('v.status_open',['Admin','Rejected','Close'])
@@ -376,6 +376,52 @@ class PagesController extends Controller
         // $get_vacancy->paginate(5);
 
         // $get_vacancy = $get_vacancy->sortBy('latitude')->paginate(1);
+
+        return view('pages.result')->with(['title' => 'Search result', 'vacancies' => $get_vacancy, 'province' => $province, 'city' => $city, 'district' => $district]);
+    }
+
+    public function searchTag(Request $request){
+        $get_vacancy = DB::table('vacancies as v')
+            ->join('companies as c','v.company_id', '=','c.id')
+            ->join('users as u','u.id', '=','c.user_id')
+            ->join('province as prov','prov.prov_id', '=','v.province')
+            ->join('city as city','city.city_id', '=','v.kota')
+            ->join('district as dist','dist.dis_id', '=','v.kecamatan')
+            ->select('c.*', 'v.*', 'u.*', 'prov.prov_name', 'city.city_name', 'dist.dis_name')
+            ->where('v.tag', 'LIKE' , '%'.$request->tag.'%')
+            ->whereNotIn('v.status_open',['Admin','Rejected','Close'])
+            ->get()->paginate(10);
+
+        // return $request;
+        $province = DB::table('province')
+        ->select('province.prov_name', 'province.prov_id')->get();
+        $city = DB::table('city')
+        ->select('city.city_name', 'city.city_id')->get();
+        $district = DB::table('district')
+        ->select('district.dis_name', 'district.dis_id')->get();
+
+        try {
+            $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
+        } catch (\Throwable $th) {
+            $location_user;
+        }
+        if($location_user){
+            $mylat = $location_user->latitude;
+            $mylong = $location_user->longitude;
+        }else{
+            //default jakarta pusat
+            $mylat = -6.186486;
+            $mylong = 106.834091;
+        }
+
+        foreach ($get_vacancy as $key) {
+            $lat = $key->latitude;
+            $lng = $key->longitude;
+            $key->latitude = $this->calculateDistance($lat, $lng, $mylat, $mylong);
+        }
+
+        $sortedResult = $get_vacancy->getCollection()->sortBy('latitude')->values();
+        $get_vacancy->setCollection($sortedResult);
 
         return view('pages.result')->with(['title' => 'Search result', 'vacancies' => $get_vacancy, 'province' => $province, 'city' => $city, 'district' => $district]);
     }

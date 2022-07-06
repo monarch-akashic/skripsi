@@ -107,8 +107,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="tag" class="text-dark font-weight-bold">Tag</label>
-                                        <p class="card-text">
-                                            {{$vacancies->tag}}
+                                        <p class="text-primary font-weight-bold">
+                                            @foreach ($vacancies->tag as $item)
+                                                <a href='/search/tag?tag={{$item}}'>
+                                                    #{{$item}}
+                                                </a>
+                                            @endforeach
                                         </p>
                                     </div>
 

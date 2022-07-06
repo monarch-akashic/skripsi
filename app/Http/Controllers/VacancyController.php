@@ -140,6 +140,12 @@ class VacancyController extends Controller
         $company = Company::where('id', $vacancies->company_id)->pluck('user_id');
         $company_info = User::find($company)->first();
 
+        $tag_array = $vacancies->tag = array_map('trim', explode('#', $vacancies->tag));
+        \array_splice($tag_array, 0, 1);
+        $vacancies->tag = array_values($tag_array);
+
+        // return $vacancies->tag;
+
         // return $company;
         return view('company.vacancy.detail')->with(['title' => $vacancies->job_name,'vacancies' => $vacancies,'company_info' => $company_info]);
 

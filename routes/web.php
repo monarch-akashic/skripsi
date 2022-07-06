@@ -27,6 +27,7 @@ Route::post('/location', 'PagesController@location')->name('pages.location');
 
 Route::get('/search', 'PagesController@search');
 Route::any('/search/result', 'PagesController@result');
+Route::get('/search/tag', 'PagesController@searchTag');
 Route::get('/validate', 'AdminController@validateVacancy');
 Route::get('/accounts/password/change', 'PagesController@showPassword');
 Route::post('/accounts/password/change', 'PagesController@changePassword')->name('change.password');
@@ -66,7 +67,6 @@ Route::post('/vacancy/{vacancy_id}/portofolio/{user_id}', 'PortofolioController@
 Route::get('/vacancy/{vacancy_id}/portofolio/{user_id}/send-interview', 'PortofolioController@sendInterview');
 Route::post('/vacancy/{vacancy_id}/portofolio/{user_id}/send-interview', 'PortofolioController@saveInterview')->name('store.interview');
 // Route::post('/vacancy/{vacancy_id}', 'PortofolioController@reject')->name('reject.vacancy');
-
 
 Route::resource('portofolio', 'PortofolioController');
 Route::resource('company', 'CompanyController');
