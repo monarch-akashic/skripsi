@@ -33,8 +33,8 @@
                         <div class="row">
                             <div class="card-body">
                                 <h5 class="card-title">{{$vacancy->job_name}}</h5>
-                                <p class="card-text">{{$vacancy->age}} years old</p>
-                                {{-- <p class="card-text">{{$vacancy->created_at}}</p> --}}
+                                <p class="card-text m-0">{{$vacancy->age}} years old</p>
+                                <p class="card-text m-0">Created on {{date('d-M-Y',strtotime($vacancy->created_at))}}</p>
                             </div>
 
 

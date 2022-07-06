@@ -75,7 +75,7 @@ class ApplicantController extends Controller
         ->join('vacancies','applyings.vacancy_id', '=','vacancies.id')
         ->join('city','vacancies.kota', '=','city.city_id')
         ->select('vacancies.id', 'vacancies.job_name','vacancies.latitude', 'vacancies.longitude','vacancies.age', 'city.city_name', 'applyings.created_at', 'applyings.status')
-        ->where('applyings.applicant_id', '=', auth()->user()->id)->get();
+        ->where('applyings.applicant_id', '=', auth()->user()->id)->orderByDesc('applyings.created_at')->get();
 
         // return $vacancies;
 
