@@ -28,7 +28,17 @@ Route::post('/location', 'PagesController@location')->name('pages.location');
 Route::get('/search', 'PagesController@search');
 Route::any('/search/result', 'PagesController@result');
 Route::get('/search/tag', 'PagesController@searchTag');
+
 Route::get('/validate', 'AdminController@validateVacancy');
+Route::get('/list/company', 'AdminController@listCompany');
+Route::post('/list/company', 'AdminController@processCompany')->name('process.company');
+Route::get('/list/report', 'AdminController@listReports');
+Route::get('/list/report/{id}', 'AdminController@detailReport');
+Route::post('/list/report/{id}', 'AdminController@processReport')->name('process.report');
+Route::get('/list/company/verify/{id}', 'AdminController@showVerifyCompanyDetail');
+Route::post('/list/company/verify/{id}', 'AdminController@processVerify')->name('process.verify');
+
+
 Route::get('/accounts/password/change', 'PagesController@showPassword');
 Route::post('/accounts/password/change', 'PagesController@changePassword')->name('change.password');
 

@@ -66,11 +66,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="card-body" style="text-align:right">
-                            <a class="btn btn-primary " href="/company/{{$user->id}}/edit">Update</a>
+                    @if ($company[0]->user_id == Auth::user()->id)
+                        <div class="row mb-2">
+                            <div class="card-body" style="text-align:right">
+                                <a class="btn btn-primary " href="/company/{{$user->id}}/edit">Update</a>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

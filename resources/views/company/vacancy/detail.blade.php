@@ -163,7 +163,7 @@
                         @guest
                             {{-- <input type="submit" value="Apply" class="btn btn-primary"> --}}
                         @else
-                            @if (Auth::user()->role == '0')
+                            @if (Auth::user()->role == '0' && $vacancies->status_open == 'Admin')
                                 <div class="row mb-2">
                                     <div class="card-body" style="width: 100%; padding: 0px 0px 0px 20px">
                                         <label for="notes" class="text-dark font-weight-bold">Notes</label>

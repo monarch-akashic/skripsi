@@ -166,7 +166,7 @@ class PagesController extends Controller
         $vacancies = Vacancy::join('city', 'city.city_id', '=', 'vacancies.kota')
                     ->join('companies','companies.id', '=' , 'vacancies.company_id')
                     ->join('users','users.id', '=' , 'companies.user_id')
-                    ->whereNotIn('status_open' , ['Admin','Rejected','Close'])->get(['vacancies.id','vacancies.job_name','vacancies.latitude','vacancies.longitude','users.name','city.city_name']);;
+                    ->whereNotIn('status_open' , ['Admin','Rejected','Close'])->get(['vacancies.id','vacancies.job_name','vacancies.latitude','vacancies.longitude','users.name','city.city_name', 'companies.verified']);;
 
 
         // return $vacancies[0];
@@ -239,7 +239,17 @@ class PagesController extends Controller
         $district = DB::table('district')
         ->select('district.dis_name', 'district.dis_id')->get();
 
-        $vacancies = Vacancy::whereNotIn('status_open',['Admin','Rejected','Close'])->paginate(10);
+        // $vacancies = Vacancy::whereNotIn('status_open',['Admin','Rejected','Close'])->paginate(10);
+
+        $vacancies = DB::table('vacancies as v')
+            ->join('companies as c','v.company_id', '=','c.id')
+            ->join('users as u','u.id', '=','c.user_id')
+            ->join('province as prov','prov.prov_id', '=','v.province')
+            ->join('city as city','city.city_id', '=','v.kota')
+            ->join('district as dist','dist.dis_id', '=','v.kecamatan')
+            ->select('c.*', 'v.*', 'u.*', 'v.id' ,'prov.prov_name', 'city.city_name', 'dist.dis_name', 'c.verified')
+            ->whereNotIn('v.status_open',['Admin','Rejected','Close'])
+            ->get()->paginate(10);
 
         try {
             $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
@@ -314,7 +324,7 @@ class PagesController extends Controller
             ->join('province as prov','prov.prov_id', '=','v.province')
             ->join('city as city','city.city_id', '=','v.kota')
             ->join('district as dist','dist.dis_id', '=','v.kecamatan')
-            ->select('c.*', 'v.*', 'u.*', 'v.id' ,'prov.prov_name', 'city.city_name', 'dist.dis_name')
+            ->select('c.*', 'v.*', 'u.*', 'v.id' ,'prov.prov_name', 'city.city_name', 'dist.dis_name', 'c.verified')
             ->where('v.job_name', 'LIKE' , '%'.$vacancy_search.'%')
             ->whereIn('v.province' , $vacancy_province)
             ->whereIn('v.kota', $vacancy_city)
@@ -328,7 +338,7 @@ class PagesController extends Controller
             ->join('province as prov','prov.prov_id', '=','v.province')
             ->join('city as city','city.city_id', '=','v.kota')
             ->join('district as dist','dist.dis_id', '=','v.kecamatan')
-            ->select('c.*', 'v.*', 'u.*', 'v.id' ,'prov.prov_name', 'city.city_name', 'dist.dis_name')
+            ->select('c.*', 'v.*', 'u.*', 'v.id' ,'prov.prov_name', 'city.city_name', 'dist.dis_name', 'c.verified')
             ->where('u.name', 'LIKE' , '%'.$vacancy_search.'%')
             ->whereIn('v.province' , $vacancy_province)
             ->whereIn('v.kota', $vacancy_city)
@@ -342,7 +352,7 @@ class PagesController extends Controller
             ->join('province as prov','prov.prov_id', '=','v.province')
             ->join('city as city','city.city_id', '=','v.kota')
             ->join('district as dist','dist.dis_id', '=','v.kecamatan')
-            ->select('c.*', 'v.*', 'u.*', 'v.id' , 'prov.prov_name', 'city.city_name', 'dist.dis_name')
+            ->select('c.*', 'v.*', 'u.*', 'v.id' , 'prov.prov_name', 'city.city_name', 'dist.dis_name', 'c.verified')
             ->where('v.job_name', 'LIKE' , '%'.$vacancy_search.'%')
             ->orwhere('u.name', 'LIKE' , '%'.$vacancy_search.'%')
             ->whereNotIn('v.status_open',['Admin','Rejected','Close'])
@@ -387,7 +397,7 @@ class PagesController extends Controller
             ->join('province as prov','prov.prov_id', '=','v.province')
             ->join('city as city','city.city_id', '=','v.kota')
             ->join('district as dist','dist.dis_id', '=','v.kecamatan')
-            ->select('c.*', 'v.*', 'u.*', 'prov.prov_name', 'city.city_name', 'dist.dis_name')
+            ->select('c.*', 'v.*', 'u.*', 'prov.prov_name', 'city.city_name', 'dist.dis_name', 'companies.verified')
             ->where('v.tag', 'LIKE' , '%'.$request->tag.'%')
             ->whereNotIn('v.status_open',['Admin','Rejected','Close'])
             ->get()->paginate(10);

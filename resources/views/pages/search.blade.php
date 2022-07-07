@@ -73,8 +73,12 @@
                     <div class="row">
                         <div class="card-body">
                             <h5 class="card-title">{{$vacancy->job_name}}</h5>
-                            <p class="card-text m-0">{{$vacancy->age}} Age</p>
-                            <p class="card-text m-0">{{$vacancy->created_at}}</p>
+                            <p class="card-text m-0">{{$vacancy->name}}
+                                @if ($vacancy->verified == 'Yes')
+                                    <img src="/storage/img/verified.png" style="width: 22px" alt="">
+                                @endif
+                            </p>
+                            <p class="card-text m-0">{{$vacancy->city_name}}</p>
                             <p class="card-text m-0">{{number_format($vacancy->latitude, 2)}} km</p>
                         </div>
 

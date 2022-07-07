@@ -43,6 +43,11 @@
         @endif
             <h4>
                 {{ Auth::user()->name }}
+                @if (Auth::user()->role == '2')
+                    @if ($company[0]->verified == 'Yes')
+                        <img src="/storage/img/verified.png" style="width: 22px" alt="">
+                    @endif
+                @endif
             </h4>
             <span>
                 <h6>
@@ -149,10 +154,10 @@
                     <a href="/validate">Validate Job Vacancy</a>
                 </li>
                 <li>
-                    <a href="#">View Applicant's Report</a>
+                    <a href="/list/report">View Applicant's Report</a>
                 </li>
                 <li>
-                    <a href="#">Verify Company Profile</a>
+                    <a href="/list/company">List Companies</a>
                 </li>
 
             @endif

@@ -20,6 +20,7 @@ class CreateCompaniesTable extends Migration
             $table->string('tagline');
             $table->longText('description');
             $table->string('verified')->nullable();
+            $table->string('flag_block')->nullable();
             $table->string('industry_type');
             $table->string('company_size');
             $table->string('company_type')->nullable();

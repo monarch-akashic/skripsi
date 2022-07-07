@@ -133,8 +133,14 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
+
         $user_info = User::find($id);
         $company_info = Company::where('user_id', $id)->get();
+
+        if($company_info[0]->user_id != auth()->user()->id){
+            return redirect('/company/'.$id)->with('error', 'Unauthorized Page');
+        }
+
         $it_category = Category::where('type','IT')->get();
         $is_category = Category::where('type','IS')->get();
 
@@ -264,7 +270,19 @@ class CompanyController extends Controller
 
     public function viewVerify()
     {
-        return view('request.verify')->with(['title' => 'Request Verify']);
+
+        $company_id = Company::where('user_id', auth()->user()->id)->first();
+        // return $company_id;
+        $on_verify = Verifying::where('company_id', $company_id->id)->where('status', 'Check by Admin')->first();
+        $previous_verify = Verifying::where('company_id', $company_id->id)->where('status', 'Rejected')->orderByDesc('created_at')->first();
+        // return $previous_verify;
+
+        if($on_verify){
+            $flag_on_check = 1;
+        }else{
+            $flag_on_check = 0;
+        }
+        return view('request.verify')->with(['title' => 'Request Verify', 'flag_on_check' => $flag_on_check, 'previous_verify' => $previous_verify]);
 
     }
 
@@ -289,9 +307,52 @@ class CompanyController extends Controller
             $transaction->status = 'Check by Admin';
             // return $company_id;
             $transaction->npwp = $request->npwp_number;
-            $transaction->surat_izin_operational = $request->sio_file;
-            $transaction->surat_izin_distribusi = $request->sid_file;
-            $transaction->bpom = $request->bpom_file;
+
+            if ($request->hasFile('sio_file')) {
+                //get just file name
+                $fileName = $company_id->id;
+                //get just ext
+                $extension = $request->file('sio_file')->getClientOriginalExtension();
+                //filename to store
+                $fileNameToStore = time().'_'.$fileName.'.'.$extension;
+                //upload
+                $path = $request->file('sio_file')->storeAs('public/sio', $fileNameToStore);
+            }else{
+                $fileNameToStore = 'no_file';
+            }
+
+            $transaction->surat_izin_operational = $fileNameToStore;
+
+            if ($request->hasFile('sid_file')) {
+                //get just file name
+                $fileName1 = $company_id->id;
+                //get just ext
+                $extension1 = $request->file('sid_file')->getClientOriginalExtension();
+                //filename to store
+                $fileNameToStore1 = time().'_'.$fileName1.'.'.$extension1;
+                //upload
+                $path1 = $request->file('sio_file')->storeAs('public/sid', $fileNameToStore1);
+            }else{
+                $fileNameToStore1 = 'no_file';
+            }
+
+            $transaction->surat_izin_distribusi = $fileNameToStore1;
+
+            if ($request->hasFile('bpom_file')) {
+                //get just file name
+                $fileName2 = $company_id->id;
+                //get just ext
+                $extension2 = $request->file('bpom_file')->getClientOriginalExtension();
+                //filename to store
+                $fileNameToStore2 = time().'_'.$fileName2.'.'.$extension2;
+                //upload
+                $path2 = $request->file('bpom_file')->storeAs('public/bpom', $fileNameToStore2);
+            }else{
+                $fileNameToStore2 = 'no_file';
+            }
+
+            $transaction->bpom = $fileNameToStore2;
+
             $transaction->notes = '-';
             $transaction->created_at = Carbon::now();
             $transaction->updated_at = Carbon::now();

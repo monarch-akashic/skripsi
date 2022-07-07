@@ -56,12 +56,25 @@ class ApplicantController extends Controller
             $transaction->company_id = $company_id->company_id;
             $transaction->applicant_id = auth()->user()->id;
             // return $company_id;
-            $transaction->current_user = 6;
+            $transaction->current_user = 'Admin';
             $transaction->subject = $request->subject;
             $transaction->details = $request->details;
-            $transaction->file = 'NO FILE';
-            $transaction->notes = 'NO';
 
+            if ($request->hasFile('report_file')) {
+                //get just file name
+                $fileName = auth()->user()->id.'_'.$request->my_vacancy;
+                //get just ext
+                $extension = $request->file('report_file')->getClientOriginalExtension();
+                //filename to store
+                $fileNameToStore = time().'_'.$fileName.'.'.$extension;
+                //upload
+                $path = $request->file('report_file')->storeAs('public/report', $fileNameToStore);
+            }else{
+                $fileNameToStore = 'no_file';
+            }
+
+            $transaction->file = $fileNameToStore;
+            $transaction->notes = '-';
             $transaction->status = 'Check by Admin';
             $transaction->save();
 

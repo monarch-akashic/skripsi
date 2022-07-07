@@ -40,4 +40,12 @@ class User extends Authenticatable
     public function applying(){
         return $this->hasMany('App\Applying', 'applicant_id');
     }
+
+    public function reporting(){
+        return $this->hasMany('App\Reporting', 'applicant_id');
+    }
+
+    public function company(){
+        return $this->belongsTo('App\Company', 'user_id');
+    }
 }
