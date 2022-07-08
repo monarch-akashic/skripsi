@@ -3,50 +3,53 @@
         @guest
             <h3>Skripsi</h3>
         @else
-        @if (Auth::user()->role == '1')
-            @php
-                $portofolio = App\Portofolio::where('user_id' , Auth::user()->id)->get();
-                try {
-                    $image = $portofolio[0]->profile_image;
-                } catch (\Throwable $th) {
-                    $image = 'user_dummy.jpg';
-                }
-            @endphp
-        @endif
-        @if (Auth::user()->role == '2')
-            @php
-                $company = App\Company::where('user_id' , Auth::user()->id)->get();
-                try {
-                    $image = $company[0]->logo;
-                } catch (\Throwable $th) {
-                    $image = 'user_dummy.jpg';
-                }
-            @endphp
-        @endif
-        @if (Auth::user()->role == '0')
-            @php
-                // $company = App\Company::where('user_id' , Auth::user()->id)->get();
-                try {
-                    // $image = $company[0]->logo;
-                    $image = 'user_dummy.jpg';
-                } catch (\Throwable $th) {
-                    $image = 'user_dummy.jpg';
-                }
-            @endphp
-        @endif
+            @if (Auth::user()->role == '1')
+                @php
+                    $portofolio = App\Portofolio::where('user_id' , Auth::user()->id)->get();
+                    try {
+                        $image = $portofolio[0]->profile_image;
+                    } catch (\Throwable $th) {
+                        $image = 'user_dummy.jpg';
+                    }
+                @endphp
+            @endif
+            @if (Auth::user()->role == '2')
+                @php
+                    $company = App\Company::where('user_id' , Auth::user()->id)->get();
+                    try {
+                        $image = $company[0]->logo;
+                        $verified = $company[0]->verified;
+                    } catch (\Throwable $th) {
+                        $image = 'user_dummy.jpg';
+                        $verified = 'No';
+
+                    }
+                @endphp
+            @endif
+            @if (Auth::user()->role == '0')
+                @php
+                    // $company = App\Company::where('user_id' , Auth::user()->id)->get();
+                    try {
+                        // $image = $company[0]->logo;
+                        $image = 'user_dummy.jpg';
+                    } catch (\Throwable $th) {
+                        $image = 'user_dummy.jpg';
+                    }
+                @endphp
+            @endif
             {{-- <img src="/storage/img/{{$image}}" class="rounded-circle img-fluid" style="width: 10rem; height: 10rem; object-fit: contain"/> --}}
-        @if (Auth::user()->role == '1')
-            <div class="profile-header-avatar" style="background-image: url('/storage/img/{{$image}}')"></div>
-        @endif
-        @if (Auth::user()->role == '2')
-            <div class="profile-header-avatar" style="background-image: url('/storage/img/company/{{$image}}')"></div>
-        @endif
+            @if (Auth::user()->role == '1')
+                <div class="profile-header-avatar" style="background-image: url('/storage/img/{{$image}}')"></div>
+            @endif
+            @if (Auth::user()->role == '2')
+                <div class="profile-header-avatar" style="background-image: url('/storage/img/company/{{$image}}')"></div>
+            @endif
             <h4>
                 {{ Auth::user()->name }}
                 @if (Auth::user()->role == '2')
-                    {{-- @if ($company[0]->verified == 'Yes')
+                    @if ($verified == 'Yes')
                         <img src="/storage/img/verified.png" style="width: 22px" alt="">
-                    @endif --}}
+                    @endif
                 @endif
             </h4>
             <span>

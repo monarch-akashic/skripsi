@@ -279,6 +279,10 @@ class CompanyController extends Controller
 
         $company_id = Company::where('user_id', auth()->user()->id)->first();
         // return $company_id;
+        if (empty($company_id)) {
+            return redirect('/company/create')->with('error','Please finish your company profile');
+        }
+
         $on_verify = Verifying::where('company_id', $company_id->id)->where('status', 'Check by Admin')->first();
         $previous_verify = Verifying::where('company_id', $company_id->id)->where('status', 'Rejected')->orderByDesc('created_at')->first();
         // return $previous_verify;

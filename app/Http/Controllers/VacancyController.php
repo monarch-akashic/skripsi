@@ -159,7 +159,7 @@ class VacancyController extends Controller
      */
     public function edit($id)
     {
-        $vacancies = Vacancy::find($id)->first();
+        $vacancies = Vacancy::find($id);
         $province = DB::table('province')
         ->select('province.prov_name', 'province.prov_id')->get();
         // $company = Company::find($vacancies->company_id)->pluck('user_id');
