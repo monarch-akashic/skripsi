@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Company;
 use Carbon\Carbon;
 use App\UserLocation;
+use App\Vacancy;
+use Illuminate\Support\Facades\Mail;
 
 use function PHPSTORM_META\type;
 
@@ -405,14 +407,18 @@ class PortofolioController extends Controller
 
     public function saveInterview(Request $request)
     {
-        // return $request;
+        $applicant = User::where('id',$request->user_id)->first();
+        $vacancy = Vacancy::where('id', $request->vacancy_id)->first();
+
+        // return $applicant;
         $this->validate($request,[
             'interview_time' => ['required', 'string', 'max:255'],
             'interview_location' => ['required', 'string', 'max:255'],
             'notes' => ['required', 'string', 'max:20'],
         ]);
 
-        $applicant = User::find($request->user_id);
+        Mail::to($applicant->email)->send(new \App\Mail\InterviewSchedule($request, $vacancy));
+
         $applyings = Applying::where('vacancy_id', $request->vacancy_id)->where('applicant_id', $request->user_id)->first();
 
         $applyings->interview_schedule = $request->interview_time;

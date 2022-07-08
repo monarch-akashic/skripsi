@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Vacancy;
 use App\Verifying;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -128,7 +129,10 @@ class AdminController extends Controller
                 $verify_data->notes = $request->input('notes');
                 $verify_data->save();
 
-                return redirect('/list/company')->with('success', $request->name.' Verified');
+                Mail::to($company->getCompanyInfo->email)->send(new \App\Mail\Verified());
+
+
+                return redirect('/list/company')->with('success', $request->name.' Verified, email has been sent');
             case 'reject':
                 $verify_data->status = 'Rejected';
                 $verify_data->notes = $request->input('notes');

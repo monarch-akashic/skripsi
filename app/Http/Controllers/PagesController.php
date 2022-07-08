@@ -166,7 +166,7 @@ class PagesController extends Controller
         $vacancies = Vacancy::join('city', 'city.city_id', '=', 'vacancies.kota')
                     ->join('companies','companies.id', '=' , 'vacancies.company_id')
                     ->join('users','users.id', '=' , 'companies.user_id')
-                    ->whereNotIn('status_open' , ['Admin','Rejected','Close'])->get(['vacancies.id','vacancies.job_name','vacancies.latitude','vacancies.longitude','users.name','city.city_name', 'companies.verified']);;
+                    ->whereNotIn('status_open' , ['Admin','Rejected','Close'])->get(['vacancies.id','vacancies.job_name','vacancies.latitude','vacancies.longitude','users.name','city.city_name', 'companies.verified']);
 
 
         // return $vacancies[0];
