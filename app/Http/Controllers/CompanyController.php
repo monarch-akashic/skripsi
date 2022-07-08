@@ -224,6 +224,12 @@ class CompanyController extends Controller
         //
     }
 
+    public function dashboard()
+    {
+        return view('company.dashboard')->with(['title' => 'Dashboard']);
+
+    }
+
 
     public function register(Request $request)
     {

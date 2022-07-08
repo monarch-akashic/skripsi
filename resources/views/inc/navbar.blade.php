@@ -44,9 +44,9 @@
             <h4>
                 {{ Auth::user()->name }}
                 @if (Auth::user()->role == '2')
-                    @if ($company[0]->verified == 'Yes')
+                    {{-- @if ($company[0]->verified == 'Yes')
                         <img src="/storage/img/verified.png" style="width: 22px" alt="">
-                    @endif
+                    @endif --}}
                 @endif
             </h4>
             <span>
@@ -137,7 +137,7 @@
             @if (Auth::user()->role == '2')
 
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="/dashboard">Dashboard</a>
                 </li>
                 <li>
                     <a href="/vacancy">Vacancies</a>
