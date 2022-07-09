@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Storage;
 use App\Category;
 use App\Vacancy;
 use App\UserLocation;
+use ArielMejiaDev\LarapexCharts\Facades\LarapexChart;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Foreach_;
 
 class CompanyController extends Controller
 {
@@ -226,8 +230,60 @@ class CompanyController extends Controller
 
     public function dashboard()
     {
-        return view('company.dashboard')->with(['title' => 'Dashboard']);
+        if (auth()->user()->role == '1') {
+            return redirect('/');
+        }
 
+        $company_id = Company::where('user_id', auth()->user()->id)->first();
+        $to = Carbon::now()->format('Y-m-d');
+        $from =Carbon::now()->subDays(6)->format('Y-m-d');
+
+        $data = DB::table('applyings')
+        ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+        ->groupBy('date')
+        ->whereBetween('created_at', [$from, $to])
+        ->where('company_id', $company_id->id)
+        ->get();
+
+
+        $total_applicant = new Collection();
+        $date = new Collection();
+
+        foreach ($data as $key) {
+            $total_applicant->push($key->total);
+            $date->push(Carbon::parse($key->date)->format('l d M Y'));
+        }
+        // return $total_applicant;
+
+        $chartArea = LarapexChart::lineChart()
+        ->setTitle('Applicant from this past week')
+        ->setSubtitle($from. ' to '. $to)
+        ->addData('Total Applicant', $total_applicant->all())
+        ->setXAxis($date->all());
+
+        $data2 = DB::table('applyings')
+        ->join('vacancies','applyings.vacancy_id', '=','vacancies.id')
+        ->select('vacancies.job_name', DB::raw('count(*) as total'))
+        ->groupBy('vacancies.job_name')
+        ->where('applyings.company_id', $company_id->id)
+        ->get();
+
+        $total_applicant_pie = new Collection();
+        $job_name = new Collection();
+
+        foreach ($data2 as $key) {
+            $total_applicant_pie->push($key->total);
+            $job_name->push($key->job_name);
+        }
+
+        $chartPie = LarapexChart::setTitle('Applicant in every jobs')
+            ->setLabels($job_name->all())
+            ->setDataset($total_applicant_pie->all());
+
+        $vacancies = Vacancy::where('company_id', $company_id->id)->get();
+
+
+        return view('company.dashboard')->with(['vacancies' => $vacancies, 'chartPie' => $chartPie, 'chartArea' => $chartArea, 'title' => 'Dashboard']);
     }
 
 

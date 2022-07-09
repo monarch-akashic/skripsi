@@ -43,3 +43,5 @@ php artisan serve --host 0.0.0.0 --port 80
 php artisan make:seeder UserTableSeeder
 php artisan make:seeder CategoryTableSeeder
 
+composer require arielmejiadev/larapex-charts "^2.0"
+php artisan vendor:publish --tag=larapex-charts-config

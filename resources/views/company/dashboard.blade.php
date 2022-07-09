@@ -1,49 +1,92 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<div class="container-fluid" style="margin: 8px 0px 0px 0px;">
     @include('inc.messages')
-    {{-- <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet"> --}}
-
-    <script src="{{ asset('js/jquery/jquery.min.js') }}" ></script>
-    <script src="{{ asset('js/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
-    <script src="{{ asset('js/jquery-easing/jquery.easing.min.js') }}" ></script>
-    <script src="{{ asset('js/sb-admin-2.js') }}" ></script>
-    <script src="{{ asset('js/chart.js/Chart.min.js') }}" ></script>
-    <script src="{{ asset('js/chart-area-demo.js') }}" ></script>
-
-    <div class="row justify-content-center">
-        <div class="row">
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
-                <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div
-                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="myAreaChart"></canvas>
-                        </div>
+    {{-- <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card w-100 mb-3" style="width: 20em; padding: 0%; background-color: #0FC2C0">
+                <div class="row">
+                    <div class="card-body " style="padding: 1%; margin-left: 2em;">
+                        <h5 class="card-title m-2">List Companies</h5>
                     </div>
                 </div>
             </div>
         </div>
+    </div> --}}
+    <div class="row">
+        {{-- <div class="col-md-12"> --}}
+            <div class="col-xl-8 col-lg-7">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="chart-area">
+                            {!! $chartArea->container() !!}
+                            <script src="{{ $chartArea->cdn() }}"></script>
+                            {!! $chartArea->script() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-5">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="chart-area">
+                            {!! $chartPie->container() !!}
+                            <script src="{{ $chartPie->cdn() }}"></script>
+                            {!! $chartPie->script() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{-- </div> --}}
+    </div>
+
+    <div class="row">
+        {{-- <div class="col-md-12"> --}}
+
+            <div class="col-xl-12 col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <table class="table table-striped table">
+                            <thead class="bg-custom text-dark">
+                                <tr>
+                                    <th style="text-align: center" scope="col">#</th>
+                                    <th scope="col">Job Name</th>
+                                    <th style="text-align: center" scope="col">Status</th>
+                                    <th style="text-align: center" scope="col">Working Hour</th>
+                                    <th style="text-align: center" scope="col">Total Slot</th>
+                                    <th style="text-align: center" scope="col">Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $i = 1;
+                                @endphp
+                                @foreach ($vacancies as $item)
+                                    <tr>
+                                        <th class = "align-middle" width ="5%" style="text-align: center" scope="row">{{$i}}</th>
+                                        <td class = "align-middle" width ="38%" scope="row"><a style="text-decoration-line: none ; color:#212529;" href="/vacancy/{{$item->id}}">{{$item->job_name}}</a></td>
+                                        <td class = "align-middle" width ="15%" style="text-align: center" scope="row"><a style="text-decoration-line: none ; color:#212529;" href="/vacancy/{{$item->id}}">{{$item->status_open}}</a></td>
+                                        <td class = "align-middle" width ="15%" style="text-align: center" scope="row"><a style="text-decoration-line: none ; color:#212529;" href="/vacancy/{{$item->id}}">{{$item->working_hour}}</a></td>
+                                        <td class = "align-middle" width ="7%" style="text-align: center" scope="row"><a style="text-decoration-line: none ; color:#212529;" href="/vacancy/{{$item->id}}">{{$item->total_applicant}}</a></td>
+                                        <td class = "align-middle" width ="20%" style="text-align: center" scope="row" >
+                                            <a href="/vacancy/{{$item->id}}" style="text-decoration-line: none">
+                                                <button type="button" class="btn btn-custom">
+                                                    View Job Detail
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @php
+                                    $i++;
+                                @endphp
+                                @endforeach
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+
+        {{-- </div> --}}
     </div>
 </div>
 

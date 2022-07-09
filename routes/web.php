@@ -71,6 +71,7 @@ Route::post('/verify', 'CompanyController@requestVerify')->name('store.verify');
 Route::get('/vacancy/{id}/list', 'CompanyController@listApplicantVacancy');
 Route::post('/register/company', 'CompanyController@register');
 Route::get('/dashboard', 'CompanyController@dashboard');
+// Route::get('/dashboard', 'ChartController@dashboard');
 
 Route::get('/vacancy/{vacancy_id}/portofolio/{user_id}', 'PortofolioController@checkPortofolio');
 Route::post('/vacancy/{vacancy_id}/portofolio/{user_id}', 'PortofolioController@processInterview')->name('process.interview');
