@@ -45,7 +45,7 @@
 
             <div class="col-xl-12 col-lg-12">
                 <div class="card mb-4">
-                    <div class="card-body">
+                    {{-- <div class="card-body"> --}}
                         <table class="table table-striped table">
                             <thead class="bg-custom text-dark">
                                 <tr>
@@ -54,7 +54,7 @@
                                     <th style="text-align: center" scope="col">Status</th>
                                     <th style="text-align: center" scope="col">Working Hour</th>
                                     <th style="text-align: center" scope="col">Total Slot</th>
-                                    <th style="text-align: center" scope="col">Detail</th>
+                                    <th style="text-align: center" scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,6 +69,11 @@
                                         <td class = "align-middle" width ="15%" style="text-align: center" scope="row"><a style="text-decoration-line: none ; color:#212529;" href="/vacancy/{{$item->id}}">{{$item->working_hour}}</a></td>
                                         <td class = "align-middle" width ="7%" style="text-align: center" scope="row"><a style="text-decoration-line: none ; color:#212529;" href="/vacancy/{{$item->id}}">{{$item->total_applicant}}</a></td>
                                         <td class = "align-middle" width ="20%" style="text-align: center" scope="row" >
+                                            <a href="/vacancy/{{$item->id}}/list" style="text-decoration-line: none">
+                                                <button type="button" class="btn btn-custom">
+                                                    View List Applicant
+                                                </button>
+                                            </a>
                                             <a href="/vacancy/{{$item->id}}" style="text-decoration-line: none">
                                                 <button type="button" class="btn btn-custom">
                                                     View Job Detail
@@ -82,7 +87,7 @@
                                 @endforeach
                             </tbody>
                           </table>
-                    </div>
+                    {{-- </div> --}}
                 </div>
             </div>
 

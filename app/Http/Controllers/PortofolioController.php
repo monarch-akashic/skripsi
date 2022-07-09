@@ -435,6 +435,14 @@ class PortofolioController extends Controller
     }
     public function processInterview(Request $request)
     {
+        #list status
+        ##Check by Company
+        ##Interview schedule sent
+        ##Interview on progress
+        ##Rejected
+        ##Decline
+        ##Accepted
+
         // return $request;
         $applyings = Applying::where('vacancy_id', $request->vacancy_id)->where('applicant_id', $request->user_id)->first();
 
@@ -442,12 +450,17 @@ class PortofolioController extends Controller
                 case 'Reject':
                     $applyings->status = 'Rejected';
                     $applyings->save();
-                    return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Decline Applicant Message Sent');
+                    return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Interview Applicant Rejected');
 
                 case 'Accept':
                     $applyings->status = 'Accepted';
                     $applyings->save();
-                    return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Applicant Accepted');
+                    return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Interview Applicant Accepted');
+
+                case 'Decline':
+                    $applyings->status = 'Decline';
+                    $applyings->save();
+                    return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Decline Message Sent');
 
                 // case 'Finish':
                 //     $applyings->status = 'Finish';

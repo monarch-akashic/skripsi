@@ -240,8 +240,8 @@ class CompanyController extends Controller
             return redirect('/company/create')->with('error','Please finish your company profile');
         }
 
-        $to = Carbon::now()->format('Y-m-d');
-        $from =Carbon::now()->subDays(6)->format('Y-m-d');
+        $to = Carbon::now();
+        $from =Carbon::now()->subDays(7);
 
         $data = DB::table('applyings')
         ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
@@ -249,6 +249,9 @@ class CompanyController extends Controller
         ->whereBetween('created_at', [$from, $to])
         ->where('company_id', $company_id->id)
         ->get();
+
+        $dateto = Carbon::now()->format('l d M Y');
+        $datefrom =Carbon::now()->subDays(6)->format('l d M Y');
 
 
         $total_applicant = new Collection();
@@ -262,7 +265,7 @@ class CompanyController extends Controller
 
         $chartArea = LarapexChart::lineChart()
         ->setTitle('Applicant from this past week')
-        ->setSubtitle($from. ' to '. $to)
+        ->setSubtitle($datefrom. ' to '. $dateto)
         ->addData('Total Applicant', $total_applicant->all())
         ->setXAxis($date->all());
 

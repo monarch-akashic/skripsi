@@ -143,7 +143,7 @@
 
                                                         {{-- <a class="btn btn-outline-primary" href="/vacancy/{{$vacancy_id}}/portofolio/{{$user->id}}/send-interview">No</a> --}}
                                                         <a class="btn btn-primary" href="/vacancy/{{$vacancy_id}}/portofolio/{{$user->id}}/send-interview">Send Interview</a>
-                                                        <button type="submit" name="action" class="btn btn-outline-primary" value="Reject">No</button>
+                                                        <button type="submit" name="action" class="btn btn-outline-primary" value="Decline">No</button>
                                                     </form>
                                                 </div>
                                             @elseif($applyings->status == 'Interview on progress')
