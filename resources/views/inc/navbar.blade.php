@@ -1,7 +1,7 @@
 <nav id="sidebar">
     <div class="sidebar-header">
         @guest
-            <h3>Skripsi</h3>
+            <h3>{{config('app.name') }}</h3>
         @else
             @if (Auth::user()->role == '1')
                 @php

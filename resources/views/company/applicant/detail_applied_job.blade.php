@@ -107,7 +107,7 @@
                             </div>
                         </div>
 
-                        @if ($applyings->status == 'Interview schedule sent' || $applyings->status == 'Interview on progress'|| $applyings->status == 'Finish')
+                        @if ($applyings->status == 'Interview schedule sent' || $applyings->status == 'Interview on progress'|| $applyings->status == 'Finish'|| $applyings->status == 'Accepted')
                             <div class="row mb-2">
                                 <div class="card-body">
                                     <div class="card-mb-3" style="width: 50%">
@@ -148,29 +148,29 @@
                             <div class="card-body">
                                 <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
                                     <div class="timeline-step">
-                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title=""  data-original-title="2003">
+                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" >
                                             <div class="inner-circle"></div>
                                             {{-- <p class="h6 mt-3 mb-1">2003</p> --}}
                                             <p class="h6 text-muted mb-0 mb-lg-0">Apply Job</p>
                                         </div>
                                     </div>
                                     <div class="timeline-step">
-                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-original-title="2004">
-                                            <div class="inner-circle"></div>
+                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
+                                            <div class="process-circle"></div>
                                             {{-- <p class="h6 mt-3 mb-1">2004</p> --}}
                                             <p class="h6 text-muted mb-0 mb-lg-0">Waiting Review</p>
                                         </div>
                                     </div>
                                     <div class="timeline-step">
-                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title=""  data-original-title="2005">
-                                            <div class="inner-circle"></div>
+                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" >
+                                            <div class="done-circle"></div>
                                             {{-- <p class="h6 mt-3 mb-1">2005</p> --}}
                                             <p class="h6 text-muted mb-0 mb-lg-0">Interview</p>
                                         </div>
                                     </div>
                                     <div class="timeline-step">
-                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title=""  data-original-title="2010">
-                                            <div class="inner-circle"></div>
+                                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" >
+                                            <div class="reject-circle"></div>
                                             {{-- <p class="h6 mt-3 mb-1">2010</p> --}}
                                             <p class="h6 text-muted mb-0 mb-lg-0">Accepted Confirmation</p>
                                         </div>

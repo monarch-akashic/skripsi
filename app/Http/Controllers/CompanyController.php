@@ -235,6 +235,11 @@ class CompanyController extends Controller
         }
 
         $company_id = Company::where('user_id', auth()->user()->id)->first();
+
+        if (empty($company_id)) {
+            return redirect('/company/create')->with('error','Please finish your company profile');
+        }
+
         $to = Carbon::now()->format('Y-m-d');
         $from =Carbon::now()->subDays(6)->format('Y-m-d');
 

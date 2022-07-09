@@ -83,7 +83,7 @@
                         <p></p>
                         with
                         <p></p>
-                        VIRVINSENJOB.
+                        {{config('app.name', 'Skripsi') }}.
                     </div>
                 </div>
             </div>

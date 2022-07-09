@@ -444,24 +444,29 @@ class PortofolioController extends Controller
                     $applyings->save();
                     return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Decline Applicant Message Sent');
 
-                case 'Finish':
-                    $applyings->status = 'Finish';
+                case 'Accept':
+                    $applyings->status = 'Accepted';
                     $applyings->save();
-                    return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Vacancy Finish');
+                    return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Applicant Accepted');
+
+                // case 'Finish':
+                //     $applyings->status = 'Finish';
+                //     $applyings->save();
+                //     return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Vacancy Finish');
             }
     }
 
-    public function finishInterview(Request $request)
-    {
-        // return $request;
-        $applyings = Applying::where('vacancy_id', $request->vacancy_id)->where('applicant_id', $request->user_id)->first();
+    // public function finishInterview(Request $request)
+    // {
+    //     // return $request;
+    //     $applyings = Applying::where('vacancy_id', $request->vacancy_id)->where('applicant_id', $request->user_id)->first();
 
-        $applyings->status = 'Finish';
-        $applyings->save();
-        // return $applyings;
+    //     $applyings->status = 'Finish';
+    //     $applyings->save();
+    //     // return $applyings;
 
-        return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Vacancy Finish');
+    //     return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Vacancy Finish');
 
 
-    }
+    // }
 }

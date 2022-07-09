@@ -151,17 +151,19 @@
                                                     <p class="font-weight-bold">
                                                         Finish interview?
                                                     </p>
-                                                    <form method="POST" action="{{ route('process.interview', [$vacancy_id, $user->id] ) }}" enctype="multipart/form-data">
+                                                    {{-- <form method="POST" action="{{ route('process.interview', [$vacancy_id, $user->id] ) }}" enctype="multipart/form-data">
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                         <input type="hidden" name="user_id" value= {{ $user->id}}>
-                                                        <input type="hidden" name="vacancy_id" value= {{ $vacancy_id}}>
+                                                        <input type="hidden" name="vacancy_id" value= {{ $vacancy_id}}> --}}
 
                                                         {{-- <a class="btn btn-outline-primary" href="/vacancy/{{$vacancy_id}}/portofolio/{{$user->id}}/send-interview">No</a> --}}
                                                         {{-- <a class="btn btn-primary" href="/vacancy/{{$vacancy_id}}/portofolio/{{$user->id}}/send-interview">Finish</a> --}}
                                                         {{-- <button type="submit" name="action" class="btn btn-primary">Finish</button> --}}
-                                                        <button type="submit" name="action" class="btn btn-primary" value="Finish">Finish</button>
-
-                                                    </form>
+                                                        {{-- <button type="submit" name="action" class="btn btn-primary" value="Finish">Finish</button>
+                                                    </form> --}}
+                                                    <button type="button" data-user_id="{{$user->id}}" data-vacancy_id="{{ $vacancy_id}}" class="open-ConfirmInterview btn btn-primary" data-toggle="modal" data-target="#checkoutmodel">
+                                                        Finish
+                                                    </button>
                                                 </div>
                                             @endif
                                         @endif
@@ -174,4 +176,46 @@
         </div>
     </div>
 </div>
+
+{{-- pop up --}}
+<div class="modal fade" id="checkoutmodel" role="dialog" aria-labelledby="checkoutmodel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-custom text-white">
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirmation Accepted</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to accept this applicant ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form method="POST" action="{{ route('process.interview', [$vacancy_id, $user->id] ) }}" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="user_id" value= {{ $user->id}}>
+                    <input type="hidden" name="vacancy_id" value= {{ $vacancy_id}}>
+
+                    {{-- <a class="btn btn-outline-primary" href="/vacancy/{{$vacancy_id}}/portofolio/{{$user->id}}/send-interview">No</a> --}}
+                    {{-- <a class="btn btn-primary" href="/vacancy/{{$vacancy_id}}/portofolio/{{$user->id}}/send-interview">Finish</a> --}}
+                    {{-- <button type="submit" name="action" class="btn btn-primary">Finish</button> --}}
+                    <button type="submit" name="action" class="btn btn-outline-danger" value="Reject">Reject</button>
+                    <button type="submit" name="action" class="btn btn-primary" value="Accept">Accept</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on("click", ".open-ConfirmInterview", function () {
+        var user_id = $(this).data('user_id');
+        var vacancy_id = $(this).data('vacancy_id');
+        $(".modal-footer #user_id").val( user_id );
+        $(".modal-footer #vacancy_id").val( vacancy_id );
+    });
+</script>
+
 @endsection

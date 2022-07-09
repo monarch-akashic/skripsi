@@ -15,6 +15,10 @@ use App\UserLocation;
 
 class VacancyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -43,6 +47,16 @@ class VacancyController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->role != 2){
+            return redirect('/')->with('error', 'Unauthorized Page');
+        }
+
+        $company_info = Company::where('user_id', auth()->user()->id)->first();
+
+        if($company_info->flag_block == 'X'){
+            return redirect('/vacancy')->with('error', 'You have been penalized, please contact the administrator');
+        }
+
         $province = DB::table('province')
         ->select('province.prov_name', 'province.prov_id')->get();
         // return gettype($province);
