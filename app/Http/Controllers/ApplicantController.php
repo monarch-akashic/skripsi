@@ -28,7 +28,7 @@ class ApplicantController extends Controller
         $vacancy = DB::table('applyings')
         ->join('vacancies','applyings.vacancy_id', '=','vacancies.id')
         ->select('vacancies.id', 'vacancies.job_name')
-        ->where('applyings.status', '=', 'Finish')
+        ->where('applyings.status', '=', 'Accepted')
         ->where('applyings.applicant_id', '=', auth()->user()->id)->get();
 
         // return $vacancy;

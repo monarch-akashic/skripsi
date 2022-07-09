@@ -17,25 +17,32 @@
             @php
                 $i = 1;
             @endphp
-            @foreach ($applicant as $item)
+            @foreach($applicant as $item)
                 <tr>
-                    <th class = "align-middle" width ="5%" style="text-align: center" scope="row">{{$i}}</th>
-                    <td class = "align-middle" width ="70%" scope="row"><a style="text-decoration-line: none ; color:#212529;" href="/vacancy/{{$item->vacancy_id}}/portofolio/{{$item->getApplicantInfo->id}}">{{$item->getApplicantInfo->name}}</a></td>
-                    <td class = "align-middle" width ="20%" scope="row"><a style="text-decoration-line: none ; color:#212529;" href="/vacancy/{{$item->vacancy_id}}/portofolio/{{$item->getApplicantInfo->id}}">{{$item->status}}</a></td>
-                    <td class = "align-middle" width ="12%" style="text-align: center" scope="row" >
-                        <a href="/vacancy/{{$item->vacancy_id}}/portofolio/{{$item->getApplicantInfo->id}}" style="text-decoration-line: none">
+                    <th class="align-middle" width="5%" style="text-align: center" scope="row">{{ $i }}</th>
+                    <td class="align-middle" width="70%" scope="row"><a
+                            style="text-decoration-line: none ; color:#212529;"
+                            href="/vacancy/{{ $item->vacancy_id }}/portofolio/{{ $item->getApplicantInfo->id }}">{{ $item->getApplicantInfo->name }}</a>
+                    </td>
+                    <td class="align-middle" width="20%" scope="row"><a
+                            style="text-decoration-line: none ; color:#212529;"
+                            href="/vacancy/{{ $item->vacancy_id }}/portofolio/{{ $item->getApplicantInfo->id }}">{{ $item->status }}</a>
+                    </td>
+                    <td class="align-middle" width="12%" style="text-align: center" scope="row">
+                        <a href="/vacancy/{{ $item->vacancy_id }}/portofolio/{{ $item->getApplicantInfo->id }}"
+                            style="text-decoration-line: none">
                             <button type="button" class="btn btn-custom">
                                 View Portofolio
                             </button>
                         </a>
                     </td>
                 </tr>
-            @php
-                $i++;
-            @endphp
+                @php
+                    $i++;
+                @endphp
             @endforeach
         </tbody>
-      </table>
+    </table>
 </div>
 
 @endsection

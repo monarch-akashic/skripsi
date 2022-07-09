@@ -273,14 +273,14 @@
                                         </div>
                                         <div class="timeline-step">
                                             <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
-                                                <div class="reject-circle"></div>
+                                                <div class="done-circle"></div>
                                                 {{-- <p class="h6 mt-3 mb-1">2004</p> --}}
                                                 <p class="h6 text-muted mb-0 mb-lg-0">Waiting Review</p>
                                             </div>
                                         </div>
                                         <div class="timeline-step">
                                             <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" >
-                                                <div class="reject-circle"></div>
+                                                <div class="done-circle"></div>
                                                 {{-- <p class="h6 mt-3 mb-1">2005</p> --}}
                                                 <p class="h6 text-muted mb-0 mb-lg-0">Interview</p>
                                             </div>

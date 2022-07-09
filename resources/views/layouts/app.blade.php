@@ -29,6 +29,9 @@
 </head>
 
 <body>
+    <div id='loader' class='loader'>
+        <div></div>
+    </div>
     <div class="main-container">
         <div class="wrapper">
             @include('inc.navbar')
@@ -95,6 +98,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="{{ asset('js/timepicker.js') }}" ></script>
     <script>

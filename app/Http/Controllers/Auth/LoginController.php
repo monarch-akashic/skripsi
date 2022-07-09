@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -40,6 +40,14 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function redirectTo(){
+        if(auth()->user()->role == '2'){
+            $this->redirectTo = RouteServiceProvider::DASHBOARD;
+            return $this->redirectTo;
+        }
+        $this->redirectTo = RouteServiceProvider::HOME;
+        return $this->redirectTo;
+    }
 
     public function redirectToProvider()
     {
@@ -53,7 +61,7 @@ class LoginController extends Controller
 
             if($user != null){
                 \auth()->login($user, true);
-                return redirect()->route('home');
+                return redirect('/');
             }else{
                 // return $user_google;
                 $create = User::Create([
@@ -68,7 +76,7 @@ class LoginController extends Controller
 
 
                 \auth()->login($create, true);
-                return redirect()->route('home');
+                return redirect('/');
             }
 
         } catch (\Exception $e) {

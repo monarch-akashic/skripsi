@@ -94,6 +94,13 @@
                             @endif
                         </div>
                     </div>
+                    <script>
+                        $(function() {
+                            $( "form" ).submit(function() {
+                                $('#loader').show();
+                            });
+                        });
+                    </script>
                 </div>
             </div>
         </div>
