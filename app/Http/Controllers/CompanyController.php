@@ -290,6 +290,10 @@ class CompanyController extends Controller
 
         $vacancies = Vacancy::where('company_id', $company_id->id)->get();
 
+        foreach ($vacancies as $key) {
+            $total_applicant_in_vacancy = Applying::where('vacancy_id', $key->id)->where('status' , 'Accepted')->get()->count();
+            $key->total_applicant = $total_applicant_in_vacancy. '/'. $key->total_applicant;
+        }
 
         return view('company.dashboard')->with(['vacancies' => $vacancies, 'chartPie' => $chartPie, 'chartArea' => $chartArea, 'title' => 'Dashboard']);
     }

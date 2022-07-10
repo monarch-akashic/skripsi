@@ -158,7 +158,10 @@ class VacancyController extends Controller
         \array_splice($tag_array, 0, 1);
         $vacancies->tag = array_values($tag_array);
 
-        // return $vacancies->tag;
+        $applyings = Applying::where('vacancy_id', $id)->where('status' , 'Accepted')->get()->count();
+
+        $vacancies->total_applicant = $applyings. '/'. $vacancies->total_applicant;
+        // return $vacancies->total_applicant;
 
         // return $company;
         return view('company.vacancy.detail')->with(['title' => $vacancies->job_name,'vacancies' => $vacancies,'company_info' => $company_info]);
@@ -296,6 +299,12 @@ class VacancyController extends Controller
             // return $check_if_have_portofolio;
             if ($check_if_have_portofolio == '') {
                 return redirect('/vacancy/'.$id)->with('error', 'Please Finish your portofolio');
+            }
+
+            $applyings = Applying::where('vacancy_id', $id)->where('status' , 'Accepted')->get()->count();
+
+            if ($applyings == $vacancy_id->total_applicant) {
+                return redirect('/vacancy/'.$id)->with('error', 'Job vacancy is already full');
             }
 
             $check_if_applied = Applying::where('vacancy_id',$id)->where('applicant_id', auth()->user()->id )->first();
