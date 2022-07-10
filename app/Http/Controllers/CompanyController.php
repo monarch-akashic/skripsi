@@ -60,12 +60,13 @@ class CompanyController extends Controller
         // return $request;
 
         $this->validate($request,[
-            'logo' => 'image|nullable|max:1999',
-            'company_name' => ['required', 'string', 'max:255'],
-            'tagline' => ['required', 'string', 'max:255'],
+            // 'logo' => 'require|image|nullable|max:1999',
+            'logo' => ['required', 'image', 'nullable', 'max:1999'],
+            'company_name' => ['required', 'string', 'min:5', 'max:255'],
+            'tagline' => ['required', 'string','min:10', 'max:255'],
             'description' => ['required', 'string', 'max:500'],
-            'background' => ['required', 'string', 'max:500'],
-            'website_link' => ['string', 'max:255'],
+            'background' => ['required', 'string','min:10','max:500'],
+            'website_link' => ['nullable', 'max:255'],
             // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'industry_type' => ['required'],
             'company_size' => ['required'],
@@ -303,7 +304,7 @@ class CompanyController extends Controller
     {
         // return $request;
         $this->validate($request,[
-            'company_name' => ['required', 'string', 'max:255'],
+            'company_name' => ['required', 'string', 'min:5' , 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -394,7 +395,7 @@ class CompanyController extends Controller
                 //filename to store
                 $fileNameToStore = time().'_'.$fileName.'.'.$extension;
                 //upload
-                $path = $request->file('sio_file')->storeAs('public/sio', $fileNameToStore);
+                $path = $request->file('sio_file')->storeAs('public/files/sio', $fileNameToStore);
             }else{
                 $fileNameToStore = 'no_file';
             }
@@ -409,7 +410,7 @@ class CompanyController extends Controller
                 //filename to store
                 $fileNameToStore1 = time().'_'.$fileName1.'.'.$extension1;
                 //upload
-                $path1 = $request->file('sio_file')->storeAs('public/sid', $fileNameToStore1);
+                $path1 = $request->file('sio_file')->storeAs('public/files/sid', $fileNameToStore1);
             }else{
                 $fileNameToStore1 = 'no_file';
             }
@@ -424,7 +425,7 @@ class CompanyController extends Controller
                 //filename to store
                 $fileNameToStore2 = time().'_'.$fileName2.'.'.$extension2;
                 //upload
-                $path2 = $request->file('bpom_file')->storeAs('public/bpom', $fileNameToStore2);
+                $path2 = $request->file('bpom_file')->storeAs('public/files/bpom', $fileNameToStore2);
             }else{
                 $fileNameToStore2 = 'no_file';
             }

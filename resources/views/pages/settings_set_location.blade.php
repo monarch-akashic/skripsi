@@ -27,7 +27,7 @@
                                 <form method="POST" action="{{ route('edit.location') }}">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="">Name</label>
+                                        <label for="">Label</label>
                                         <input type="text" name="name"
                                             class="form-control @error('name') is-invalid @enderror"
                                             placeholder="" value="{{ old('name') }}"

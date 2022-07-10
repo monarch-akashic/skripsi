@@ -25,7 +25,9 @@
                         </div>
                         <div class="card-mb-3" style="width: 30%; text-align:right">
                             <div class="form-group m-0">
-                                <img src="/storage/img/vacancy_icon.png"  alt="..." class="ml-2 mr-2">
+                                {{-- <img style="width: inherit" src="/storage/img/company/{{$company[0]->logo}}"  alt="..." class="ml-2 mr-2"> --}}
+                                <div class="profile-header-avatar " style="background-image: url('/storage/img/company/{{$company[0]->logo}}')"></div>
+
                             </div>
                         </div>
                     </div>

@@ -102,7 +102,7 @@ class AdminController extends Controller
 
     public function listCompany(){
         $companies = Company::join('users', 'users.id', '=', 'companies.user_id')
-        ->get(['companies.id','users.name','companies.logo', 'companies.user_id', 'companies.flag_block'])->paginate(10);
+        ->get(['companies.id','users.name','companies.logo', 'companies.user_id', 'companies.flag_block', 'companies.verified'])->paginate(10);
 
         return view('admin.list_company')->with(['title' => 'List Companies', 'companies' => $companies]);
     }
@@ -125,7 +125,7 @@ class AdminController extends Controller
 
     public function processVerify(Request $request){
         $this->validate($request,[
-            'notes' => ['required', 'string', 'max:255'],
+            'notes' => ['required', 'string', 'min:10' ,'max:255'],
         ]);
 
         $verify_data = Verifying::find($request->verify);

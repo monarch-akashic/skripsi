@@ -13,8 +13,8 @@
                             <div class="card-mb-3" style="width: 50%">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="company_name">Company Name</label>
-                                        <input type="text" name="company_name" class="form-control @error('company_name') is-invalid @enderror" placeholder="Company Name" value="{{old('company_name')}}">
+                                        <label for="company_name">Name</label>
+                                        <input type="text" name="company_name" class="form-control @error('company_name') is-invalid @enderror" placeholder="Name" value="{{old('company_name')}}">
 
                                         @error('company_name')
                                             <span class="invalid-feedback" role="alert">

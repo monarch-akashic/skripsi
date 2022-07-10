@@ -63,17 +63,33 @@
                                         <div class="form-group">
                                             <label for="age">Range Age</label>
                                             <div class="row ml-1">
-                                                <input type="number" name="age_range_1"
+                                                <input type="number" id="field-one" onchange="forceLimit(event)" min="0" name="age_range_1"
                                                     class="form-control  @error('age_range_1') is-invalid @enderror mr-3"
-                                                    placeholder="" value="{{ old('age_range_1') }}"
-                                                    style="width:15%;">
+                                                    placeholder="" value="{{ 0 ?? old('age_range_1') }}"
+                                                    style="width:20%;">
                                                 -
-                                                <input type="number" name="age_range_2"
+                                                <input type="number" id="field-two" onchange="handleLimitChange(event)" min="0" name="age_range_2"
                                                     class="form-control  @error('age_range_2') is-invalid @enderror ml-3"
-                                                    placeholder="" value="{{ old('age_range_2') }}"
-                                                    style="width:15%;">
+                                                    placeholder="" value="{{ 0 ?? old('age_range_2') }}"
+                                                    style="width:20%;">
                                             </div>
                                         </div>
+                                        <script>
+                                            function forceLimit(e) {
+                                            var limit = e.target.getAttribute("max");
+                                            if(e.target.value > limit)
+                                                e.target.value = limit;
+                                            }
+
+                                            function handleLimitChange(e) {
+                                            var limit = e.target.value;
+                                            var fieldOne = document.querySelector('#field-one');
+                                            if(fieldOne.value > limit) {
+                                                fieldOne.value = limit;
+                                            }
+                                            fieldOne.setAttribute('max', limit);
+                                            }
+                                        </script>
                                         <div class="form-group">
                                             <label for="tag">Tag</label>
                                             <small>Please separate with # (Optional)</small>
@@ -328,7 +344,7 @@
                                             <div class="row ml-1">
                                                 {{-- <input type="text" name="salary" class="form-control mr-3" placeholder="" value="" style="width:30%;"> --}}
                                                 <a class="m-1" style="text-align: center">Rp. </a>
-                                                <input type="number" step="0.01" name="salary" id="number-input"
+                                                <input type="number" min='1000' step="0.01" name="salary" id="number-input"
                                                     class="form-control" placeholder="Salary"
                                                     value="{{ old('salary') }}" style="width: 30%">
 
@@ -352,10 +368,10 @@
                                         <div class="form-group">
                                             <label for="total_applicant">Application Slots</label>
                                             <div class="row ml-1">
-                                                <input type="number" name="total_applicant" class="form-control @error('total_applicant') is-invalid @enderror mr-3"
+                                                <input type="number" min="1" name="total_applicant" class="form-control @error('total_applicant') is-invalid @enderror mr-3"
                                                     placeholder=""
                                                     value="{{ old('total_applicant') }}"
-                                                    style="width:15%;">
+                                                    style="width:20%;">
                                             </div>
                                             @error('total_applicant')
                                                 <span class="invalid-feedback" role="alert">

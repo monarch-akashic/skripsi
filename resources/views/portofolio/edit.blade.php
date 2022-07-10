@@ -181,15 +181,11 @@
                                         <input type="text" name="location" class="form-control" placeholder="" value="{{$portofolio->location}}" style="width:100%;">
                                     </div>
 
-                                        <div class="mapform" >
+                                        {{-- <div class="mapform" >
                                             <input type="hidden" class="form-control" placeholder="lat" name="lat" id="lat">
                                             <input type="hidden" class="form-control" placeholder="lng" name="lng" id="lng">
 
                                             <div id="map" style="height:300px; width: 100%;" class="my-3"></div>
-
-                                            {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArJ6Y3LioLJ5u6nkDW1SOYov3B45bKbfU&callback=initMap" type="text/javascript"></script> --}}
-                                            {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArK-WJQanOboZA3EDjmgvG33Dqqkyim3I&callback=initMap" type="text/javascript"></script> --}}
-
                                             <script>
                                                 let map;
                                                 function initMap() {
@@ -235,9 +231,9 @@
                                             </script>
 
                                             <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArJ6Y3LioLJ5u6nkDW1SOYov3B45bKbfU&callback=initMap" type="text/javascript"></script>
-                                            {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArK-WJQanOboZA3EDjmgvG33Dqqkyim3I&callback=initMap" type="text/javascript"></script> --}}
+                                            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArK-WJQanOboZA3EDjmgvG33Dqqkyim3I&callback=initMap" type="text/javascript"></script>
 
-                                        </div>
+                                        </div> --}}
                                     <input type="hidden" name="_method" value="{{ 'PUT' }}">
                                     <input type="submit" value="Update" class="btn btn-primary" id="update_btn" >
                                 </div>

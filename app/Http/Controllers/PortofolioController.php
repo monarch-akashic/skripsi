@@ -15,6 +15,7 @@ use App\UserLocation;
 use App\UserSetting;
 use App\Vacancy;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 use function PHPSTORM_META\type;
 
@@ -306,8 +307,6 @@ class PortofolioController extends Controller
             $fileNameToStore3 = time().'_'.$fileName3.'.'.$extension3;
             //upload
             $path = $request->file('profile_image')->storeAs('public/img', $fileNameToStore3);
-        }else{
-            $fileNameToStore3 = 'user_dummy.jpg';
         }
 
         if ($request->hasFile('portofolio_file')) {
@@ -321,8 +320,6 @@ class PortofolioController extends Controller
             $fileNameToStore = time().'_'.$fileName.'.'.$extension;
             //upload
             $path = $request->file('portofolio_file')->storeAs('public/files/portofolio', $fileNameToStore);
-        }else{
-            $fileNameToStore = 'no_file';
         }
 
         if ($request->hasFile('curriculum_file')) {
@@ -336,8 +333,6 @@ class PortofolioController extends Controller
             $fileNameToStore2 = time().'_'.$fileName2.'.'.$extension2;
             //upload
             $path = $request->file('curriculum_file')->storeAs('public/files/cv', $fileNameToStore2);
-        }else{
-            $fileNameToStore2 = 'no_file';
         }
 
         $user = User::find(auth()->user()->id);
@@ -348,8 +343,13 @@ class PortofolioController extends Controller
 
         $portofolio = Portofolio::find($id);
         $portofolio->user_id = auth()->user()->id;
-        $portofolio->profile_image = $fileNameToStore3;
-
+        // $portofolio->profile_image = $fileNameToStore3;
+        if ($request->hasFile('profile_image')) {
+            if ($portofolio->profile_image != 'user_dummy.jpg') {
+                Storage::delete('public/img/'.$portofolio->profile_image);
+            }
+            $portofolio->profile_image = $fileNameToStore3;
+        }
         $portofolio->education = $education;
         $portofolio->experience = $experience;
         $portofolio->skills = $request->skill;
@@ -358,8 +358,16 @@ class PortofolioController extends Controller
         $portofolio->latitude = $request->lat;
         $portofolio->longitude = $request->lng;
 
-        $portofolio->portofolio_file = $fileNameToStore;
-        $portofolio->cv_file = $fileNameToStore2;
+        // $portofolio->portofolio_file = $fileNameToStore;
+        if ($request->hasFile('portofolio_file')) {
+            $portofolio->portofolio_file = $fileNameToStore;
+        }
+
+        // $portofolio->cv_file = $fileNameToStore2;
+        if ($request->hasFile('curriculum_file')) {
+            $portofolio->cv_file = $fileNameToStore2;
+        }
+
         $portofolio->updated_at = Carbon::now();;
         $portofolio->save();
 
@@ -416,7 +424,7 @@ class PortofolioController extends Controller
         $this->validate($request,[
             'interview_time' => ['required', 'string', 'max:255'],
             'interview_location' => ['required', 'string', 'max:255'],
-            'notes' => ['required', 'string', 'max:20'],
+            'notes' => ['required', 'string', 'min:10' ,'max:255'],
         ]);
 
         $user_settings = UserSetting::where('user_id', $request->user_id)->first();

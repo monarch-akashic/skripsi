@@ -120,7 +120,7 @@ class VacancyController extends Controller
         if ($request->input('salary')) {
             $vacancy->salary = $request->input('salary').' '.$request->input('salary_type');
         }else{
-            $vacancy->salary = NULL;
+            $vacancy->salary = '-'. ' '.$request->input('salary_type');
         }
         $vacancy->status_open = 'Admin';
         $vacancy->workflow = 'Check';
@@ -240,7 +240,12 @@ class VacancyController extends Controller
                         $vacancy->job_description = $request->input('job_description');
                         $vacancy->requirement = $request->input('job_requirement');
                         $vacancy->age = $request->input('age_range_1').'-'.$request->input('age_range_2');
-                        $vacancy->salary = $request->input('salary').' '.$request->input('salary_type');
+                        // $vacancy->salary = $request->input('salary').' '.$request->input('salary_type');
+                        if ($request->input('salary')) {
+                            $vacancy->salary = $request->input('salary').' '.$request->input('salary_type');
+                        }else{
+                            $vacancy->salary = '-'. ' '.$request->input('salary_type');
+                        }
                         $vacancy->workflow = 'Check';
                         $vacancy->working_hour = $request->input('working_hour_range_1').'-'.$request->input('working_hour_range_2');
                         $vacancy->total_applicant = $request->input('total_applicant');
@@ -281,6 +286,7 @@ class VacancyController extends Controller
                         'notes' => ['required', 'string', 'min:10' , 'max:255'],
                     ]);
                     $vacancy_id->status_open = 'Open';
+                    $vacancy_id->notes = $request->notes;
                     $vacancy_id->save();
                     return redirect('/validate')->with('success', 'Vacancy Approved');
                 case 'Reject':

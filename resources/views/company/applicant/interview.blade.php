@@ -16,19 +16,19 @@
                             <div class="card-mb-3" style="width: 100%">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="applicant">Applicant</label>
-                                        <h5 class="text-primary font-weight-bold">{{ $user_id->name}}</h5>
+                                        <label for="applicant" class="text-primary font-weight-bold">Applicant</label>
+                                        <h5 >{{ $user_id->name}}</h5>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="phoneNo">Phone No</label>
-                                        <h5 class="text-primary font-weight-bold">{{ $user_id->phoneNo}}</h5>
+                                        <label for="phoneNo" class="text-primary font-weight-bold">Phone No</label>
+                                        <h5 >{{ $user_id->phoneNo}}</h5>
 
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <h5 class="text-primary font-weight-bold">{{ $user_id->email}}</h5>
+                                        <label for="email" class="text-primary font-weight-bold">Email</label>
+                                        <h5 >{{ $user_id->email}}</h5>
                                     </div>
 
                                     <div class="form-group">

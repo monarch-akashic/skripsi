@@ -41,13 +41,13 @@
                                 <div class="form-group">
                                     <label for="vacancy" class="text-dark font-weight-bold">Job</label>
                                     <a href="/vacancy/{{$reporting->vacancy_id}}">
-                                        <p class="m-0"><i>View Job</i></p>
+                                        <p class="m-0 text-primary"><i>View Job</i></p>
                                     </a>
                                 </div>
                                 <div class="form-group">
                                     <label for="attachment" class="text-dark font-weight-bold">Attachment</label>
                                     <a href="/storage/report/{{$reporting->file}}">
-                                        <p class="m-0"><i>Download Here</i></p>
+                                        <p class="m-0 text-primary"><i>Download Here</i></p>
                                     </a>
                                 </div>
                             </div>

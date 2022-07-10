@@ -27,7 +27,11 @@
                     <div class="card w-75 mb-3" style="width: 18rem;">
                         <div class="row">
                             <div class="card-body">
-                                <h5 class="card-title">{{$company->name}}</h5>
+                                <h5 class="card-title">{{$company->name}}
+                                    @if ($company->verified == 'Yes')
+                                        <img src="/storage/img/verified.png" style="width: 20px" alt="">
+                                    @endif
+                                </h5>
                             </div>
 
                             <div class="card-body mr-3" style="text-align:right;">

@@ -15,7 +15,7 @@
 
                                 <div class="form-group">
                                     <h5 class="text-primary font-weight-bold">Applicant</h5>
-                                    <p class="font-weight-bold">
+                                    <p class="font-weight-normal">
                                         {{ $user->name }}
                                     </p>
                                 </div>
@@ -92,20 +92,24 @@
                                     style="background-image: url('/storage/img/{{ $portofolio->profile_image }}')">
                                 </div>
                                 <p></p>
-                                <div class="form-group">
-                                    <h5 class="text-primary font-weight-bold">Portofolio :</h5>
-                                    <a href="../storage/files/portofolio/{{ $portofolio->portofolio_file }}"
-                                        class="text-primary">
-                                        MyPortofolio.pdf
-                                    </a>
-                                </div>
-                                <div class="form-group">
-                                    <h5 class="text-primary font-weight-bold">Curriculum Vitae :</h5>
-                                    <a href="../storage/files/cv/{{ $portofolio->cv_file }}"
-                                        class="text-primary">
-                                        MyCV.pdf
-                                    </a>
-                                </div>
+                                @if ($portofolio->portofolio_file != 'no_file')
+                                    <div class="form-group">
+                                        <h5 class="text-primary font-weight-bold">Portofolio :</h5>
+                                        <a href="/storage/files/portofolio/{{ $portofolio->portofolio_file }}"
+                                            class="text-primary">
+                                            MyPortofolio.pdf
+                                        </a>
+                                    </div>
+                                @endif
+                                @if ($portofolio->cv_file != 'no_file')
+                                    <div class="form-group">
+                                        <h5 class="text-primary font-weight-bold">Curriculum Vitae :</h5>
+                                        <a href="/storage/files/cv/{{ $portofolio->cv_file }}"
+                                            class="text-primary">
+                                            MyCV.pdf
+                                        </a>
+                                    </div>
+                                @endif
                                 {{-- <button onclick="getLocation()">Try It</button> --}}
 
                                 {{-- <p id="demo"></p> --}}

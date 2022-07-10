@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    @include('inc.messages')
+    @if (count($errors) == 0)
+        @include('inc.messages')
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -97,7 +99,8 @@
                                                             <select name="institute[]" id="inputGroupSelect01" class="custom-select">
                                                                 @foreach ($categories as $item)
                                                                     <option value="{{$item->name}}"
-                                                                        {{ old('institute') == $item->name ? 'selected' : '' }}>
+
+                                                                        >
                                                                         {{$item->name}}
                                                                     </option>
                                                                 @endforeach
@@ -106,15 +109,15 @@
                                                     </td>
                                                     <td colspan="1" style="text-align: center" class="form-inline">
                                                         <input style="width:5em" type="text" name="year_start_institute[]" class="form-control" placeholder="Year"
-                                                            value="{{ old('year_start_institute') }}">
+                                                            >
                                                         -
                                                         <input style="width:5em" type="text" name="year_end_institute[]" class="form-control" placeholder="Year"
-                                                            value="{{ old('year_end_institute') }}">
+                                                            >
                                                     </td>
                                                     <td colspan="1" style="text-align: center">
                                                         <input type="text" name="institute_desc[]" class="form-control"
                                                             placeholder="Institute Name"
-                                                            value="{{ old('institute_desc') }}">
+                                                            >
                                                     </td>
                                                     <td colspan="1" style="text-align: center">
                                                         <button class="btn btn-sm btn-danger remove_more_institute">Remove</button>
@@ -146,7 +149,7 @@
                                                             <select name="experience[]" id="inputGroupSelect01" class="custom-select">
                                                                 @foreach ($experience_category as $item)
                                                                     <option value="{{$item->name}}"
-                                                                        {{ old('experience') == $item->name ? 'selected' : '' }}>
+                                                                       >
                                                                         {{ucfirst($item->name)}}
                                                                     </option>
                                                                 @endforeach
@@ -155,15 +158,15 @@
                                                     </td>
                                                     <td colspan="1" style="text-align: center" class="form-inline">
                                                         <input style="width:5em" type="text" name="year_start_experience[]" class="form-control" placeholder="Year"
-                                                            value="{{ old('year_start_experience') }}">
+                                                            >
                                                         -
                                                         <input style="width:5em" type="text" name="year_end_experience[]" class="form-control" placeholder="Year"
-                                                            value="{{ old('year_end_experience') }}">
+                                                            >
                                                     </td>
                                                     <td colspan="1" style="text-align: center">
                                                         <input type="text" name="experience_desc[]" class="form-control"
                                                             placeholder="Experience"
-                                                            value="{{ old('experience_desc') }}">
+                                                            >
                                                     </td>
                                                     <td colspan="1" style="text-align: center">
                                                         <button class="btn btn-sm btn-danger remove_more_experience">Remove</button>
@@ -180,7 +183,7 @@
                                                 <tr>
                                                     <td colspan="1" style="text-align: center" class="form-inline">
                                                         <input type="text" name="skill[]" class="form-control" placeholder="Skill"
-                                                            value="{{ old('skill') }}">
+                                                            >
                                                         <button class="m-1 btn btn-sm btn-danger remove_more_skill">Remove</button>
                                                     </td>
                                                     {{-- <td colspan="1" style="text-align: center">
@@ -198,18 +201,19 @@
 
                                     <div class="form-group">
                                         <label for="location">Location</label>
-                                        <input type="text" name="location" class="form-control" placeholder="" value="" style="width:100%;">
+                                        <input type="text" name="location" class="form-control @error('location') is-invalid @enderror" placeholder="" value="" style="width:100%;">
+                                        @error('location')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
 
-                                        <div class="mapform" >
+                                        {{-- <div class="mapform" >
                                             <input type="hidden" class="form-control" placeholder="lat" name="lat" id="lat">
                                             <input type="hidden" class="form-control" placeholder="lng" name="lng" id="lng">
 
                                             <div id="map" style="height:300px; width: 100%;" class="my-3"></div>
-
-                                            {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArJ6Y3LioLJ5u6nkDW1SOYov3B45bKbfU&callback=initMap" type="text/javascript"></script> --}}
-                                            {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArK-WJQanOboZA3EDjmgvG33Dqqkyim3I&callback=initMap" type="text/javascript"></script> --}}
-
                                             <script>
                                                 let map;
                                                 function initMap() {
@@ -255,9 +259,9 @@
                                             </script>
 
                                             <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArJ6Y3LioLJ5u6nkDW1SOYov3B45bKbfU&callback=initMap" type="text/javascript"></script>
-                                            {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArK-WJQanOboZA3EDjmgvG33Dqqkyim3I&callback=initMap" type="text/javascript"></script> --}}
+                                            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArK-WJQanOboZA3EDjmgvG33Dqqkyim3I&callback=initMap" type="text/javascript"></script>
 
-                                        </div>
+                                        </div> --}}
                                     {{-- <input type="hidden" name="_method" value="{{ 'PUT' }}"> --}}
                                     <input type="submit" value="Submit" class="btn btn-primary" id="update_btn" >
                                 </div>
@@ -289,12 +293,12 @@
                     </div>
                 </td>
                 <td colspan="1" style="text-align: center" class="form-inline">
-                    <input style="width:5em" type="text" name="year_start_institute[]" class="form-control" placeholder="Year" value="{{ old('year_start_institute') }}">
+                    <input style="width:5em" type="text" name="year_start_institute[]" class="form-control" placeholder="Year" >
                     -
-                    <input style="width:5em" type="text" name="year_end_institute[]" class="form-control" placeholder="Year" value="{{ old('year_end_institute') }}">
+                    <input style="width:5em" type="text" name="year_end_institute[]" class="form-control" placeholder="Year" >
                 </td>
                 <td colspan="1" style="text-align: center">
-                    <input type="text" name="institute_desc[]" class="form-control" placeholder="Institute Name" value="{{ old('institute_desc') }}">
+                    <input type="text" name="institute_desc[]" class="form-control" placeholder="Institute Name" ">
                 </td>
                 <td colspan="1" style="text-align: center" >
                     <button class="btn btn-sm btn-danger remove_more_institute">Remove</button>
@@ -329,12 +333,12 @@
                     </div>
                 </td>
                 <td colspan="1" style="text-align: center" class="form-inline">
-                    <input style="width:5em" type="text" name="year_start_experience[]" class="form-control" placeholder="Year" value="{{ old('year_start_experience') }}">
+                    <input style="width:5em" type="text" name="year_start_experience[]" class="form-control" placeholder="Year" >
                     -
-                    <input style="width:5em" type="text" name="year_end_experience[]" class="form-control" placeholder="Year" value="{{ old('year_end_experience') }}">
+                    <input style="width:5em" type="text" name="year_end_experience[]" class="form-control" placeholder="Year" >
                 </td>
                 <td colspan="1" style="text-align: center">
-                    <input type="text" name="experience_desc[]" class="form-control" placeholder="Experience" value="{{ old('experience_desc') }}">
+                    <input type="text" name="experience_desc[]" class="form-control" placeholder="Experience" >
                 </td>
                 <td colspan="1" style="text-align: center" >
                     <button class="btn btn-sm btn-danger remove_more_experience">Remove</button>
@@ -360,7 +364,7 @@
             <tr>
                 <td colspan="1" style="text-align: center" class="form-inline">
                     <input type="text" name="skill[]" class="form-control" placeholder="Skill"
-                        value="{{ old('skill') }}">
+                        >
                     <button class="m-1 btn btn-sm btn-danger remove_more_skill">Remove</button>
                 </td>
             </tr>

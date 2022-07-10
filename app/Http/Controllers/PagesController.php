@@ -416,6 +416,7 @@ class PagesController extends Controller
             ->select('c.*', 'v.*', 'u.*', 'v.id' , 'prov.prov_name', 'city.city_name', 'dist.dis_name', 'c.verified')
             ->where('v.job_name', 'LIKE' , '%'.$vacancy_search.'%')
             ->orwhere('u.name', 'LIKE' , '%'.$vacancy_search.'%')
+            ->orwhere('v.tag', 'LIKE' , '%'.$vacancy_search.'%')
             ->whereNotIn('v.status_open',['Admin','Rejected','Close'])
             ->get()->paginate(10);
         }
@@ -461,7 +462,7 @@ class PagesController extends Controller
             ->join('province as prov','prov.prov_id', '=','v.province')
             ->join('city as city','city.city_id', '=','v.kota')
             ->join('district as dist','dist.dis_id', '=','v.kecamatan')
-            ->select('c.*', 'v.*', 'u.*', 'prov.prov_name', 'city.city_name', 'dist.dis_name', 'companies.verified')
+            ->select('c.*', 'v.*', 'u.*', 'prov.prov_name', 'city.city_name', 'dist.dis_name', 'c.verified' , 'v.id')
             ->where('v.tag', 'LIKE' , '%'.$request->tag.'%')
             ->whereNotIn('v.status_open',['Admin','Rejected','Close'])
             ->get()->paginate(10);
@@ -476,14 +477,15 @@ class PagesController extends Controller
 
         try {
             $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
+            if($location_user){
+                $mylat = $location_user->latitude;
+                $mylong = $location_user->longitude;
+            }else{
+                //default jakarta pusat
+                $mylat = -6.186486;
+                $mylong = 106.834091;
+            }
         } catch (\Throwable $th) {
-            $location_user;
-        }
-        if($location_user){
-            $mylat = $location_user->latitude;
-            $mylong = $location_user->longitude;
-        }else{
-            //default jakarta pusat
             $mylat = -6.186486;
             $mylong = 106.834091;
         }

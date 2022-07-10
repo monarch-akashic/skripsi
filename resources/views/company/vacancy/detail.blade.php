@@ -196,7 +196,7 @@
                                     <div class="row mb-2">
                                         <div class="card-body" style="text-align:right">
                                             {{-- <input type="submit" value="Update" class="btn btn-primary"> --}}
-                                            <a href="/vacancy/{{$vacancies->id}}/edit" class="btn btn-primary disabled">Update</a>
+                                            {{-- <a href="/vacancy/{{$vacancies->id}}/edit" class="btn btn-primary disabled">Update</a> --}}
                                         </div>
                                     </div>
                                     @elseif($vacancies->status_open == 'Rejected')
@@ -208,7 +208,11 @@
                                                 </p>
                                             </div>
                                             <div class="card-body" style="text-align:right; padding: 0px 20px 0px 20px">
-                                                <button type="submit" name="action" class="btn btn-danger" value="Delete">Delete</button>
+                                                {{-- <button type="submit" name="action" class="btn btn-danger" value="Delete">Delete</button> --}}
+                                                <button type="button" class="open-ConfirmDelete btn btn-danger" data-toggle="modal" data-target="#checkoutmodel">
+                                                    Delete
+                                                </button>
+
                                                 <a href="/vacancy/{{$vacancies->id}}/edit" class="btn btn-primary">Update</a>
                                                 <button type="submit" name="action" class="btn btn-primary" value="SendToAdmin">Save</button>
                                             </div>
@@ -229,5 +233,40 @@
         </div>
     </div>
 </div>
+
+{{-- pop up --}}
+<div class="modal fade" id="checkoutmodel" role="dialog" aria-labelledby="checkoutmodel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-custom text-white">
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirmation Delete?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want delete this vacancy ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="{{action('VacancyController@update', $vacancies->id)}}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="_method" value="{{ 'PUT' }}">
+                    <button type="submit" name="action" class="btn btn-danger" value="Delete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- <script>
+    $(document).on("click", ".open-ConfirmDelete", function () {
+        var user_id = $(this).data('user_id');
+        var vacancy_id = $(this).data('vacancy_id');
+        $(".modal-footer #user_id").val( user_id );
+        $(".modal-footer #vacancy_id").val( vacancy_id );
+    });
+</script> --}}
 
 @endsection

@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    @include('inc.messages')
+    @if (count($errors) == 0)
+        @include('inc.messages')
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -18,14 +20,19 @@
                             <div class="card-m-3" style="width: 30%">
                                 <div class="form-group">
                                     <label for="logo">Company Logo :</label>
-                                    <div class="custom-file">
-                                        <input type="file" name="logo" class="custom-file-input">
+                                    <div name= 'logo' class="custom-file">
+                                        <input type="file" name="logo" class="@error('logo') is-invalid @enderror custom-file-input">
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
+                                    @error('logo')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="company_name">Company Name</label>
-                                    <input type="text" name="company_name" class="form-control @error('company_name') is-invalid @enderror" placeholder="Company Name"
+                                    <label for="company_name">Name</label>
+                                    <input type="text" name="company_name" class="form-control @error('company_name') is-invalid @enderror" placeholder="Name"
                                         value="{{ $user_info->name }}">
 
                                     @error('company_name')

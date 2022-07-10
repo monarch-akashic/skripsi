@@ -34,7 +34,7 @@
                                             >{{ __('Phone Number') }}</label>
 
 
-                                            <input id="phoneNo" type="text"
+                                            <input id="phoneNo" type="number"
                                                 class="form-control @error('phoneNo') is-invalid @enderror"
                                                 name="phoneNo" value="{{ old('phoneNo') }}" required
                                                 autocomplete="phoneNo" autofocus>
