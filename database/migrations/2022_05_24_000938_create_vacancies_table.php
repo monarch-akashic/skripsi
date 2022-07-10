@@ -35,6 +35,7 @@ class CreateVacanciesTable extends Migration
             $table->string('kecamatan');
             $table->string('kode_pos');
             $table->string('tag')->nullable();
+            $table->string('flag_block')->nullable();
             $table->timestamps();
         });
     }

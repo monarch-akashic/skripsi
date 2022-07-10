@@ -303,6 +303,10 @@ class VacancyController extends Controller
 
             $applyings = Applying::where('vacancy_id', $id)->where('status' , 'Accepted')->get()->count();
 
+            if ($vacancy_id->flag_block == 'X') {
+                return redirect('/vacancy/'.$id)->with('error', 'Currently this vacancy is being report, please wait for further information');
+            }
+
             if ($applyings == $vacancy_id->total_applicant) {
                 return redirect('/vacancy/'.$id)->with('error', 'Job vacancy is already full');
             }

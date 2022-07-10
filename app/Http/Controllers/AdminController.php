@@ -32,16 +32,27 @@ class AdminController extends Controller
             'reply' => ['required', 'string', 'max:255'],
         ]);
 
-        $reporting = Reporting::where('id',$id)->first();
-        $reporting->notes = $request->input('reply');
-        $reporting->status = 'Finish';
-        // return $reporting;
-        $reporting->save();
+        switch ($request->input('action')) {
+            case 'Reject':
+                $reporting = Reporting::where('id',$id)->first();
+                $reporting->notes = $request->input('reply');
+                $reporting->status = 'Rejected';
+                $reporting->save();
+                // return $company_info;
+                // $vacancy = Vacancy::find($reporting->vacancy_id)->get();
+                return redirect('/list/report')->with('success', 'Report Rejected');
+            case 'Approve':
+                $reporting = Reporting::where('id',$id)->first();
+                $reporting->notes = $request->input('reply');
+                $reporting->status = 'Approve';
+                $reporting->save();
 
-        // return $company_info;
-        // $vacancy = Vacancy::find($reporting->vacancy_id)->get();
+                $vacancy = Vacancy::find($reporting->vacancy_id);
+                $vacancy->flag_block = 'X';
+                $vacancy->save();
 
-        return redirect('/list/report')->with('success', 'Report on process');
+                return redirect('/list/report')->with('success', 'Report on process');
+        }
 
         // return view('admin.detail_report_company')->with(['title' => 'Detail Reports', 'reporting' => $reporting, 'applicant' => $applicant, 'company_info' => $company_info]);
     }

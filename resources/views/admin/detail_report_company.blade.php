@@ -85,7 +85,8 @@
                                         {{-- <input type="hidden" name="company" value="{{ $verify_data->company_id }}">
                                         <input type="hidden" name="verify" value="{{ $verify_data->id }}">
                                         <input type="hidden" name="name" value="{{ $user->name }}"> --}}
-                                        <button type="submit" name="action" class="btn btn-primary" value="submit">Submit</button>
+                                        <button type="submit" name="action" class="btn btn-primary" value="Approve">Approve</button>
+                                        <button type="submit" name="action" class="btn btn-danger" value="Reject">Reject</button>
                                 {{-- @endif --}}
                             </div>
                         </div>
