@@ -1,7 +1,11 @@
 <nav id="sidebar">
     <div class="sidebar-header">
         @guest
-            <h3>{{config('app.name') }}</h3>
+            {{-- <h3>{{config('app.name') }}</h3> --}}
+            <a href="/">
+                <img src="/storage/assets/sidejobsitewithlogo_putih.png" style="width: 100%" alt="">
+            </a>
+
         @else
             @if (Auth::user()->role == '1')
                 @php

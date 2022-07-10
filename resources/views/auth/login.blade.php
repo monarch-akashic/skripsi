@@ -73,17 +73,13 @@
             <div class="card">
 
                 <div class="card-body">
-                    <div style ="font-size: 15px">
-                        --logo--
-                    </div>
                     <div style="font-weight: bold; font-size: 40px; color: #0FC2C0">
                         Find Your
-                        <p></p>
                         Side Job
-                        <p></p>
                         with
-                        <p></p>
-                        {{config('app.name', 'Skripsi') }}.
+                    </div>
+                    <div class="form-group m-0">
+                        <img src="/storage/assets/sidejobsitewithlogo_warna.png" style="width: 100%" alt="">
                     </div>
                 </div>
             </div>
