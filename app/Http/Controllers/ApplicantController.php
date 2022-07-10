@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\UserLocation;
 use App\Applying;
+use App\Notification;
 
 class ApplicantController extends Controller
 {
@@ -20,6 +21,15 @@ class ApplicantController extends Controller
     {
         $this->middleware('auth');
     }
+
+
+    public function showInbox()
+    {
+        $notifications = Notification::where('user_id', auth()->user()->id)->orderByDesc('created_at')->get();
+        // return $notifications;
+        return view('applicant.inbox')->with(['title' => 'Inbox', 'notifications' => $notifications]);
+    }
+
 
     public function requestReport()
     {
@@ -35,6 +45,7 @@ class ApplicantController extends Controller
 
         return view('request.report')->with(['title' => 'Vacancy','vacancy' => $vacancy]);
     }
+
     public function storeReport(Request $request)
     {
         // return $request;

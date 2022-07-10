@@ -9,8 +9,10 @@ use DateTime;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Company;
+use App\Notification;
 use Carbon\Carbon;
 use App\UserLocation;
+use App\UserSetting;
 use App\Vacancy;
 use Illuminate\Support\Facades\Mail;
 
@@ -417,7 +419,34 @@ class PortofolioController extends Controller
             'notes' => ['required', 'string', 'max:20'],
         ]);
 
-        Mail::to($applicant->email)->send(new \App\Mail\InterviewSchedule($request, $vacancy));
+        $user_settings = UserSetting::where('user_id', $request->user_id)->first();
+
+        if (!$user_settings) {
+            // return "not exist";
+            $user_settings = new UserSetting();
+            $user_settings->user_id = $request->user_id;
+            $user_settings->flag_email = "on";
+            $user_settings->flag_notification = "on";
+            $user_settings->created_at = Carbon::now();
+            $user_settings->updated_at = Carbon::now();
+            $user_settings->save();
+        }
+
+        // return $user_settings;
+
+        if ($user_settings->flag_email == "on") {
+            Mail::to($applicant->email)->send(new \App\Mail\InterviewSchedule($request, $vacancy));
+        }
+
+        if ($user_settings->flag_notification == "on") {
+            $notification = new Notification();
+            $notification->user_id = $request->user_id;
+            $notification->subject = 'Interview Scheduled';
+            $notification->content = 'Your job apply for '.$vacancy->job_name.' has been scheduled, please check your applied jobs';
+            $notification->created_at = Carbon::now();
+            $notification->updated_at = Carbon::now();
+            $notification->save();
+        }
 
         $applyings = Applying::where('vacancy_id', $request->vacancy_id)->where('applicant_id', $request->user_id)->first();
 

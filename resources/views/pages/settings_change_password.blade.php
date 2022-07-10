@@ -71,7 +71,7 @@
 
                                     <div class="text-right mt-3">
                                         <button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
-                                        <button type="button" class="btn btn-default">Cancel</button>
+                                        <button type="reset" class="btn btn-default">Cancel</button>
                                     </div>
                                 </form>
                             </div>

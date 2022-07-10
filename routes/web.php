@@ -62,6 +62,7 @@ Route::get('/auth/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('/myvacancy', 'ApplicantController@appliedJob');
 Route::get('/myvacancy/vacancy/{id}', 'ApplicantController@checkAppliedJob');
 Route::post('/myvacancy/vacancy/{id}', 'ApplicantController@acceptInterview');
+Route::get('/inbox', 'ApplicantController@showInbox');
 
 Route::get('/reporting/create', 'ApplicantController@requestReport');
 Route::post('/reporting/create', 'ApplicantController@storeReport')->name('store.reporting');

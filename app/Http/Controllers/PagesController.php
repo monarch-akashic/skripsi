@@ -8,6 +8,7 @@ use App\Portofolio;
 use App\Company;
 use App\Vacancy;
 use App\UserLocation;
+use App\UserSetting;
 use DateTime;
 // use Illuminate\Foundation\Auth\User;
 use Carbon\Carbon;
@@ -16,6 +17,22 @@ use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',
+            ['except' =>[
+                'index',
+                'regisApplicant',
+                'regisCompany',
+                'location',
+                'searchTag',
+                'search',
+                'result',
+                'calculateDistance']
+            ]
+        );
+    }
+
     //Dropdown functions
     public function getCity($id){
         $cities = DB::table('city')
@@ -40,7 +57,50 @@ class PagesController extends Controller
 
     //Settings Functions
     public function showNotification(){
-        return view('pages.settings_notification')->with(['title' => 'Settings']);
+
+        $user_settings = UserSetting::where('user_id', auth()->user()->id)->first();
+
+        if (!$user_settings) {
+            $user_settings = new UserSetting();
+            $user_settings->user_id = auth()->user()->id;
+            $user_settings->created_at = Carbon::now();
+            $user_settings->updated_at = Carbon::now();
+            $user_settings->save();
+        }
+
+        // return $user_settings;
+
+        return view('pages.settings_notification')->with(['title' => 'Settings', 'user_settings' => $user_settings]);
+    }
+
+    public function setNotification(Request $request)
+    {
+        // return $request;
+
+        $user_settings = UserSetting::where('user_id', auth()->user()->id)->first();
+
+        if (!$user_settings) {
+            $user_settings = new UserSetting();
+            $user_settings->user_id = auth()->user()->id;
+            $user_settings->created_at = Carbon::now();
+            $user_settings->updated_at = Carbon::now();
+            $user_settings->save();
+        }
+
+        if($request->email){
+            $user_settings->flag_email = $request->email;
+        }else{
+            $user_settings->flag_email = NULL;
+        }
+
+        if($request->notification){
+            $user_settings->flag_notification = $request->notification;
+        }else{
+            $user_settings->flag_notification = NULL;
+        }
+
+        $user_settings->save();
+        return redirect('/accounts/edit/notification')->with("success","Saved!");
     }
 
     public function showPassword(){
@@ -147,6 +207,7 @@ class PagesController extends Controller
         }
 
     }
+
     public function changePassword(Request $request)
     {
         // return $request;
@@ -361,17 +422,20 @@ class PagesController extends Controller
 
         try {
             $location_user = UserLocation::where('user_id', auth()->user()->id)->first();
+            if($location_user){
+                $mylat = $location_user->latitude;
+                $mylong = $location_user->longitude;
+            }else{
+                //default jakarta pusat
+                $mylat = -6.186486;
+                $mylong = 106.834091;
+            }
         } catch (\Throwable $th) {
-            $location_user;
-        }
-        if($location_user){
-            $mylat = $location_user->latitude;
-            $mylong = $location_user->longitude;
-        }else{
-            //default jakarta pusat
             $mylat = -6.186486;
             $mylong = 106.834091;
         }
+
+
 
         foreach ($get_vacancy as $key) {
             $lat = $key->latitude;

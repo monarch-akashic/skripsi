@@ -130,7 +130,7 @@
                     <a href="/myvacancy">My Job Applied</a>
                 </li>
                 <li>
-                    <a href="#">Inbox</a>
+                    <a href="/inbox">Inbox</a>
                 </li>
                 <li>
                     <a href="/reporting/create">Reporting</a>
