@@ -164,7 +164,7 @@
                     <a href="/list/report">View Applicant's Report</a>
                 </li>
                 <li>
-                    <a href="/list/company">List Companies</a>
+                    <a href="/list/company">List Job Offerer</a>
                 </li>
 
             @endif

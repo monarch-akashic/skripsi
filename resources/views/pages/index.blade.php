@@ -28,7 +28,9 @@
                     <div class="row">
                         <div class="card-body">
                             <h5 class="card-title">{{$vacancy->job_name}}</h5>
-                            <p class="card-text m-0">{{$vacancy->name}}
+                            <a href="/company/{{$vacancy->company_id}}">
+                                <p class="card-text m-0">{{$vacancy->name}}
+                            </a>
                                 @if ($vacancy->verified == 'Yes')
                                     <img src="/storage/img/verified.png" style="width: 20px" alt="">
                                 @endif

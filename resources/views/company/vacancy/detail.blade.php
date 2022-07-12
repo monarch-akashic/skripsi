@@ -41,7 +41,9 @@
                                         <h4 class="text-dark font-weight-bold">Company</h4>
                                         {{-- <input type="text" name="job_name" class="form-control" placeholder="" value={{$vacancies->job_name}} style="width:100%;" > --}}
                                         <p class="card-text">
-                                            {!!$company_info->name!!}
+                                            <a href="/company/{{$company_info->id}}">
+                                                {!!$company_info->name!!}
+                                            </a>
                                         </p>
                                     </div>
 

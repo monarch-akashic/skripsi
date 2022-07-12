@@ -8,7 +8,7 @@
             <div class="card w-75 mb-3" style="width: 20em; padding: 0%; background-color: #0FC2C0">
                 <div class="row">
                     <div class="card-body " style="padding: 1%; margin-left: 2em;">
-                        <h5 class="card-title m-2">List Companies</h5>
+                        <h5 class="card-title m-2">List Job Offerer</h5>
                     </div>
                 </div>
             </div>
