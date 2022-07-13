@@ -134,9 +134,6 @@
                     <a href="/myvacancy">My Job Applied</a>
                 </li>
                 <li>
-                    <a href="/inbox">Inbox</a>
-                </li>
-                <li>
                     <a href="/reporting/create">Reporting</a>
                 </li>
             @endif
@@ -170,6 +167,9 @@
             @endif
 
 
+            <li>
+                <a href="/inbox">Inbox</a>
+            </li>
 
             <li >
                 <a  href="/accounts/password/change">
@@ -177,6 +177,7 @@
                     Settings
                 </a>
             </li>
+
             <li>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
