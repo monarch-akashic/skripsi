@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="sub-heading">Create Your Company Profile</h3>
+                    <h4 class="sub-heading">Create Your Profile</h3>
                     <form action="{{action('CompanyController@register')}}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="row mb-2">

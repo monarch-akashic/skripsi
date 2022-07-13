@@ -17,7 +17,7 @@
                     <div class="card-body" style="padding: 0px 0px 0px 20px; width: 100%">
                         <form class="form-inline" action="{{ action('PagesController@result') }}" method="POST" role="search">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="text" name="vacancy" class="form-control" placeholder="Search for job name, company" style="margin:5px ; width: 83%; height: 40px">
+                            <input type="text" name="vacancy" class="form-control" placeholder="Search for job name, job offerer" style="margin:5px ; width: 83%; height: 40px">
                             <input type="submit" class="btn btn-primary" style="margin-left:2px ; width: 12%; height: 40px" value="Search">
                         </form>
                     </div>

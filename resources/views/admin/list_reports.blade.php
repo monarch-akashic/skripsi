@@ -9,7 +9,7 @@
                 <th style="text-align: center" scope="col">Report ID</th>
                 <th scope="col">Date</th>
                 <th scope="col">Requestor</th>
-                <th style="text-align: center" scope="col">Company</th>
+                <th style="text-align: center" scope="col">Job Offerer</th>
                 <th style="text-align: center" scope="col">Subject of issue</th>
             </tr>
         </thead>

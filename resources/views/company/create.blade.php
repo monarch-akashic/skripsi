@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="sub-heading">Create Your Company Account</h3>
+                    <h4 class="sub-heading">Create Your Account</h3>
                     <form action="{{action('CompanyController@store')}}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="row m-2">
@@ -19,7 +19,7 @@
                             </div>
                             <div class="card-m-3" style="width: 30%">
                                 <div class="form-group">
-                                    <label for="logo">Company Logo :</label>
+                                    <label for="logo">Business Logo :</label>
                                     <div name= 'logo' class="custom-file">
                                         <input type="file" name="logo" class="@error('logo') is-invalid @enderror custom-file-input">
                                         <label class="custom-file-label" for="customFile">Choose file</label>
@@ -116,7 +116,7 @@
                                     <div class="form-group">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <label class="input-group-text" for="inputGroupSelect01">Company Size</label>
+                                                <label class="input-group-text" for="inputGroupSelect01">Business Size</label>
                                             </div>
                                             <select name="company_size" id="inputGroupSelect01" class="custom-select @error('company_size') is-invalid @enderror">
                                                 <option value="" disabled selected>--Select--</option>

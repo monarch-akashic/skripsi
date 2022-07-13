@@ -21,7 +21,7 @@
                                     class="custom-select"
                                     placeholder="search_type" style="margin:2px; width: 20%; height: 40px">
                                     <option value="job">Job Name</option>
-                                    <option value="company">Company</option>
+                                    <option value="company">Job Offerer</option>
                             </select>
                             <input type="submit" class="btn btn-primary" style="margin-left:2px ; width: 12%; height: 40px" value="Search">
                             <select name="province" id="inputGroupSelect01"

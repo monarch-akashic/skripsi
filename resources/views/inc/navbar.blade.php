@@ -75,7 +75,7 @@
                         @endif
                     @endif
                     @if (Auth::user()->role == '2')
-                        Company
+                        Job Offerer
                         @php
                             $id = Auth::user()->id;
                             $company = App\Company::where('user_id' , $id)->get();

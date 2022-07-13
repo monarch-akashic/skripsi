@@ -19,7 +19,7 @@
                     <div class="row" style="margin: 20px 20px 0px 20px">
                         <div class="card-mb-3" style="width: 70%">
                             <div class="form-group">
-                                <label for="company" class="text-dark font-weight-bold">Company</label>
+                                <label for="company" class="text-dark font-weight-bold">Job Offerer</label>
                                 <p class="m-0">{{$user->name}}</p>
                             </div>
                         </div>

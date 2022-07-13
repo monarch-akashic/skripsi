@@ -6,7 +6,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="sub-heading">Company Profile</h3>
+                    <h4 class="sub-heading">Job Offerer Profile</h3>
                     <div class="row mb-0">
                         <div class="card align-items-center" style="width: 30%; border: 0ch">
                             {{-- <div class="card-body"> --}}

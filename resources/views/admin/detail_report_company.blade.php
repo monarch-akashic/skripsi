@@ -35,7 +35,7 @@
                             </div>
                             <div class="card-mb-3" style="width: 50%; ">
                                 <div class="form-group">
-                                    <label for="company name" class="text-dark font-weight-bold">Company</label>
+                                    <label for="company name" class="text-dark font-weight-bold">Job Offerer</label>
                                     <p class="m-0">{{$company_info->name}}</p>
                                 </div>
                                 <div class="form-group">
