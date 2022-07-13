@@ -16,6 +16,12 @@
                                 Your verification is on progress
                             </div>
                         </div>
+                    @elseif ($flag_on_check == 2)
+                        <div class="card-mb-3" style="width: 100%">
+                            <div class="card-body">
+                                Your account is already verified
+                            </div>
+                        </div>
                     @else
                         @if ($previous_verify)
                             <div class="card-mb-3" style="width: 100%">

@@ -361,6 +361,10 @@ class CompanyController extends Controller
         }else{
             $flag_on_check = 0;
         }
+
+        if($company_id->verified == 'Yes'){
+            $flag_on_check = 2;
+        }
         return view('request.verify')->with(['title' => 'Request Verify', 'flag_on_check' => $flag_on_check, 'previous_verify' => $previous_verify]);
 
     }
