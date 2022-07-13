@@ -487,16 +487,49 @@ class PortofolioController extends Controller
                 case 'Reject':
                     $applyings->status = 'Rejected';
                     $applyings->save();
+
+                    $vacancy = Vacancy::find($request->vacancy_id);
+
+                    $notification = new Notification();
+                    $notification->user_id = $request->user_id;
+                    $notification->subject = 'Your applied job for '.$vacancy->job_name.' was rejected.';
+                    $notification->content = 'Applied job for '.$vacancy->job_name.' was rejected.';
+                    $notification->created_at = Carbon::now();
+                    $notification->updated_at = Carbon::now();
+                    $notification->save();
+
                     return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Interview Applicant Rejected');
 
                 case 'Accept':
                     $applyings->status = 'Accepted';
                     $applyings->save();
+
+                    $vacancy = Vacancy::find($request->vacancy_id);
+
+                    $notification = new Notification();
+                    $notification->user_id = $request->user_id;
+                    $notification->subject = 'Your applied job for '.$vacancy->job_name.' was accepted.';
+                    $notification->content = 'Applied job for '.$vacancy->job_name.' was accepted, please contact the job offerer for further information.';
+                    $notification->created_at = Carbon::now();
+                    $notification->updated_at = Carbon::now();
+                    $notification->save();
+
                     return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Interview Applicant Accepted');
 
                 case 'Decline':
                     $applyings->status = 'Decline';
                     $applyings->save();
+
+                    $vacancy = Vacancy::find($request->vacancy_id);
+
+                    $notification = new Notification();
+                    $notification->user_id = $request->user_id;
+                    $notification->subject = 'Your applied job for '.$vacancy->job_name.' was declined.';
+                    $notification->content = 'Applied job for '.$vacancy->job_name.' was declined by the job offerer.';
+                    $notification->created_at = Carbon::now();
+                    $notification->updated_at = Carbon::now();
+                    $notification->save();
+
                     return redirect('/vacancy/' .$applyings->vacancy_id. '/list')->with('success', 'Decline Message Sent');
 
                 // case 'Finish':
