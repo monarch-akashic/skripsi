@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Notification;
 use App\Reporting;
 use App\User;
+use App\UserSetting;
 use Illuminate\Http\Request;
 use App\Vacancy;
 use App\Verifying;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -140,7 +143,31 @@ class AdminController extends Controller
                 $verify_data->notes = $request->input('notes');
                 $verify_data->save();
 
-                Mail::to($company->getCompanyInfo->email)->send(new \App\Mail\Verified());
+                    $user_settings = UserSetting::where('user_id', $company->user_id)->first();
+
+                    if (!$user_settings) {
+                        // return "not exist";
+                        $user_settings = new UserSetting();
+                        $user_settings->user_id = $company->user_id;
+                        $user_settings->flag_email = "on";
+                        $user_settings->flag_notification = "on";
+                        $user_settings->created_at = Carbon::now();
+                        $user_settings->updated_at = Carbon::now();
+                        $user_settings->save();
+                    }
+
+                        // Mail::to($applicant->email)->send(new \App\Mail\InterviewSchedule($request, $vacancy));
+                    Mail::to($company->getCompanyInfo->email)->send(new \App\Mail\Verified());
+
+                    if ($user_settings->flag_notification == "on") {
+                        $notification = new Notification();
+                        $notification->user_id = $company->user_id;
+                        $notification->subject = 'Your Company has been verified';
+                        $notification->content = 'Your request for verifcation has been approve, we appreciate your cooperation';
+                        $notification->created_at = Carbon::now();
+                        $notification->updated_at = Carbon::now();
+                        $notification->save();
+                    }
 
 
                 return redirect('/list/company')->with('success', $request->name.' Verified, email has been sent');

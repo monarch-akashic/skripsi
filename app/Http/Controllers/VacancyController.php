@@ -7,6 +7,7 @@ use App\Portofolio;
 use App\Company;
 use App\Vacancy;
 use App\Applying;
+use App\Notification;
 use DateTime;
 use Illuminate\Foundation\Auth\User;
 use Carbon\Carbon;
@@ -332,6 +333,14 @@ class VacancyController extends Controller
                 $transaction->current_user = $company_id->user_id;
                 $transaction->status = 'Check by Company';
                 $transaction->save();
+
+                $notification = new Notification();
+                $notification->user_id = $company_id->user_id;
+                $notification->subject = 'Applicant has applied for '.$vacancy_id->job_name.'.';
+                $notification->content = 'An applicant has applied for your vacancy';
+                $notification->created_at = Carbon::now();
+                $notification->updated_at = Carbon::now();
+                $notification->save();
 
                 return redirect('/vacancy/'.$id)->with('success', 'Vacancy Applied');
                 // return 'This is applicant';
