@@ -1,4 +1,4 @@
-INSERT INTO 'postal_code' ('postal_id', 'subdis_id', 'dis_id', 'city_id', 'prov_id', 'postal_code') VALUES
+INSERT INTO postal_code (postal_id, subdis_id, dis_id, city_id, prov_id, postal_code) VALUES
 (24980, 24970, 1897, 152, 11, 14430),
 (24981, 24971, 1898, 153, 11, 11330),
 (24982, 24972, 1899, 154, 11, 13530),
