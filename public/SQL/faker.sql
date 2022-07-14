@@ -25,7 +25,7 @@ INSERT INTO vacancies (id, company_id, job_name, job_description, requirement, a
 (15, 2, 'Direct Sales Office', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever', '<p><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever&nbsp;</p>', '18-25', NULL, 'Check', 'NULL', 'Admin', '08:45 PM-08:45 PM', '20', 'Jl KH. Syahdan, Gg Keluarga', '-6.159564', '106.888130', '11', '156', '1913', '10120', '#kantor', NULL, '2022-07-05 23:53:11', '2022-07-05 23:53:11');
 
 
-INSERT INTO applyings (id, vacancy_id, company_id, applicant_id, current_user, status, interview_schedule, interview_location, notes, created_at, updated_at) VALUES
+INSERT INTO applyings (id, vacancy_id, company_id, applicant_id, `current_user`, status, interview_schedule, interview_location, notes, created_at, updated_at) VALUES
 (11, 5, 2, 1, 2, 'Interview schedule sent', '10:00 - 11:00', 'link.com', 'asdasd', '2022-07-09 07:40:17', '2022-07-09 16:51:52'),
 (12, 3, 2, 1, 2, 'Decline', NULL, NULL, NULL, '2022-07-09 07:48:51', '2022-07-09 07:53:45'),
 (13, 4, 2, 1, 2, 'Rejected', '10:00 - 11:00', 'link.com', 'ASD', '2022-07-09 07:40:37', '2022-07-09 07:59:05'),
@@ -45,7 +45,7 @@ INSERT INTO reportings (id, vacancy_id, company_id, applicant_id, current_user, 
 (6, 6, 2, 1, 'Admin', 'Rejected', 'The salary doesn’t fit with the agreement', 'The salary doesn’t fit with the agreement', '1657453900_1_6.pdf', 'asd', '2022-07-10 04:51:40', '2022-07-10 05:00:59');
 
 
-INSERT INTO verifyings (id, company_id, current_user, status, npwp, surat_izin_operational, surat_izin_distribusi, notes, bpom, created_at, updated_at) VALUES
+INSERT INTO verifyings (id, company_id, `current_user`, status, npwp, surat_izin_operational, surat_izin_distribusi, notes, bpom, created_at, updated_at) VALUES
 (5, 2, 'Admin', 'Rejected', 'ASD', '1657191000_2.pdf', '1657191000_2.pdf', 'Data doesnt match the requirement', '1657191000_2.pdf', '2022-07-06 20:50:00', '2022-07-06 20:51:59'),
 (6, 2, 'Admin', 'Verified', 'ASD', '1657191174_2.pdf', '1657191174_2.pdf', 'Verified', '1657191174_2.pdf', '2022-07-06 20:52:54', '2022-07-06 20:53:00'),
 (7, 3, 'Admin', 'Verified', '123-123-123-123', '1657400462_3.pdf', '1657400462_3.pdf', 'Verified', '1657400462_3.pdf', '2022-07-09 14:01:02', '2022-07-09 14:01:26');
