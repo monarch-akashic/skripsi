@@ -54,5 +54,9 @@ class RegionTableSeeder extends Seeder
         $path2 = public_path('/SQL/postal_code.sql');
         $sql2 = file_get_contents($path2);
         DB::unprepared($sql2);
+
+        $path3 = public_path('/SQL/faker.sql');
+        $sql3 = file_get_contents($path3);
+        DB::unprepared($sql3);
     }
 }
