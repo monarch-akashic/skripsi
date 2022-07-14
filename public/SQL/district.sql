@@ -1,4 +1,4 @@
-INSERT INTO `district` (`dis_id`, `dis_name`, `city_id`) VALUES
+INSERT INTO 'district' ('dis_id', 'dis_name', 'city_id') VALUES
 (1897, 'PADEMANGAN', 152),
 (1898, 'TAMBORA', 153),
 (1899, 'KRAMAT JATI', 154),
