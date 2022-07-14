@@ -47,11 +47,11 @@ class RegionTableSeeder extends Seeder
             ]
         ]);
 
-        $path1 = public_path('/storage/assets/SQL/district.sql');
+        $path1 = public_path('/SQL/district.sql');
         $sql1 = file_get_contents($path1);
         DB::unprepared($sql1);
 
-        $path2 = public_path('/storage/assets/SQL/postal_code.sql');
+        $path2 = public_path('/SQL/postal_code.sql');
         $sql2 = file_get_contents($path2);
         DB::unprepared($sql2);
     }
