@@ -1,4 +1,4 @@
-INSERT INTO users (id, role, name, email, password, phoneNo, dob, remember_token, created_at, updated_at) VALUES
+INSERT INTO users (id, role, name, email, password, "phoneNo", dob, remember_token, created_at, updated_at) VALUES
 (1, '1', 'VIRNANDO TAN WIJAYA', 'test@gmail.com', '$2y$10$lFLfUeerKffkr3AqBJ9a8ejnS0LgiWNjVgHotWsfaeygql1cNEpAG', '123123123123', '2022-07-06', NULL, '2022-07-02 16:36:02', '2022-07-02 19:02:29'),
 (2, '2', 'PT. XYZ', 'company@gmail.com', '$2y$10$DZLGHj/jxHhDYZcuRf5Kiu8i24bC4pGD8L3nOABo7DR2rr7XDAnd2', NULL, NULL, '2koBqpNTdf2Pjcj1xeu51Fpa9BZPNyLLoGu4JGFhSNjj4ZGTkUiNR8kRcJ64', '2022-07-02 19:03:33', '2022-07-02 19:03:33'),
 (6, '0', 'Admin', 'admin@admin.com', '$2y$10$akev.VlE0y5H9upShu8y7epf.E9yFjv.eTsZg7bLsTbC754gbyMXO', '123123123', '2022-06-09', NULL, '2022-06-07 15:23:19', '2022-06-07 15:23:19'),
