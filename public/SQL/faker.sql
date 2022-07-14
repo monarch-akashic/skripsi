@@ -45,7 +45,7 @@ INSERT INTO reportings (id, vacancy_id, company_id, applicant_id, "current_user"
 (6, 6, 2, 1, 'Admin', 'Rejected', 'The salary doesn’t fit with the agreement', 'The salary doesn’t fit with the agreement', '1657453900_1_6.pdf', 'asd', '2022-07-10 04:51:40', '2022-07-10 05:00:59');
 
 
-INSERT INTO verifyings (id, company_id, `current_user`, status, npwp, surat_izin_operational, surat_izin_distribusi, notes, bpom, created_at, updated_at) VALUES
+INSERT INTO verifyings (id, company_id, "current_user", status, npwp, surat_izin_operational, surat_izin_distribusi, notes, bpom, created_at, updated_at) VALUES
 (5, 2, 'Admin', 'Rejected', 'ASD', '1657191000_2.pdf', '1657191000_2.pdf', 'Data doesnt match the requirement', '1657191000_2.pdf', '2022-07-06 20:50:00', '2022-07-06 20:51:59'),
 (6, 2, 'Admin', 'Verified', 'ASD', '1657191174_2.pdf', '1657191174_2.pdf', 'Verified', '1657191174_2.pdf', '2022-07-06 20:52:54', '2022-07-06 20:53:00'),
 (7, 3, 'Admin', 'Verified', '123-123-123-123', '1657400462_3.pdf', '1657400462_3.pdf', 'Verified', '1657400462_3.pdf', '2022-07-09 14:01:02', '2022-07-09 14:01:26');
