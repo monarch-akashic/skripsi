@@ -5,7 +5,7 @@ INSERT INTO users (id, role, name, email, password, "phoneNo", dob, remember_tok
 (7, '1', 'Xi Nan Chen', 'nandovtw109@gmail.com', '0', '081296992905', '2000-12-19', 'SNYenQeP6KkcFMqEFl2v9hop3zi0niYT4vl0EB8EVCLY2bDoGDRDjy4eTH5l', '2022-07-02 22:30:50', '2022-07-02 22:31:31'),
 (8, '2', 'PT. ASD', 'company2@gmail.com', '$2y$10$nUT4M.mGeFYDZ6Q7q9O5a.h6kEyP3rGnuUOnWTEByGYbeJfr5Za2W', NULL, NULL, 'JeoLGEKPXHVfYxcGNYqBKDlIRxYMyvE1XlKFRr0p0EwMfQgwYRf2yg3YAzRF', '2022-07-02 23:19:43', '2022-07-02 23:19:43');
 
-INSERT INTO portofolios (id, user_id, profile_image, education, experience, skills, location, latitude, longitude, portofolio_file, cv_file, created_at, updated_at) VALUES
+INSERT INTO portofolios (id, user_id, profile_image, "education", "experience", "skills", location, latitude, longitude, portofolio_file, cv_file, created_at, updated_at) VALUES
 (3, 1, 'user_dummy.jpg', '[{\"institute\":\"SMA\",\"year_start_institute\":\"2018\",\"year_end_institute\":\"2019\",\"institute_desc\":\"SMK\"}]', '[{\"experience\":\"fulltime\",\"year_start_experience\":\"2020\",\"year_end_experience\":\"2021\",\"experience_desc\":\"Magang 1\"}]', '[\"Communication\"]', 'Jln 123123123', '-6.148357', '106.866136', 'no_file', 'no_file', '2022-07-02 19:02:16', '2022-07-06 00:07:34'),
 (4, 7, 'user_dummy.jpg', '[{\"institute\":\"SD\",\"year_start_institute\":\"2018\",\"year_end_institute\":\"2019\",\"institute_desc\":\"SD 1\"}]', '[{\"experience\":\"fulltime\",\"year_start_experience\":\"2020\",\"year_end_experience\":\"2021\",\"experience_desc\":\"Full Time 1\"}]', '[\"Public Speaking\"]', 'Jln 123123123123123', '-6.169191', '106.818598', 'no_file', 'no_file', '2022-07-02 22:31:31', '2022-07-02 22:31:31');
 
