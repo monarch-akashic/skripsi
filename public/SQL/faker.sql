@@ -37,7 +37,7 @@ INSERT INTO notifications (id, user_id, subject, content, created_at, updated_at
 (3, 1, 'Interview Scheduled', 'Your job apply for HR Sales Supervisor has been scheduled, please check your applied jobs', '2022-07-09 16:51:52', '2022-07-09 16:51:52');
 
 
-INSERT INTO reportings (id, vacancy_id, company_id, applicant_id, current_user, status, subject, details, file, notes, created_at, updated_at) VALUES
+INSERT INTO reportings (id, vacancy_id, company_id, applicant_id, "current_user", status, subject, details, file, notes, created_at, updated_at) VALUES
 (1, 5, 2, 1, 'Admin', 'Finish', 'The salary doesn’t fit with the aggrement', 'The salary doesn’t fit with the aggrement', '1657223429_1_5.pdf', 'On process', '2022-07-07 05:50:29', '2022-07-07 05:56:21'),
 (2, 10, 3, 1, 'Admin', 'Check by Admin', 'The salary doesn’t fit with the aggrement', 'The salary doesn’t fit with the aggrement', '1657223811_1_10.pdf', '-', '2022-07-07 05:56:51', '2022-07-07 05:56:51'),
 (4, 5, 2, 1, 'Admin', 'Finish', 'The salary doesn’t fit with the aggrement', 'The salary doesn’t fit with the aggrement', '1657223967_1_5.pdf', 'On process', '2022-07-07 05:59:27', '2022-07-07 06:00:48'),
