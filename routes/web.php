@@ -39,6 +39,7 @@ Route::get('/list/company/verify/{id}', 'AdminController@showVerifyCompanyDetail
 Route::post('/list/company/verify/{id}', 'AdminController@processVerify')->name('process.verify');
 
 
+
 Route::get('/accounts/password/change', 'PagesController@showPassword');
 Route::post('/accounts/password/change', 'PagesController@changePassword')->name('change.password');
 
