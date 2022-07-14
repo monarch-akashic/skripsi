@@ -55,8 +55,8 @@ Route::get('/getDistrict/{id}','PagesController@getDistrict');
 Route::get('/getPostalCode/{id}','PagesController@getPostalCode');
 // Route::post('/postCoor/{id}','PagesController@postCoor');
 
-Route::get('auth/redirect', 'Auth\LoginController@redirectToProvider');
-Route::get('auth/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/auth/redirect', 'Auth\LoginController@redirectToProvider');
+Route::get('/auth/callback', 'Auth\LoginController@handleProviderCallback');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
