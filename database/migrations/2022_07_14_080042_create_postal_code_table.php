@@ -14,12 +14,12 @@ class CreatePostalCodeTable extends Migration
     public function up()
     {
         Schema::create('postal_code', function (Blueprint $table) {
-            $table->integer('postal_id')->nullable();
-            $table->integer('subdis_id')->nullable();
-            $table->integer('dis_id')->nullable();
-            $table->integer('city_id')->nullable();
-            $table->integer('prov_id')->nullable();
-            $table->integer('postal_code')->nullable();
+            $table->string('postal_id')->nullable();
+            $table->string('subdis_id')->nullable();
+            $table->string('dis_id')->nullable();
+            $table->string('city_id')->nullable();
+            $table->string('prov_id')->nullable();
+            $table->string('postal_code')->nullable();
 
         });
     }

@@ -14,9 +14,9 @@ class CreateDistrictTable extends Migration
     public function up()
     {
         Schema::create('district', function (Blueprint $table) {
-            $table->integer('dis_id')->nullable();
+            $table->string('dis_id')->nullable();
             $table->string('dis_name')->nullable();
-            $table->integer('city_id')->nullable();
+            $table->string('city_id')->nullable();
         });
     }
 
