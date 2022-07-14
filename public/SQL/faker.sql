@@ -1,5 +1,5 @@
 
-INSERT INTO applyings (id, vacancy_id, company_id, applicant_id, 'current_user', status, interview_schedule, interview_location, notes, created_at, updated_at) VALUES
+INSERT INTO applyings (id, vacancy_id, company_id, applicant_id, current_user, status, interview_schedule, interview_location, notes, created_at, updated_at) VALUES
 (11, 5, 2, 1, '2', 'Interview schedule sent', '10:00 - 11:00', 'link.com', 'asdasd', '2022-07-09 07:40:17', '2022-07-09 16:51:52'),
 (12, 3, 2, 1, '2', 'Decline', NULL, NULL, NULL, '2022-07-09 07:48:51', '2022-07-09 07:53:45'),
 (13, 4, 2, 1, '2', 'Rejected', '10:00 - 11:00', 'link.com', 'ASD', '2022-07-09 07:40:37', '2022-07-09 07:59:05'),
