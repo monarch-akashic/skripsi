@@ -17,15 +17,15 @@ class CreatePortofoliosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('profile_image');
+            $table->string('profile_image', 50);
             $table->json('education');
             $table->json('experience');
-            $table->json('skills');
+            $table->json('skills', 50);
             $table->string('location')->nullable();
             $table->decimal('latitude',8,6)->nullable();
             $table->decimal('longitude', 9,6)->nullable();
-            $table->string('portofolio_file');
-            $table->string('cv_file');
+            $table->string('portofolio_file',50);
+            $table->string('cv_file', 50);
             $table->timestamps();
         });
     }

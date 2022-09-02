@@ -14,8 +14,8 @@ class CreateProvinceTable extends Migration
     public function up()
     {
         Schema::create('province', function (Blueprint $table) {
-            $table->string('prov_id')->nullable();
-            $table->string('prov_name')->nullable();
+            $table->string('prov_id', 10)->nullable();
+            $table->string('prov_name', 100)->nullable();
         });
     }
 

@@ -21,11 +21,11 @@ class CreateReportingsTable extends Migration
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->unsignedBigInteger('applicant_id');
             $table->foreign('applicant_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('current_user');
-            $table->string('status');
-            $table->string('subject');
+            $table->string('current_user', 20);
+            $table->string('status', 30);
+            $table->string('subject', 100);
             $table->string('details');
-            $table->string('file');
+            $table->string('file', 50);
             $table->string('notes');
             $table->timestamps();
         });

@@ -21,10 +21,10 @@ class CreateApplyingsTable extends Migration
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->unsignedBigInteger('applicant_id');
             $table->foreign('applicant_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('current_user');
-            $table->string('status');
-            $table->string('interview_schedule')->nullable();
-            $table->string('interview_location')->nullable();
+            $table->string('current_user', 20);
+            $table->string('status', 30);
+            $table->string('interview_schedule', 100)->nullable();
+            $table->string('interview_location', 100)->nullable();
             $table->string('notes')->nullable();
             $table->timestamps();
         });

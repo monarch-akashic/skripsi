@@ -17,16 +17,16 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('tagline');
-            $table->longText('description');
-            $table->string('verified')->nullable();
-            $table->string('flag_block')->nullable();
-            $table->string('industry_type');
-            $table->string('company_size');
-            $table->string('company_type')->nullable();
-            $table->string('logo');
-            $table->longText('background');
-            $table->string('website_link')->nullable();
+            $table->string('tagline', 100);
+            $table->mediumText('description');
+            $table->string('verified', 10)->nullable();
+            $table->string('flag_block', 10)->nullable();
+            $table->string('industry_type', 50);
+            $table->string('company_size', 50);
+            $table->string('company_type', 50)->nullable();
+            $table->string('logo', 50);
+            $table->mediumText('background');
+            $table->string('website_link', 100)->nullable();
             $table->timestamps();
 
         });

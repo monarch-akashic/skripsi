@@ -17,13 +17,13 @@ class CreateVerifyingsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->string('current_user');
-            $table->string('status');
-            $table->string('npwp');
-            $table->string('surat_izin_operational');
-            $table->string('surat_izin_distribusi');
-            $table->string('notes');
-            $table->string('bpom');
+            $table->string('current_user', 20);
+            $table->string('status', 30);
+            $table->string('npwp', 50);
+            $table->string('surat_izin_operational', 50);
+            $table->string('surat_izin_distribusi', 50);
+            $table->string('notes', 50);
+            $table->string('bpom', 50);
             $table->timestamps();
         });
     }

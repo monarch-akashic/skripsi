@@ -17,14 +17,14 @@ class CreateUserLocationsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('name')->nullable();
+            $table->string('name', 100)->nullable();
             $table->string('location')->nullable();
             $table->decimal('latitude',8,6);
             $table->decimal('longitude', 9,6);
-            $table->string('province')->nullable();
-            $table->string('kota')->nullable();
-            $table->string('kecamatan')->nullable();
-            $table->string('kode_pos')->nullable();
+            $table->string('province', 100)->nullable();
+            $table->string('kota', 100)->nullable();
+            $table->string('kecamatan', 100)->nullable();
+            $table->string('kode_pos', 5)->nullable();
             $table->timestamps();
         });
     }

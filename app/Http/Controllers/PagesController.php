@@ -414,10 +414,10 @@ class PagesController extends Controller
             ->join('city as city','city.city_id', '=','v.kota')
             ->join('district as dist','dist.dis_id', '=','v.kecamatan')
             ->select('c.*', 'v.*', 'u.*', 'v.id' , 'prov.prov_name', 'city.city_name', 'dist.dis_name', 'c.verified')
+            ->whereNotIn('v.status_open',['Admin','Rejected','Close'])
             ->where('v.job_name', 'LIKE' , '%'.$vacancy_search.'%')
             ->orwhere('u.name', 'LIKE' , '%'.$vacancy_search.'%')
             ->orwhere('v.tag', 'LIKE' , '%'.$vacancy_search.'%')
-            ->whereNotIn('v.status_open',['Admin','Rejected','Close'])
             ->get()->paginate(10);
         }
 

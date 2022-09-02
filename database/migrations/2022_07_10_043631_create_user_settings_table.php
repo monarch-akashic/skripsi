@@ -17,8 +17,8 @@ class CreateUserSettingsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('flag_notification')->nullable();
-            $table->string('flag_email')->nullable();
+            $table->string('flag_notification', 2)->nullable();
+            $table->string('flag_email', 2)->nullable();
             $table->timestamps();
         });
     }
